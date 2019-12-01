@@ -2,7 +2,7 @@
 
 session_start();
 
-if( $_SESSION['managerID'] ) {
+if(empty($_SESSION['managerID']) !== true) {
     print_r("Already logged in");
     exit();
 }
