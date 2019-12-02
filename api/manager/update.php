@@ -13,20 +13,15 @@ if(empty($_SESSION['managerID'])) {
     sendErrorMessage( 'Not authenticated' , __LINE__ );
 }
 
+$aExpectedFields = array("field", "value");
+
+foreach ($aExpectedFields as $field) {
+    if( empty($_POST["$field"]) ) {
+        sendErrorMessage( "$field is required" , __LINE__ );
+    }
+}
+
 $iManagerID = $_SESSION['managerID'];
-
-// validation
-// TODO Add validations
-
-if( empty($_POST['field']) ){
-    sendErrorMessage( 'Field is required' , __LINE__ );
-}
-
-if( empty($_POST['value']) ){
-    sendErrorMessage( 'Value  is required' , __LINE__ );
-    exit();
-}
-
 $sField = $_POST['field'];
 $sValue = $_POST['value'];
 

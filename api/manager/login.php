@@ -13,12 +13,13 @@ if( !empty($_SESSION['managerID'])) {
     sendSuccessMessage( 'User already logged in' , __LINE__ );
 }
 
-if( empty($_POST['password']) ){
-    sendErrorMessage( 'Password is required' , __LINE__ );
-}
+$aExpectedFields =
+    array("username", "password");
 
-if( empty($_POST['username']) ){
-    sendErrorMessage( 'Username is required' , __LINE__ );
+foreach ($aExpectedFields as $field) {
+    if( empty($_POST["$field"]) ) {
+        sendErrorMessage( "$field is required" , __LINE__ );
+    }
 }
 
 $sUsername = $_POST['username'];
