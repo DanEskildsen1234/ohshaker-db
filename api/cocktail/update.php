@@ -68,7 +68,7 @@ if ($con) {
     $statement = $con->prepare(
         "UPDATE `tcocktail` SET `$sField` = '$sValue' WHERE `tcocktail`.`nCocktailID` = $iCocktailID");
     $statement->execute();
-    echo("Success");
     $stmt = null;
     $db->disconnect($con);
+    sendSuccessMessage( 'Cocktail Updated' , __LINE__ );
 }

@@ -50,4 +50,5 @@ if ($con) {
     $stmt = $con->query($cQuery);
     $stmt = null;
     $db->disconnect($con);
+    sendSuccessMessage( 'Cocktail Created' , __LINE__ );
 }
