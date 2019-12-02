@@ -5,18 +5,18 @@ require_once(__DIR__.'../../readonly-connection.php');
 
 session_start();
 
-if ($_SERVER['REQUEST_METHOD'] !== 'POST') {
+if( $_SERVER['REQUEST_METHOD'] !== 'POST' ) {
     sendErrorMessage( 'Method not allowed' , __LINE__ );
 }
 
-if( !empty($_SESSION['managerID'])) {
+if( !empty($_SESSION['managerID']) ) {
     sendSuccessMessage( 'User already logged in' , __LINE__ );
 }
 
 $aExpectedFields =
     array("username", "password");
 
-foreach ($aExpectedFields as $field) {
+foreach( $aExpectedFields as $field ) {
     if( empty($_POST["$field"]) ) {
         sendErrorMessage( "$field is required" , __LINE__ );
     }
@@ -35,11 +35,11 @@ if ($con) {
     $results = $statement->fetch();
     $sPasswordChecksum = $results['cPassword'];
 
-    if (!password_verify($sPassword, $sPasswordChecksum)) {
+    if( !password_verify($sPassword, $sPasswordChecksum) ) {
         sendErrorMessage( 'Incorrect credentials' , __LINE__ );
     }
 
-    if ($results['dCancelled'] !== NULL) {
+    if( $results['dCancelled'] !== NULL ) {
         sendErrorMessage( 'Incorrect credentials' , __LINE__ );
     }
 

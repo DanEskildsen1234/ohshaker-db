@@ -10,13 +10,13 @@ if ($_SERVER['REQUEST_METHOD'] !== 'POST') {
 
 session_start();
 
-if(empty($_SESSION['managerID'])) {
+if( empty($_SESSION['managerID']) ) {
     sendErrorMessage( 'Not authenticated' , __LINE__ );
 }
 
 $aExpectedFields = array("field", "value");
 
-foreach ($aExpectedFields as $field) {
+foreach( $aExpectedFields as $field ) {
     if( empty($_POST["$field"]) ) {
         sendErrorMessage( "$field is required" , __LINE__ );
     }
@@ -29,7 +29,7 @@ $sValue = $_POST['value'];
 $aAllowedFields =
     array('cFirstname', 'cSurname', 'cEmail', 'cUsername', 'cPassword', 'cAddress', 'cZip', 'cPhoneNumber');
 
-if (!in_array($sField, $aAllowedFields)) {
+if ( !in_array($sField, $aAllowedFields) ) {
     sendErrorMessage( 'Method not allowed' , __LINE__ );
 }
 
@@ -54,7 +54,6 @@ if ($sField === "cZip") {
 if ($sField === "cPhoneNumber") {
     validateUsername($sValue);
 }
-
 if ($sField  === "cPassword") {
     validatePassword($sValue);
     $queryValue = password_hash($sValue, PASSWORD_ARGON2I);
