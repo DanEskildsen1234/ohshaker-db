@@ -46,15 +46,15 @@ if(!preg_match("#[a-z]+#",$_POST['password'])) {
 }
 
 
-$iBarId = $_POST['barID'];
-$sFirstName = $_POST['firstName'];
-$sSurName = $_POST['surName'];
-$sEmail = $_POST['email'];
-$sUsername = $_POST['username'];
+$iBarId = htmlspecialchars($_POST['barID']);
+$sFirstName = htmlspecialchars($_POST['firstName']);
+$sSurName = htmlspecialchars($_POST['surName']);
+$sEmail = htmlspecialchars($_POST['email']);
+$sUsername = htmlspecialchars($_POST['username']);
 $sPassword = password_hash($_POST['password'], PASSWORD_ARGON2I);
-$sAddress = $_POST['address'];
-$sZip = $_POST['zip'];
-$sPhoneNumber = $_POST['phoneNumber'];
+$sAddress = htmlspecialchars($_POST['address']);
+$sZip = htmlspecialchars($_POST['zip']);
+$sPhoneNumber = htmlspecialchars($_POST['phoneNumber']);
 
 
 $db = new DB();
