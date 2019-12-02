@@ -13,7 +13,6 @@ if ($con) {
     $results = $statement->fetchAll();
     print_r(json_encode($results));
 
-    $stmt = null;
+    $statement = null;
     $db->disconnect($con);
-
 }

@@ -1,13 +1,18 @@
 <?php
 
+require_once(__DIR__.'../../functions.php');
+require_once(__DIR__.'../../readonly-connection.php');
+
 session_start();
 
-if(empty($_SESSION['managerID']) !== true) {
+if(empty($_POST)) {
+    sendErrorMessage( 'Method not allowed' , __LINE__ );
+}
+
+if(empty($_SESSION['managerID'])) {
     print_r("Already logged in");
     exit();
 }
-
-require_once(__DIR__.'../../readonly-connection.php');
 
 if( empty($_POST['password']) ){
     echo 'Password is required';
@@ -51,7 +56,6 @@ if ($con) {
     $_SESSION['username'] =  $results['cUsername'];
     $_SESSION['phoneNumber'] = $results['cPhoneNumber'];
 
-    $stmt = null;
+    $statement = null;
     $db->disconnect($con);
-
 }

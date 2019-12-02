@@ -1,6 +1,11 @@
 <?php
 
 require_once(__DIR__ . '../../admin-connection.php');
+require_once(__DIR__.'../../functions.php');
+
+if(empty($_POST)) {
+    sendErrorMessage( 'Method not allowed' , __LINE__ );
+}
 
 session_start();
 
@@ -61,5 +66,4 @@ if ($con) {
 
     $stmt = null;
     $db->disconnect($con);
-
 }

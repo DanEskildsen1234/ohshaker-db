@@ -1,9 +1,14 @@
 <?php
 
 require_once(__DIR__ . '../../admin-connection.php');
+require_once(__DIR__.'../../functions.php');
 
 // validation
 // TODO Add validations
+
+if(empty($_POST)) {
+    sendErrorMessage( 'Method not allowed' , __LINE__ );
+}
 
 if( empty($_POST['email']) ){
     echo 'Email is required';
@@ -74,7 +79,6 @@ if ($con) {
 
     echo("Success");
 
-    $stmt = null;
+    $statement = null;
     $db->disconnect($con);
-
 }
