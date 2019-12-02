@@ -57,7 +57,7 @@ if ($con) {
     $statement = $con->prepare(
         "UPDATE `tmanager` SET `$sField`='$queryValue' WHERE `nManagerID`='$iManagerID'");
     $statement->execute();
-    
+
     $stmt = null;
     $db->disconnect($con);
 

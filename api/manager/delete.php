@@ -10,7 +10,6 @@ session_start();
 
 if(empty($_SESSION['managerID'])) {
     sendErrorMessage( 'Not authenticated' , __LINE__ );
-    exit();
 }
 
 $iManagerID = $_SESSION['managerID'];

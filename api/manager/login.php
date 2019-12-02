@@ -9,7 +9,7 @@ if ($_SERVER['REQUEST_METHOD'] !== 'POST') {
     sendErrorMessage( 'Method not allowed' , __LINE__ );
 }
 
-if(empty($_SESSION['managerID'])) {
+if( !empty($_SESSION['managerID'])) {
     sendSuccessMessage( 'User already logged in' , __LINE__ );
 }
 
