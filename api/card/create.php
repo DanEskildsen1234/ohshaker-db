@@ -1,37 +1,65 @@
 <?php
 require_once(__DIR__.'../../admin-connection.php');
+require_once(__DIR__.'../../functions.php');
+
+if ($_SERVER['REQUEST_METHOD'] !== 'POST') { 
+    echo sendErrorMessage('Method not allowed', __LINE__);
+}
+
+session_start();
+
+if(empty($_SESSION['managerID'])){
+    echo sendErrorMessage('No user logged in', __LINE__);
+    exit;
+}
+
+if(empty($_POST['expiration'])){
+    echo sendErrorMessage('Expiration date is required', __LINE__);
+    exit;
+}
+
+if(empty($_POST['CCV'])){
+    echo sendErrorMessage('CCV is required', __LINE__);
+    exit;
+}
+
+if(empty($_POST['IBAN'])){
+    echo sendErrorMessage('IBAN is required', __LINE__);
+    exit;
+}
+
+$sManagerID = $_SESSION['managerID'];
+$sExpiration = $_POST['expiration'];
+$sCCV = $_POST['CCV'];
+$sIBAN = $_POST['IBAN'];
+
+if (preg_match("/^[0-9]{4}-(0[1-9]|1[0-2])-(0[1-9]|[1-2][0]|3[0])$/",$sExpiration)) {
+    echo sendErrorMessage('Expiration date must be a valid number', __LINE__);
+}
+
+if(!ctype_digit(($_POST['CCV']))){
+    echo sendErrorMessage('CCV must be a valid number', __LINE__);
+    exit;
+}
+
+if (strlen($_POST["CCV"]) != 3) {
+    echo sendErrorMessage('CCV must be exactly 3 numbers', __LINE__);
+    exit;
+}
+
+// sanitise IBAN
+
+if (strlen($_POST["IBAN"]) != 18) {
+    echo sendErrorMessage('IBAN must be exactly 18 charecters', __LINE__);
+    exit;
+}
+
 $db = new DB();
 $con = $db->connect();
 
-$sManagerID = 14; // get from session
-$sTotalAmount = 0; // leave this out?
-$sExpiration = $_POST['dExpiration'];
-$sCCV = $_POST['cCCV'];
-$sIBAN = $_POST['cIBAN'];
-
-// TODO this
-/* if(!$_POST){
-    sendErrorMessage( 'Invalid origin [!$_POST]' , __LINE__ ); 
-}
-if(!$_SESSION){
-    sendErrorMessage( 'Invalid origin [!$_SESSION]' , __LINE__ ); 
-}
-if( empty( $_POST['managerID'] ) ){ 
-    sendErrorMessage( 'manager ID is missing' , __LINE__ ); 
-}
-if( empty( $_POST['totalAmount'] ) ){ 
-    sendErrorMessage( ' is missing' , __LINE__ ); 
-}
-if( strlen($_POST['name']) < 2 || strlen($_POST['name']) > 50  ){
-    sendErrorMessage( 'cocktail name min 2 max 50 characters' , __LINE__ );
-}
-if( strlen($_POST['recipe']) < 2 || strlen($_POST['recipe']) > 255  ){
-    sendErrorMessage( 'recipe min 2 max 50 characters' , __LINE__ );
-} */
-
 if ($con) {
-$scQuery = "INSERT INTO tcreditcard (`nManagerID`, `nTotalAmount`, `dExpiration`, `cCCV`, `cIBAN`) VALUES ('$sManagerID', '$sTotalAmount', '$sExpiration', '$sCCV', '$sIBAN')";
-$stmt = $con->prepare($scQuery);
-$stmt->execute();
+$scQuery = "INSERT INTO tcreditcard (`nManagerID`, `dExpiration`, `cCCV`, `cIBAN`) VALUES ('$sManagerID', '$sExpiration', '$sCCV', '$sIBAN')";
+$statement = $con->prepare($scQuery);
+$statement->execute();
 $db->disconnect($con);
 }
