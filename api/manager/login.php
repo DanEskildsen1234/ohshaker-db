@@ -1,22 +1,25 @@
 <?php
 
-session_start();
-
-if(empty($_SESSION['managerID']) !== true) {
-    print_r("Already logged in");
-    exit();
-}
-
+require_once(__DIR__.'../../functions.php');
 require_once(__DIR__.'../../readonly-connection.php');
 
-if( empty($_POST['password']) ){
-    echo 'Password is required';
-    return;
+session_start();
+
+if( $_SERVER['REQUEST_METHOD'] !== 'POST' ) {
+    sendErrorMessage( 'Method not allowed' , __LINE__ );
 }
 
-if( empty($_POST['username']) ){
-    echo 'Username is required';
-    return;
+if( !empty($_SESSION['managerID']) ) {
+    sendSuccessMessage( 'User already logged in' , __LINE__ );
+}
+
+$aExpectedFields =
+    array("username", "password");
+
+foreach( $aExpectedFields as $field ) {
+    if( empty($_POST["$field"]) ) {
+        sendErrorMessage( "$field is required" , __LINE__ );
+    }
 }
 
 $sUsername = $_POST['username'];
@@ -32,14 +35,12 @@ if ($con) {
     $results = $statement->fetch();
     $sPasswordChecksum = $results['cPassword'];
 
-    if (!password_verify($sPassword, $sPasswordChecksum)) {
-        print_r("Incorrect credentials");
-        exit();
+    if( !password_verify($sPassword, $sPasswordChecksum) ) {
+        sendErrorMessage( 'Incorrect credentials' , __LINE__ );
     }
 
-    if ($results['dCancelled'] !== NULL) {
-        print_r("Incorrect credentials");
-        exit();
+    if( $results['dCancelled'] !== NULL ) {
+        sendErrorMessage( 'Incorrect credentials' , __LINE__ );
     }
 
     print_r("Correct credentials");
@@ -51,7 +52,8 @@ if ($con) {
     $_SESSION['username'] =  $results['cUsername'];
     $_SESSION['phoneNumber'] = $results['cPhoneNumber'];
 
-    $stmt = null;
+    $statement = null;
     $db->disconnect($con);
 
+    sendSuccessMessage( 'User successfully logged in' , __LINE__ );
 }
