@@ -22,7 +22,7 @@ $iCocktailID = $_POST['cocktailID'];
 $sField = htmlspecialchars($_POST['field']);
 $sValue = htmlspecialchars($_POST['value']);
 $aAllowedFields =
-    array("eShakenStirred", "eCubedCrushed", "cName", "cCocktailRecipe");
+    array('eShakenStirred', 'eCubedCrushed', 'cName', 'cCocktailRecipe');
 if (!in_array($sField, $aAllowedFields)) {
     sendErrorMessage( 'Method not allowed' , __LINE__ ); 
 }
@@ -31,7 +31,7 @@ if (!in_array($sField, $aAllowedFields)) {
 if ($sField == 'eShakenStirred'){
 
     $aShakenStirred =
-    array("Shaken", "Stirred", "");
+    array('Shaken', 'Stirred', '');
 
     if (!in_array($sValue, $aShakenStirred)){
         sendErrorMessage( 'Incorrect value type' , __LINE__ ); 
@@ -50,13 +50,13 @@ if ($sField == 'eShakenStirred'){
         }
 
 if ($sField == 'cName') {
-    if(strlen($_POST['value']) < 2 || strlen($_POST['value']) > 50  ){
+    if(strlen($_POST['value']) < 2 || strlen($_POST['value']) > 50){
         sendErrorMessage( 'Cocktail name min 2 max 50 characters' , __LINE__ );
     }
 }
 
 if ($sField == 'cCocktailRecipe') {
-    if(strlen($_POST['value']) < 2 || strlen($_POST['value']) > 255  ){
+    if(strlen($_POST['value']) < 2 || strlen($_POST['value']) > 255){
         sendErrorMessage( 'Cocktail recipe min 2 max 255 characters' , __LINE__ );
     }
 }
