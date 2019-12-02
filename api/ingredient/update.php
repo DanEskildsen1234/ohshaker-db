@@ -22,8 +22,8 @@ if(empty($_POST['value']){
 }
 
 $iCocktailID = $_POST['ingredientID'];
-$sField = htmlspecialchars($_POST['field']);
-$sValue = htmlspecialchars($_POST['value']);
+$sField = htmlspecialchars($_POST['field'], ENT_QUOTES);
+$sValue = htmlspecialchars($_POST['value'], ENT_QUOTES);
 
 if ($sField == 'cName') {
     if(strlen($_POST['value']) < 2 || strlen($_POST['value']) > 50){
@@ -38,7 +38,7 @@ if ($con) {
     $statement = $con->prepare(
         "UPDATE `tcocktail` SET `$sField` = '$sValue' WHERE `tcocktail`.`nCocktailID` = $iCocktailID");
     $statement->execute();
-    echo("Success");
     $stmt = null;
     $db->disconnect($con);
+    sendSuccessMessage( 'Updated ingredient' , __LINE__);
 }
