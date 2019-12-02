@@ -9,12 +9,12 @@ if( $_SERVER['REQUEST_METHOD'] !== 'POST' ) {
     sendErrorMessage( 'Method not allowed' , __LINE__ );
 }
 
-if( !empty($_SESSION['managerID']) ) {
+if( !empty($_SESSION['bartenderID']) ) {
     sendSuccessMessage( 'User already logged in' , __LINE__ );
 }
 
 $aExpectedFields =
-    array("username", "password");
+    array("pin");
 
 foreach( $aExpectedFields as $field ) {
     if( empty($_POST["$field"]) ) {
@@ -23,19 +23,18 @@ foreach( $aExpectedFields as $field ) {
 }
 
 $sUsername = $_POST['username'];
-$sPassword = $_POST['password'];
+$sPin = $_POST['pin'];
 
 $db = new DB();
 $con = $db->connect();
 if ($con) {
-    $statement = $con->prepare("SELECT * FROM tmanager WHERE `cUsername` = '$sUsername' 
-                                         OR `cEmail` = '$sUsername' LIMIT 1");
+    $statement = $con->prepare("SELECT * FROM tmanager WHERE `cUsername` = '$sUsername' LIMIT 1");
     $statement->execute();
 
     $results = $statement->fetch();
-    $sPasswordChecksum = $results['cPassword'];
+    $sPinCheck = $results['cPin'];
 
-    if( !password_verify($sPassword, $sPasswordChecksum) ) {
+    if( $sPin === $sPinCheck) {
         sendErrorMessage( 'Incorrect credentials' , __LINE__ );
     }
 
@@ -45,12 +44,9 @@ if ($con) {
 
     print_r("Correct credentials");
     print_r($statement->fetch()['nManagerID']);
-    $_SESSION['managerID'] =  $results['nManagerID'];
+    $_SESSION['bartenderID'] =  $results['nBartenderID'];
     $_SESSION['firstName'] =  $results['cFirstname'];
     $_SESSION['surname'] =  $results['cSurname'];
-    $_SESSION['email'] =  $results['cEmail'];
-    $_SESSION['username'] =  $results['cUsername'];
-    $_SESSION['phoneNumber'] = $results['cPhoneNumber'];
 
     $statement = null;
     $db->disconnect($con);

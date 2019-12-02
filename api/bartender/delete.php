@@ -9,21 +9,20 @@ if ( $_SERVER['REQUEST_METHOD'] !== 'POST' ) {
 
 session_start();
 
-if( empty($_SESSION['managerID']) ) {
+if( empty($_SESSION['bartenderID']) ) {
     sendErrorMessage( 'Not authenticated' , __LINE__ );
 }
 
-$iManagerID = $_SESSION['managerID'];
-$sCurrentDate = date('Y-m-d');
+$iBartenderID = $_SESSION['managerID'];
 
 $db = new DB();
 $con = $db->connect();
 
 if ($con) {
-    $cQuery = "UPDATE `tmanager` SET `dCancelled`='$sCurrentDate' WHERE `nManagerID` = '$iManagerID'";
+    $cQuery = "DELETE FROM `tbartender` WHERE `nBartenderID` = '$iBartenderID'";
     $statement = $con->query($cQuery);
     $statement = null;
     $db->disconnect($con);
 
-    sendSuccessMessage( 'User account has been cancelled' , __LINE__ );
+    sendSuccessMessage( 'Bartender has been removed' , __LINE__ );
 }

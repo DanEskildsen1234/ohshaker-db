@@ -47,5 +47,5 @@ if ($con) {
     $statement = null;
     $db->disconnect($con);
 
-    sendSuccessMessage( 'User has been created' , __LINE__ );
+    sendSuccessMessage( 'Bartender has been created' , __LINE__ );
 }
