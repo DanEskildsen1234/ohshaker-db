@@ -2,6 +2,7 @@
 
 require_once(__DIR__ . '../../admin-connection.php');
 require_once(__DIR__.'../../functions.php');
+require_once(__DIR__.'/validation.php');
 
 if ($_SERVER['REQUEST_METHOD'] !== 'POST') {
     sendErrorMessage( 'Method not allowed' , __LINE__ );
@@ -32,13 +33,30 @@ if (!in_array($sField, $aAllowedFields)) {
     sendErrorMessage( 'Method not allowed' , __LINE__ );
 }
 
+if ($sField === "cFirstname") {
+    validateFirstName($sValue);
+}
+if ($sField === "cSurname") {
+    validateSurname($sValue);
+}
 if ($sField === "cEmail") {
-    if (!filter_var($sValue, FILTER_VALIDATE_EMAIL)) {
-        sendErrorMessage( 'Email is invalid' , __LINE__ );
-    }
+    validateEmail($sValue);
+}
+if ($sField === "cUsername") {
+    validateUsername($sValue);
+}
+if ($sField === "cAddress") {
+    validateUsername($sValue);
+}
+if ($sField === "cZip") {
+    validateUsername($sValue);
+}
+if ($sField === "cPhoneNumber") {
+    validateUsername($sValue);
 }
 
 if ($sField  === "cPassword") {
+    validatePassword($sValue);
     $queryValue = password_hash($sValue, PASSWORD_ARGON2I);
 } else {
     $queryValue = htmlspecialchars($sValue);
