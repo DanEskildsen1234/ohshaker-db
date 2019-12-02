@@ -31,7 +31,7 @@ if( strlen($_POST['recipe']) < 2 || strlen($_POST['recipe']) > 255  ){
 
 if ($con) {
 $scQuery = "INSERT INTO tcreditcard (`nManagerID`, `nTotalAmount`, `dExpiration`, `cCCV`, `cIBAN`) VALUES ('$sManagerID', '$sTotalAmount', '$sExpiration', '$sCCV', '$sIBAN')";
-$stmt = $con->query($scQuery);
-$stmt = null;
+$stmt = $con->prepare($scQuery);
+$stmt->execute();
 $db->disconnect($con);
 }
