@@ -5,7 +5,7 @@ require_once(__DIR__.'../../readonly-connection.php');
 
 session_start();
 
-if(empty($_POST)) {
+if ($_SERVER['REQUEST_METHOD'] !== 'POST') {
     sendErrorMessage( 'Method not allowed' , __LINE__ );
 }
 

@@ -3,29 +3,27 @@
 require_once(__DIR__ . '../../admin-connection.php');
 require_once(__DIR__.'../../functions.php');
 
-if(empty($_POST)) {
+if ($_SERVER['REQUEST_METHOD'] !== 'POST') {
     sendErrorMessage( 'Method not allowed' , __LINE__ );
 }
 
 session_start();
 
 if(empty($_SESSION['managerID'])) {
-    echo 'Not authenticated';
-    exit();
+    sendErrorMessage( 'Not authenticated' , __LINE__ );
 }
 
-$managerID = $_SESSION['managerID'];
+$iManagerID = $_SESSION['managerID'];
 
 // validation
 // TODO Add validations
 
 if( empty($_POST['field']) ){
-    echo 'Field is required';
-    exit();
+    sendErrorMessage( 'Field is required' , __LINE__ );
 }
 
 if( empty($_POST['value']) ){
-    echo 'Value is required';
+    sendErrorMessage( 'Value  is required' , __LINE__ );
     exit();
 }
 
@@ -36,14 +34,12 @@ $aAllowedFields =
     array("cFirstname", "cSurname", "cEmail", "cUsername", "cPassword", "cAddress", "cZip", "cPhoneNumber");
 
 if (!in_array($sField, $aAllowedFields)) {
-    echo 'Method not allowed';
-    exit();
+    sendErrorMessage( 'Method not allowed' , __LINE__ );
 }
 
 if ($sField === "cEmail") {
     if (!filter_var($sValue, FILTER_VALIDATE_EMAIL)) {
-        echo 'Email is invalid';
-        exit();
+        sendErrorMessage( 'Email is invalid' , __LINE__ );
     }
 }
 
@@ -59,7 +55,7 @@ if ($con) {
     $results = array();
 
     $statement = $con->prepare(
-        "UPDATE `tmanager` SET `$sField`='$queryValue' WHERE `nManagerID`='$managerID'");
+        "UPDATE `tmanager` SET `$sField`='$queryValue' WHERE `nManagerID`='$iManagerID'");
     $statement->execute();
 
     echo("Success");
