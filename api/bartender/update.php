@@ -44,7 +44,6 @@ if ($sField  === "cPin") {
 
 $queryValue = htmlspecialchars($sValue);
 
-
 $db = new DB();
 $con = $db->connect();
 if ($con) {

@@ -9,17 +9,18 @@ if ( $_SERVER['REQUEST_METHOD'] !== 'POST' ) {
 
 session_start();
 
-if( empty($_SESSION['bartenderID']) ) {
+if( empty($_SESSION['managerID']) ) {
     sendErrorMessage( 'Not authenticated' , __LINE__ );
 }
 
-$iBartenderID = $_SESSION['managerID'];
+$iBartenderID = $_POST['bartenderID'];
+$iBarID = $_SESSION['barID'];
 
 $db = new DB();
 $con = $db->connect();
 
 if ($con) {
-    $cQuery = "DELETE FROM `tbartender` WHERE `nBartenderID` = '$iBartenderID'";
+    $cQuery = "DELETE FROM `tbartender` WHERE `nBartenderID` = '$iBartenderID' AND `nBarID` = '$iBarID'";
     $statement = $con->query($cQuery);
     $statement = null;
     $db->disconnect($con);
