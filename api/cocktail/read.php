@@ -1,4 +1,6 @@
 <?php
+session_start();
+
 require_once(__DIR__.'../../readonly-connection.php');
 $db = new DB();
 $con = $db->connect();

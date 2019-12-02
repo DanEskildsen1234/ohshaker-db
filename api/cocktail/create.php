@@ -1,13 +1,27 @@
 <?php
+
+session_start();
+
 require_once(__DIR__.'../../admin-connection.php');
 require_once(__DIR__.'../../functions.php');
+
+if(empty($_SESSION['managerID'])) {
+    sendErrorMessage( 'Not logged in [$_SESSION]' , __LINE__ ); 
+    exit();
+}
+
 $db = new DB();
 $con = $db->connect();
 
-$sShakenStirred = $_POST['shakenStirred'];
-$sCubedCrushed = $_POST['cubedCrushed'];
-$sName = $_POST['name'];
-$sCocktailRecipe = $_POST['recipe'];
+if(empty($_SESSION['managerID'])) {
+    sendErrorMessage( 'Not logged in [$_SESSION]' , __LINE__ ); 
+    exit();
+}
+
+$sShakenStirred =  htmlspecialchars($_POST['shakenStirred']);
+$sCubedCrushed = htmlspecialchars($_POST['cubedCrushed']);
+$sName = htmlspecialchars($_POST['name']);
+$sCocktailRecipe = htmlspecialchars($_POST['recipe']);
 
 
 if(!$_POST){

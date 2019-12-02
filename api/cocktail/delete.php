@@ -1,10 +1,22 @@
 <?php
+session_start();
+
 require_once(__DIR__.'../../admin-connection.php');
 require_once(__DIR__.'../../functions.php');
+
+if(empty($_SESSION['managerID'])) {
+    sendErrorMessage( 'Not logged in [$_SESSION]' , __LINE__ ); 
+    exit();
+}
+
 $db = new DB();
 $con = $db->connect();
 
-$iCocktailID = $_POST['cocktailID'];
+
+
+$iCocktailID = htmlspecialchars($_POST['cocktailID']);
+
+
 
 // $_SESSION['managerID'] = 11;
 
