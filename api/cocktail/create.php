@@ -4,7 +4,12 @@ session_start();
 
 require_once(__DIR__.'../../admin-connection.php');
 require_once(__DIR__.'../../functions.php');
+require_once(__DIR__.'/validation.php');
 
+
+if( $_SERVER['REQUEST_METHOD'] !== 'POST' ) {
+    sendErrorMessage( 'Method not allowed' , __LINE__ );
+}
 
 $sShakenStirred =  htmlspecialchars($_POST['shakenStirred']);
 $sCubedCrushed = htmlspecialchars($_POST['cubedCrushed']);
@@ -19,28 +24,10 @@ if(empty($_SESSION['managerID'])) {
 }
 
 // Check if eNum value is valid.
-if (!in_array($sShakenStirred, $aShakenStirred)){
-        sendErrorMessage( 'Incorrect value type [$sShakenStirred]' , __LINE__); 
-}    
-        
-if (!in_array($sCubedCrushed, $aCubedCrushed)){
-        sendErrorMessage( 'Incorrect value type [$sCubedCrushed]' , __LINE__); 
-}
-
-if(empty($_POST['name'])){ 
-    sendErrorMessage( 'cocktail name is missing' , __LINE__); 
-}
-if(strlen($_POST['name']) < 2 || strlen($_POST['name']) > 50){
-    sendErrorMessage( 'cocktail name min 2 max 50 characters' , __LINE__);
-}
-
-if(empty($_POST['recipe'])){ 
-    sendErrorMessage( 'recipe is missing' , __LINE__); 
-}
-
-if(strlen($_POST['recipe']) < 2 || strlen($_POST['recipe']) > 255){
-    sendErrorMessage( 'recipe min 2 max 255 characters' , __LINE__);
-}
+validateShakenStirred($sShakenStirred, $aShakenStirred);
+validateCubedCrushed($sCubedCrushed, $aCubedCrushed);
+validateName($sName);
+validateRecipe($sCocktailRecipe);
 
 $db = new DB();
 $con = $db->connect();
