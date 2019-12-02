@@ -9,7 +9,7 @@ if( $_SERVER['REQUEST_METHOD'] !== 'POST') {
 }
 
 $aExpectedFields =
-    array("barID", "firstName", "surname", "email", "username", "password", "address", "zip", "phoneNumber");
+    array('barID', 'firstName', 'surname', 'email', 'username', 'password', 'address', 'zip', 'phoneNumber');
 
 foreach ($aExpectedFields as $field) {
     if( empty($_POST["$field"]) ) {

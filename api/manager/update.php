@@ -27,7 +27,7 @@ $sField = $_POST['field'];
 $sValue = $_POST['value'];
 
 $aAllowedFields =
-    array("cFirstname", "cSurname", "cEmail", "cUsername", "cPassword", "cAddress", "cZip", "cPhoneNumber");
+    array('cFirstname', 'cSurname', 'cEmail', 'cUsername', 'cPassword', 'cAddress', 'cZip', 'cPhoneNumber');
 
 if (!in_array($sField, $aAllowedFields)) {
     sendErrorMessage( 'Method not allowed' , __LINE__ );
