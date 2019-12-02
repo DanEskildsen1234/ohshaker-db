@@ -67,9 +67,8 @@ if ($con) {
                             )
                   ");
     $statement->execute();
-
-    echo("Success");
-
     $statement = null;
     $db->disconnect($con);
+
+    sendSuccessMessage( 'User has been created' , __LINE__ );
 }

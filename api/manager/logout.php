@@ -10,5 +10,7 @@ if ($_SERVER['REQUEST_METHOD'] !== 'POST') {
 
 if(empty($_SESSION['managerID'])) {
     session_destroy();
+    sendSuccessMessage( 'User successfully logged out' , __LINE__ );
+
     header('Location: /');
 }

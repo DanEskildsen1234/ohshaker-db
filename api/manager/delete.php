@@ -24,4 +24,6 @@ if ($con) {
     $statement = $con->query($cQuery);
     $statement = null;
     $db->disconnect($con);
+
+    sendSuccessMessage( 'User account has been cancelled' , __LINE__ );
 }

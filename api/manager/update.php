@@ -57,9 +57,9 @@ if ($con) {
     $statement = $con->prepare(
         "UPDATE `tmanager` SET `$sField`='$queryValue' WHERE `nManagerID`='$iManagerID'");
     $statement->execute();
-
-    echo("Success");
-
+    
     $stmt = null;
     $db->disconnect($con);
+
+    sendSuccessMessage( 'User has been updated' , __LINE__ );
 }

@@ -10,18 +10,15 @@ if ($_SERVER['REQUEST_METHOD'] !== 'POST') {
 }
 
 if(empty($_SESSION['managerID'])) {
-    print_r("Already logged in");
-    exit();
+    sendSuccessMessage( 'User already logged in' , __LINE__ );
 }
 
 if( empty($_POST['password']) ){
-    echo 'Password is required';
-    return;
+    sendErrorMessage( 'Password is required' , __LINE__ );
 }
 
 if( empty($_POST['username']) ){
-    echo 'Username is required';
-    return;
+    sendErrorMessage( 'Username is required' , __LINE__ );
 }
 
 $sUsername = $_POST['username'];
@@ -38,13 +35,11 @@ if ($con) {
     $sPasswordChecksum = $results['cPassword'];
 
     if (!password_verify($sPassword, $sPasswordChecksum)) {
-        print_r("Incorrect credentials");
-        exit();
+        sendErrorMessage( 'Incorrect credentials' , __LINE__ );
     }
 
     if ($results['dCancelled'] !== NULL) {
-        print_r("Incorrect credentials");
-        exit();
+        sendErrorMessage( 'Incorrect credentials' , __LINE__ );
     }
 
     print_r("Correct credentials");
@@ -58,4 +53,6 @@ if ($con) {
 
     $statement = null;
     $db->disconnect($con);
+
+    sendSuccessMessage( 'User successfully logged in' , __LINE__ );
 }
