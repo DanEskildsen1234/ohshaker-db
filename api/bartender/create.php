@@ -9,7 +9,7 @@ if( $_SERVER['REQUEST_METHOD'] !== 'POST' ) {
 }
 
 $aExpectedFields =
-    array('barID', 'firstName', 'surname', 'pin');
+    array('firstName', 'surname', 'pin');
 
 foreach ($aExpectedFields as $field) {
     if( empty($_POST["$field"]) ) {
@@ -17,7 +17,9 @@ foreach ($aExpectedFields as $field) {
     }
 }
 
-$iBarID = (int)htmlspecialchars(($_POST['barID']));
+session_start();
+
+$iBarID = (int)htmlspecialchars(($_SESSION['barID']));
 $sFirstName = htmlspecialchars($_POST['firstName']);
 $sSurname = htmlspecialchars($_POST['surname']);
 $sPin = htmlspecialchars($_POST['pin']);

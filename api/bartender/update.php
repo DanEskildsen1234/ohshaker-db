@@ -32,14 +32,12 @@ $aAllowedFields =
 if ( !in_array($sField, $aAllowedFields) ) {
     sendErrorMessage( 'Method not allowed' , __LINE__ );
 }
-
 if ($sField === "cFirstname") {
     validateFirstName($sValue);
 }
 if ($sField === "cSurname") {
     validateSurname($sValue);
 }
-
 if ($sField  === "cPin") {
     validatePin($sValue);
 }

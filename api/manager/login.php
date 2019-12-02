@@ -46,6 +46,7 @@ if ($con) {
     print_r("Correct credentials");
     print_r($statement->fetch()['nManagerID']);
     $_SESSION['managerID'] =  $results['nManagerID'];
+    $_SESSION['barID'] =  $results['nBarID'];
     $_SESSION['firstName'] =  $results['cFirstname'];
     $_SESSION['surname'] =  $results['cSurname'];
     $_SESSION['email'] =  $results['cEmail'];
