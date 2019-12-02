@@ -46,4 +46,5 @@ $scQuery = "INSERT INTO tcreditcard (`nManagerID`, `dExpiration`, `cCCV`, `cIBAN
 $statement = $con->prepare($scQuery);
 $statement->execute();
 $db->disconnect($con);
+echo success('Successfully added credit card', __LINE__);
 }
