@@ -11,5 +11,5 @@ if ($con) {
     $results = $statement->fetchAll();
     $statement = null;
     $db->disconnect($con);
-    echo sendSuccessMessage('Successfully fetched credit cards: '.json_encode($results), __LINE__);
+    echo json_encode($results);
 }
