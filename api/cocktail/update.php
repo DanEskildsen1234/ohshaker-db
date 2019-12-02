@@ -19,8 +19,8 @@ if(empty($_POST['value']) && ($_POST['field'] !== 'eShakenStirred') && $_POST['f
 }
 
 $iCocktailID = $_POST['cocktailID'];
-$sField = htmlspecialchars($_POST['field']);
-$sValue = htmlspecialchars($_POST['value']);
+$sField = htmlspecialchars($_POST['field'], ENT_QUOTES);
+$sValue = htmlspecialchars($_POST['value'], ENT_QUOTES);
 $aAllowedFields =
     array('eShakenStirred', 'eCubedCrushed', 'cName', 'cCocktailRecipe');
 if (!in_array($sField, $aAllowedFields)) {
