@@ -8,6 +8,10 @@ if( $_SERVER['REQUEST_METHOD'] !== 'POST' ) {
     sendErrorMessage( 'Method not allowed' , __LINE__ );
 }
 
+if( empty($_SESSION['managerID']) ) {
+    sendErrorMessage( 'Not authenticated' , __LINE__ );
+}
+
 $aExpectedFields =
     array('firstName', 'surname', 'pin');
 
