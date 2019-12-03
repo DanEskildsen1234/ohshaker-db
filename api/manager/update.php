@@ -23,7 +23,7 @@ foreach( $aExpectedFields as $field ) {
 }
 
 $iManagerID = $_SESSION['managerID'];
-$sField = $_POST['field'];
+$sField = htmlspecialchars($_POST['field']);
 $sValue = $_POST['value'];
 
 $aAllowedFields =

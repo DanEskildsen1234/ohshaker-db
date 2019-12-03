@@ -22,8 +22,13 @@ foreach( $aExpectedFields as $field ) {
     }
 }
 
-$iManagerID = $_SESSION['managerID'];
-$sField = $_POST['field'];
+if( empty($_POST["bartenderID"]) ) {
+    sendErrorMessage( "bartenderID is required" , __LINE__ );
+}
+
+$iBartenderID = (int)htmlspecialchars($_POST['bartenderID']);
+$iBarID = (int)htmlspecialchars($_SESSION['barID']);
+$sField = htmlspecialchars($_POST['field']);
 $sValue = $_POST['value'];
 
 $aAllowedFields =
@@ -50,7 +55,13 @@ if ($con) {
     $results = array();
 
     $statement = $con->prepare(
-        "UPDATE `tmanager` SET `$sField`='$queryValue' WHERE `nManagerID`='$iManagerID'");
+        "
+                   UPDATE tbartender bt
+                    INNER JOIN tbarbartender bbt
+                        ON bbt.nBartenderID = bt.nBartenderID 
+                    SET `$sField` = '$queryValue'
+                    WHERE bt.nBartenderID = '$iBartenderID' AND bbt.nBarID = '$iBarID';
+                 ");
     $statement->execute();
 
     $stmt = null;

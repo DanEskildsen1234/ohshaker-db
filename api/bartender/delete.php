@@ -17,8 +17,8 @@ if( empty($_SESSION['managerID']) ) {
     sendErrorMessage( 'Not authenticated' , __LINE__ );
 }
 
-$iBartenderID = $_POST['bartenderID'];
-$iBarID = $_SESSION['barID'];
+$iBartenderID = (int)htmlspecialchars($_POST['bartenderID']);
+$iBarID = (int)htmlspecialchars($_SESSION['barID']);
 
 $db = new DB();
 $con = $db->connect();
