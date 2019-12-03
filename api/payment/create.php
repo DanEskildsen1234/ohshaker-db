@@ -14,12 +14,13 @@ $db = new DB();
 $con = $db->connect();
 
 if ($con) {
-// this is temp (only works with 1 credit card)
-$cardID_statement = $con->prepare("SELECT `nCreditCardID` FROM `tcreditcard` WHERE `nManagerID` = $iManagerID");
+// if only 1 credit card..
+/*$cardID_statement = $con->prepare("SELECT `nCreditCardID` FROM `tcreditcard` WHERE `nManagerID` = $iManagerID");
 $cardID_statement->execute();
 $cardID_results = $cardID_statement->fetch(); // fetchAll for full list
+$pCreditcardID = $cardID_results['nCreditCardID'];*/
 
-$pCreditcardID = $cardID_results['nCreditCardID'];
+$pCreditcardID = $_POST['cardID'];
 $pAmount = 100; // static subscription payment
 
 // https://www.php.net/manual/en/pdostatement.bindparam.php
