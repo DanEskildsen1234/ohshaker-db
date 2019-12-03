@@ -8,6 +8,14 @@ if ($_SERVER['REQUEST_METHOD'] !== 'POST') {
     sendErrorMessage( 'Method not allowed' , __LINE__ );
 }
 
+$aExpectedFields = array("field", "value");
+
+foreach( $aExpectedFields as $field ) {
+    if( empty($_POST["$field"]) ) {
+        sendErrorMessage( "$field is required" , __LINE__ );
+    }
+}
+
 session_start();
 
 if( empty($_SESSION['managerID']) ) {
@@ -16,14 +24,6 @@ if( empty($_SESSION['managerID']) ) {
 
 if( empty($_SESSION['barID']) ) {
     sendErrorMessage( 'Corrupt session: barID is not defined' , __LINE__ );
-}
-
-$aExpectedFields = array("field", "value");
-
-foreach( $aExpectedFields as $field ) {
-    if( empty($_POST["$field"]) ) {
-        sendErrorMessage( "$field is required" , __LINE__ );
-    }
 }
 
 if( empty($_POST["bartenderID"]) ) {

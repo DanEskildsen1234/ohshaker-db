@@ -2,11 +2,11 @@
 
 require_once(__DIR__.'../../functions.php');
 
-session_start();
-
 if ( $_SERVER['REQUEST_METHOD'] !== 'POST' ) {
     sendErrorMessage( 'Method not allowed' , __LINE__ );
 }
+
+session_start();
 
 if( empty($_SESSION['managerID']) ) {
     sendErrorMessage( 'Not authenticated' , __LINE__ );
