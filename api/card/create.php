@@ -6,17 +6,14 @@ if ($_SERVER['REQUEST_METHOD'] !== 'POST') {
     echo sendErrorMessage('Method not allowed', __LINE__);
 }
 
-session_start();
-
 $aExpectedFields =
     array("expiration", "CCV", "IBAN");
 foreach ($aExpectedFields as $field) {
-    if( empty($_POST["$field"]) ) {
-        sendErrorMessage( "$field is required", __LINE__ );
+    if(empty($_POST["$field"])) {
+        sendErrorMessage("$field is required", __LINE__);
     }
 }
 
-$iManagerID = (int)htmlspecialchars($_SESSION['managerID']);
 $sExpiration = htmlspecialchars($_POST['expiration']);
 $iCCV = (int)htmlspecialchars($_POST['CCV']);
 $sIBAN = $_POST['IBAN'];
@@ -38,6 +35,14 @@ if (!preg_match("/DK\d{16}$/", $sIBAN)) {
     echo sendErrorMessage('IBAN must be valid', __LINE__);
 }
 
+session_start();
+
+if( empty($_SESSION['managerID']) ) {
+    sendErrorMessage( 'Not authenticated' , __LINE__ );
+}
+
+$iManagerID = (int)htmlspecialchars($_SESSION['managerID']);
+
 $db = new DB();
 $con = $db->connect();
 
@@ -45,6 +50,8 @@ if ($con) {
 $scQuery = "INSERT INTO tcreditcard (`nManagerID`, `dExpiration`, `cCCV`, `cIBAN`) VALUES ('$iManagerID', '$sExpiration', '$iCCV', '$sIBAN')";
 $statement = $con->prepare($scQuery);
 $statement->execute();
+$statement = null;
+
 $db->disconnect($con);
 sendSuccessMessage('Successfully added credit card', __LINE__);
 }
