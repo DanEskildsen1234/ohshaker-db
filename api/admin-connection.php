@@ -1,12 +1,10 @@
 <?php
-$dotenv = Dotenv\Dotenv::createImmutable(__DIR__);
-$dotenv->load();
 
 class DB {
     public function connect()
     {
-        $host = getenv('host');
-        $db = getenv('db');
+        $host = '127.0.0.1';
+        $db = 'ohshaker';
         $user = 'ohshaker_admin';
         $pass = 'admin123';
         $charset = 'utf8mb4';

@@ -9,7 +9,7 @@ if( $_SERVER['REQUEST_METHOD'] !== 'POST' ) {
 }
 
 $aExpectedFields =
-    array('barID', 'firstName', 'surname', 'email', 'username', 'password', 'address', 'zip', 'phoneNumber');
+    array('barName', 'firstName', 'surname', 'email', 'username', 'password', 'address', 'zip', 'phoneNumber');
 
 foreach ($aExpectedFields as $field) {
     if( empty($_POST["$field"]) ) {
@@ -17,7 +17,7 @@ foreach ($aExpectedFields as $field) {
     }
 }
 
-$iBarID = (int)htmlspecialchars(($_POST['barID']));
+$sBarName = htmlspecialchars(($_POST['barName']));
 $sFirstName = htmlspecialchars($_POST['firstName']);
 $sSurname = htmlspecialchars($_POST['surname']);
 $sEmail = htmlspecialchars($_POST['email']);
@@ -35,6 +35,7 @@ validatePassword($sPassword);
 validateAddress($sAddress);
 validateZip($iZip);
 validatePhoneNumber($iPhoneNumber);
+validateBarName($sBarName);
 
 $shashedPassword = password_hash($sPassword, PASSWORD_ARGON2I);
 
@@ -42,18 +43,19 @@ $db = new DB();
 $con = $db->connect();
 if ($con) {
     $results = array();
-
+    $statement = $con->prepare("INSERT INTO `tbar`(`cName`) VALUES ('$sBarName')");
+    $statement->execute();
+    $statement = null;
     $statement = $con->prepare(
         "INSERT INTO `tmanager`(`nBarID`, `cFirstname`, `cSurname`, `cEmail`, `cUsername`, `cPassword`, 
                                 `cAddress`, `cZip`, `cPhoneNumber`) 
-                        VALUES (
-                                '$iBarID', '$sFirstName', '$sSurname', '$sEmail', '$sUsername', '$shashedPassword', 
-                                '$sAddress', '$iZip', '$iPhoneNumber'
-                            )
-                  ");
+                   VALUES (
+                           LAST_INSERT_ID(), '$sFirstName', '$sSurname', '$sEmail', '$sUsername', 
+                           '$shashedPassword', '$sAddress', '$iZip', '$iPhoneNumber'
+                   )");
     $statement->execute();
     $statement = null;
     $db->disconnect($con);
 
-    sendSuccessMessage( 'User has been created' , __LINE__ );
+    sendSuccessMessage( 'Manager and bar have been created' , __LINE__ );
 }
