@@ -89,3 +89,26 @@ function validatePhoneNumber($iPhoneNumber) {
             __LINE__ );
     }
 }
+
+function validateExpirationDate($sExpiration) {
+    // https://stackoverflow.com/questions/13194322/php-regex-to-check-date-is-in-yyyy-mm-dd-format
+    if (!preg_match("/^[0-9]{4}-(0[1-9]|1[0-2])-(0{2})$/", $sExpiration)) {
+        echo sendErrorMessage('Expiration date must be a valid date', __LINE__);
+    }
+}
+
+function validateCCV($iCCV) {
+    if (strlen($iCCV) != 3) {
+        echo sendErrorMessage('CCV must be exactly 3 numbers', __LINE__);
+    }
+}
+
+function validateIBAN($sIBAN)
+{
+    if (strlen($sIBAN) != 18) {
+        echo sendErrorMessage('IBAN must be exactly 18 charecters', __LINE__);
+    }
+    if (!preg_match("/DK\d{16}$/", $sIBAN)) {
+        echo sendErrorMessage('IBAN must be valid', __LINE__);
+    }
+}

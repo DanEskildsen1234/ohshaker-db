@@ -9,7 +9,8 @@ if( $_SERVER['REQUEST_METHOD'] !== 'POST' ) {
 }
 
 $aExpectedFields =
-    array('barName', 'firstName', 'surname', 'email', 'username', 'password', 'address', 'zip', 'phoneNumber');
+    array('barName', 'firstName', 'surname', 'email', 'username', 'password', 'address', 'zip', 'phoneNumber',
+    "expiration", "CCV", "IBAN");
 
 foreach ($aExpectedFields as $field) {
     if( empty($_POST["$field"]) ) {
@@ -26,6 +27,9 @@ $sPassword = $_POST['password'];
 $sAddress = htmlspecialchars($_POST['address']);
 $iZip = (int)htmlspecialchars($_POST['zip']);
 $iPhoneNumber = (int)htmlspecialchars($_POST['phoneNumber']);
+$sExpiration = htmlspecialchars($_POST['expiration']);
+$iCCV = (int)htmlspecialchars($_POST['CCV']);
+$sIBAN = $_POST['IBAN'];
 
 validateFirstName($sFirstName);
 validateSurname($sSurname);
@@ -36,6 +40,9 @@ validateAddress($sAddress);
 validateZip($iZip);
 validatePhoneNumber($iPhoneNumber);
 validateBarName($sBarName);
+validateExpirationDate($sExpiration);
+validateCCV($iCCV);
+validateIBAN($sIBAN);
 
 $shashedPassword = password_hash($sPassword, PASSWORD_ARGON2I);
 
@@ -51,8 +58,14 @@ if ($con) {
                                 `cAddress`, `cZip`, `cPhoneNumber`) 
                    VALUES (
                            LAST_INSERT_ID(), '$sFirstName', '$sSurname', '$sEmail', '$sUsername', 
-                           '$shashedPassword', '$sAddress', '$iZip', '$iPhoneNumber'
-                   )");
+                           '$shashedPassword', '$sAddress', '$iZip', '$iPhoneNumber')
+                           ");
+    $statement->execute();
+    $statement = null;
+    $statement = $con->prepare(
+        "INSERT INTO tcreditcard (`nManagerID`, `dExpiration`, `cCCV`, `cIBAN`) 
+                  VALUES (LAST_INSERT_ID(), '$sExpiration', '$iCCV', '$sIBAN')
+                  ");
     $statement->execute();
     $statement = null;
     $db->disconnect($con);
