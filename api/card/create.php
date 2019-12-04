@@ -37,8 +37,8 @@ if (!preg_match("/DK\d{16}$/", $sIBAN)) {
 
 session_start();
 
-if( empty($_SESSION['managerID']) ) {
-    sendErrorMessage( 'Not authenticated' , __LINE__ );
+if(empty($_SESSION['managerID'])) {
+    sendErrorMessage('Not authenticated' , __LINE__);
 }
 
 $iManagerID = (int)htmlspecialchars($_SESSION['managerID']);
