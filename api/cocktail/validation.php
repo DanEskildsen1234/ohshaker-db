@@ -1,5 +1,18 @@
 <?php
 
+
+ function validateLoggedIn () {
+    if(empty($_SESSION['managerID'])) {
+        sendErrorMessage( 'Not logged in [$_SESSION]' , __LINE__ ); 
+    }
+ }
+
+ function validateField($sField) {
+    if(empty($sField)){
+        sendErrorMessage('Field is required' , __LINE__); 
+    }
+
+ }
 function validateShakenStirred($sShakenStirred, $aShakenStirred) {
     if (!in_array($sShakenStirred, $aShakenStirred)){
         sendErrorMessage( 'Incorrect value type [$sShakenStirred]' , __LINE__); 

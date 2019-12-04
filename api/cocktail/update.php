@@ -26,7 +26,7 @@ if(empty($sValue) && ($sField !== 'eShakenStirred') && $sValue !== 'eCubedCrushe
     sendErrorMessage( 'Value is required' , __LINE__ ); 
 }
 
-$aAllowedFields = array('eShakenStirred', 'eCubedCrushed', 'cName', 'cCocktailRecipe');
+$aAllowedFields = array('eShakenStirred', 'eCubedCrushed', 'cName', 'cCocktailRecipe', 'nMeasurement');
 
 
 if (!in_array($sField, $aAllowedFields)) {
@@ -40,7 +40,6 @@ if ($sField == 'eShakenStirred'){
 
     if (!in_array($sValue, $aShakenStirred)){
         sendErrorMessage( 'Incorrect value type' , __LINE__ ); 
-        exit;
         }
     }
 
@@ -70,7 +69,7 @@ $con = $db->connect();
 if ($con) {
     $results = array();
     $statement = $con->prepare(
-        "UPDATE `tcocktail` SET `$sField` = '$sValue' WHERE `tcocktail`.`nCocktailID` = $iCocktailID");
+        "UPDATE `tcocktail` INNER JOIN tcocktailingredient ON tcocktailingredient.nCocktailID = tcocktail.nCocktailID INNER JOIN tingredient ON tcocktailingredient.nIngredientID = tingredient.nIngredientID SET `$sField` = '$sValue' WHERE `tcocktail`.`nCocktailID` = $iCocktailID");
     $statement->execute();
     $stmt = null;
     $db->disconnect($con);
