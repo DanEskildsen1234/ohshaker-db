@@ -2,7 +2,7 @@
 
 require_once(__DIR__ . '../../admin-connection.php');
 require_once(__DIR__.'../../functions.php');
-require_once(__DIR__.'/validation.php');
+require_once(__DIR__ . '../../validation.php');
 
 if ($_SERVER['REQUEST_METHOD'] !== 'POST') {
     sendErrorMessage( 'Method not allowed' , __LINE__ );
@@ -23,7 +23,7 @@ foreach( $aExpectedFields as $field ) {
 }
 
 $iManagerID = $_SESSION['managerID'];
-$sField = $_POST['field'];
+$sField = htmlspecialchars($_POST['field']);
 $sValue = $_POST['value'];
 
 $aAllowedFields =

@@ -68,6 +68,12 @@ function validateZip($iZip) {
     }
 }
 
+function validatePin($iPin) {
+    if( strlen((string)($iPin)) > 4 ) {
+        sendErrorMessage( 'Pin is not valid' , __LINE__ );
+    }
+}
+
 function validatePhoneNumber($iPhoneNumber) {
     if( strlen((string)($iPhoneNumber)) > 8 ) {
         sendErrorMessage( 'Phone number has to be 8 digits. Only danish numbers are allowed' ,
