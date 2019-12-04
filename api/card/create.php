@@ -9,8 +9,8 @@ if ($_SERVER['REQUEST_METHOD'] !== 'POST') {
 $aExpectedFields =
     array("expiration", "CCV", "IBAN");
 foreach ($aExpectedFields as $field) {
-    if( empty($_POST["$field"]) ) {
-        sendErrorMessage( "$field is required", __LINE__ );
+    if(empty($_POST["$field"])) {
+        sendErrorMessage("$field is required", __LINE__);
     }
 }
 
