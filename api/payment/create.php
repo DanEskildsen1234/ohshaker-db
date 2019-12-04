@@ -8,14 +8,17 @@ if ($_SERVER['REQUEST_METHOD'] !== 'POST') {
 
 session_start();
 
-$iManagerID = (int)htmlspecialchars($_SESSION['managerID']); 
+if( empty($_SESSION['managerID']) ) {
+    sendErrorMessage( 'Not authenticated' , __LINE__ );
+}
 
 $db = new DB();
 $con = $db->connect();
 
 if ($con) {
-// if only 1 credit card..
-/*$cardID_statement = $con->prepare("SELECT `nCreditCardID` FROM `tcreditcard` WHERE `nManagerID` = $iManagerID");
+// if only 1 credit card this can be used (eg. count)
+/*$iManagerID = (int)htmlspecialchars($_SESSION['managerID']);
+$cardID_statement = $con->prepare("SELECT `nCreditCardID` FROM `tcreditcard` WHERE `nManagerID` = $iManagerID");
 $cardID_statement->execute();
 $cardID_results = $cardID_statement->fetch(); // fetchAll for full list
 $pCreditcardID = $cardID_results['nCreditCardID'];*/
@@ -25,12 +28,13 @@ $pAmount = 100; // static subscription payment
 
 // https://www.php.net/manual/en/pdostatement.bindparam.php
 // https://www.ibm.com/support/knowledgecenter/SSEPGG_11.5.0/com.ibm.swg.im.dbclient.php.doc/doc/t0023502.html
-// we need to add credit card as an input for the stored procedure, right now any payment will add to the total of all the cards belonging to the manager.
+// calling stored procedure
 $scQuery = 'CALL newPayment(?, ?)';
-$procedure_statement = $con->prepare($scQuery);
-$procedure_statement->bindParam(1, $pAmount, PDO::PARAM_INT);
-$procedure_statement->bindParam(2, $pCreditcardID, PDO::PARAM_INT);
-$procedure_statement->execute();
+$statement = $con->prepare($scQuery);
+$statement->bindParam(1, $pAmount, PDO::PARAM_INT);
+$statement->bindParam(2, $pCreditcardID, PDO::PARAM_INT);
+$statement->execute();
+$statement = null;
 
 $db->disconnect($con);
 sendSuccessMessage('Successfully added payment', __LINE__);
