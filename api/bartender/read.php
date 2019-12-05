@@ -32,7 +32,7 @@ if ($con) {
     $statement->execute();
 
     $results = $statement->fetchAll();
-    print_r(json_encode($results));
+    echo(json_encode($results));
 
     $statement = null;
     $db->disconnect($con);
