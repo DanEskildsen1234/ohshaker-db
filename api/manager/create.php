@@ -50,8 +50,8 @@ $db = new DB();
 $con = $db->connect();
 if ($con) {
     $results = array();
-    $statement = $con->prepare("INSERT INTO `tbar`(`cName`) VALUES ('$sBarName')");
-    $statement->execute();
+    $statement = $con->prepare("INSERT INTO `tbar`(`cName`) VALUES (?)");
+    $statement->execute([$sBarName]);
     $statement = null;
     $statement = $con->prepare(
         "INSERT INTO `tmanager`(`nBarID`, `cFirstname`, `cSurname`, `cEmail`, `cUsername`, `cPassword`, 
