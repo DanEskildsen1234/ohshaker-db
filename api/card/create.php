@@ -15,8 +15,7 @@ foreach ($aExpectedFields as $field) {
 }
 
 $sExpiration = htmlspecialchars($_POST['expiration']);
-$iCCV = $_POST['CCV'];
-$iCCVS = filter_var($iCCV, FILTER_SANITIZE_NUMBER_INT); // can start with 0
+$iCCV = filter_var($_POST['CCV'], FILTER_SANITIZE_NUMBER_INT); // can start with 0
 $sIBAN = $_POST['IBAN'];
 
 // https://stackoverflow.com/questions/13194322/php-regex-to-check-date-is-in-yyyy-mm-dd-format
@@ -24,7 +23,7 @@ if (!preg_match("/^[0-9]{4}-(0[1-9]|1[0-2])-(0{2})$/", $sExpiration)) {
     echo sendErrorMessage('Expiration date must be a valid date', __LINE__);
 }
 
-if (strlen($iCCVS) != 3) {
+if (strlen($iCCV) != 3) {
     echo sendErrorMessage('CCV must be exactly 3 numbers', __LINE__);
 }
 
@@ -50,7 +49,7 @@ $con = $db->connect();
 if ($con) {
 $scQuery = "INSERT INTO tcreditcard (`nManagerID`, `dExpiration`, `cCCV`, `cIBAN`) VALUES (?, ?, ?, ?)";
 $statement = $con->prepare($scQuery);
-$statement->execute([$iManagerID, $sExpiration, $iCCVS, $sIBAN]);
+$statement->execute([$iManagerID, $sExpiration, $iCCV, $sIBAN]);
 $statement = null;
 
 $db->disconnect($con);
