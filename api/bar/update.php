@@ -18,8 +18,8 @@ if( empty($_SESSION['barID']) ) {
     sendErrorMessage( 'Corrupt session: barID is not defined' , __LINE__ );
 }
 
-$iManagerID = htmlspecialchars($_SESSION['managerID'], ENT_QUOTES);
-$iBarID = (int)htmlspecialchars($_SESSION['barID'], ENT_QUOTES);
+$iManagerID = htmlspecialchars($_SESSION['managerID']);
+$iBarID = (int)htmlspecialchars($_SESSION['barID']);
 $sBarName = htmlspecialchars($_POST['barName'], ENT_QUOTES);
 
 validateFirstName($sBarName);
