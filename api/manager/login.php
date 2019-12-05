@@ -2,6 +2,7 @@
 
 require_once(__DIR__.'../../functions.php');
 require_once(__DIR__.'../../readonly-connection.php');
+require_once(__DIR__.'../../validation.php');
 
 session_start();
 
@@ -30,7 +31,7 @@ validateUsername($sUsername);
 $db = new DB();
 $con = $db->connect();
 if ($con) {
-    $statement = $con->prepare("SELECT * FROM tmanager WHERE `cUsername` = ? 
+    $statement = $con->prepare("SELECT * FROM tmanager WHERE `cUsername` = ?
                                          OR `cEmail` = ? LIMIT 1");
     $statement->execute([$sUsername, $sUsername]);
 

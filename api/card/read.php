@@ -17,8 +17,8 @@ if ($con) {
     $statement = $con->prepare("SELECT * FROM tcreditcard WHERE `nManagerID` = $iManagerID");
     $statement->execute();
     $results = $statement->fetchAll();
-    echo json_encode($results);
     $statement = null;
-
+    
     $db->disconnect($con);
+    echo json_encode($results);
 }
