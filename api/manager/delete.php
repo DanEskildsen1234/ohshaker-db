@@ -13,6 +13,11 @@ if( empty($_SESSION['managerID']) ) {
     sendErrorMessage( 'Not authenticated' , __LINE__ );
 }
 
+if( empty($_SESSION['barID']) ) {
+    sendErrorMessage( 'Corrupt session: barID is not defined' , __LINE__ );
+}
+
+$iBarID = (int)htmlspecialchars($_SESSION['barID']);
 $iManagerID = $_SESSION['managerID'];
 $sCurrentDate = date('Y-m-d');
 
@@ -21,6 +26,9 @@ $con = $db->connect();
 
 if ($con) {
     $cQuery = "UPDATE `tmanager` SET `dCancelled`='$sCurrentDate' WHERE `nManagerID` = '$iManagerID'";
+    $statement = $con->query($cQuery);
+    $statement = null;
+    $cQuery = "DELETE FROM `tbar` WHERE `nBarID` = '$iBarID'";
     $statement = $con->query($cQuery);
     $statement = null;
     $db->disconnect($con);

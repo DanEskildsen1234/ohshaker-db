@@ -25,12 +25,14 @@ foreach( $aExpectedFields as $field ) {
 $sUsername = $_POST['username'];
 $sPassword = $_POST['password'];
 
+validateUsername($sUsername);
+
 $db = new DB();
 $con = $db->connect();
 if ($con) {
-    $statement = $con->prepare("SELECT * FROM tmanager WHERE `cUsername` = '$sUsername' 
-                                         OR `cEmail` = '$sUsername' LIMIT 1");
-    $statement->execute();
+    $statement = $con->prepare("SELECT * FROM tmanager WHERE `cUsername` = ? 
+                                         OR `cEmail` = ? LIMIT 1");
+    $statement->execute([$sUsername, $sUsername]);
 
     $results = $statement->fetch();
     $sPasswordChecksum = $results['cPassword'];
@@ -43,8 +45,6 @@ if ($con) {
         sendErrorMessage( 'Incorrect credentials' , __LINE__ );
     }
 
-    print_r("Correct credentials");
-    print_r($statement->fetch()['nManagerID']);
     $_SESSION['managerID'] =  $results['nManagerID'];
     $_SESSION['barID'] =  $results['nBarID'];
     $_SESSION['firstName'] =  $results['cFirstname'];
