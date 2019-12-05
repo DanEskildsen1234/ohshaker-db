@@ -2,7 +2,7 @@
 
 function validateBarName($sBarName) {
     if( strlen($sBarName) <= 6 ) {
-        sendErrorMessage( 'Bar name has to be at least 3 characters' , __LINE__ );
+        sendErrorMessage( 'Bar name has to be at least 6 characters' , __LINE__ );
     }
     if( strlen($sBarName) > 100 ) {
         sendErrorMessage( 'Bar name cannot be longer then 100 characters' , __LINE__ );
@@ -10,7 +10,7 @@ function validateBarName($sBarName) {
 }
 
 function validateFirstName($sFirstName) {
-    if( strlen($sFirstName) <= 1 ) {
+    if( strlen($sFirstName) <= 2 ) {
         sendErrorMessage( 'First name has to be at least 2 characters' , __LINE__ );
     }
     if( strlen($sFirstName) > 100 )  {
