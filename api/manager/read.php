@@ -20,7 +20,7 @@ if ($con) {
     $results = array();
 
     $statement = $con->prepare("
-                                          SELECT * FROM tmanager 
+                                          SELECT * FROM tmanager
                                           WHERE `nManagerID`= $iManagerID;
                                         ");
     $statement->execute();
