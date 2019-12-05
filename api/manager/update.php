@@ -72,7 +72,7 @@ if ($con) {
                     "UPDATE `tmanager` SET $sField= ? WHERE `nManagerID`= ? ");
     $statement->execute([$queryValue, $iManagerID]);
 
-    $stmt = null;
+    $statement = null;
     $db->disconnect($con);
 
     sendSuccessMessage( 'User has been updated' , __LINE__ );
