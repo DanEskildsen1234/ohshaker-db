@@ -1,16 +1,14 @@
 <?php
 
-session_start();
-
 require_once(__DIR__.'../../admin-connection.php');
 require_once(__DIR__.'../../functions.php');
 require_once(__DIR__.'/validation.php');
-
 
 if( $_SERVER['REQUEST_METHOD'] !== 'POST' ) {
     sendErrorMessage( 'Method not allowed' , __LINE__ );
 }
 
+session_start();
 
 $sShakenStirred =  htmlspecialchars($_POST['shakenStirred']);
 $sCubedCrushed = htmlspecialchars($_POST['cubedCrushed']);
@@ -20,15 +18,17 @@ $aMeasurements = $_POST['measurement'];
 $aMeasurementTypes = $_POST['measurementType'];
 $aIngredients = $_POST['ingredient'];
 
-$aShakenStirred = array('Shaken', 'Stirred', '');
-$aCubedCrushed = array('Cubed', 'Crushed', '');
+// only values in these arrays are permitted
+$aAllowedShakenStirred = array('Shaken', 'Stirred', '');
+$aAllowedCubedCrushed = array('Cubed', 'Crushed', '');
+$aAllowedMeasurementTypes = array('ml','cl','dl','l','gram','slice','wedge','part','dash','tbsp','tsp','');
 
-// Check if eNum value is valid.
 validateLoggedIn();
-validateShakenStirred($sShakenStirred, $aShakenStirred);
-validateCubedCrushed($sCubedCrushed, $aCubedCrushed);
+validateNotInArray($sShakenStirred, $aAllowedShakenStirred);
+validateNotInArray($sCubedCrushed, $aAllowedCubedCrushed);
 validateName($sCocktailName);
 validateRecipe($sCocktailRecipe);
+
 
 $db = new DB();
 $con = $db->connect();
@@ -38,7 +38,8 @@ if ($con) {
     $statement = $con->prepare(
         "
         INSERT INTO `tcocktail`(`eShakenStirred`, `eCubedCrushed`, `cName`, `cCocktailRecipe`)
-        VALUES ('?', '?', '?', '?')");
+        VALUES (?, ?, ?, ?)");
+
     $statement->execute([$sShakenStirred, $sCubedCrushed, $sCocktailName, $sCocktailRecipe]);
     $statement = null;
 
@@ -52,20 +53,24 @@ if ($con) {
         $sMeasurement = htmlspecialchars($aMeasurements[$i], ENT_QUOTES);
         $sMeasurementType = htmlspecialchars($aMeasurementTypes[$i], ENT_QUOTES);
 
-    $statement = $con->prepare(
-        "
-        INSERT INTO `tingredient`(`cName`) VALUES ('?');
-        ");
-    $statement->execute([$sIngredient]);
-    $statement = null;
+        validateNotInArray($sMeasurementType, $aAllowedMeasurementTypes);
+        validateMeasurement($sMeasurement);
+        validateName($sIngredient);
 
-    $statement = $con->prepare(
-        "
-        INSERT INTO `tcocktailingredient`(`nCocktailID`, `nIngredientID`, `nMeasurement`, `eMeasurementType`)
-        VALUES ('?', LAST_INSERT_ID(), '?', '?');
-        ");
-    $statement->execute([$last_id_cocktail, $sMeasurement, $sMeasurementType]);
-    $statement = null;
+        $statement = $con->prepare(
+            "
+            INSERT INTO `tingredient`(`cName`) VALUES (?);
+            ");
+        $statement->execute([$sIngredient]);
+        $statement = null;
+
+        $statement = $con->prepare(
+            "
+            INSERT INTO `tcocktailingredient`(`nCocktailID`, `nIngredientID`, `nMeasurement`, `eMeasurementType`)
+            VALUES (?, LAST_INSERT_ID(), ?, ?);
+            ");
+        $statement->execute([$last_id_cocktail, $sMeasurement, $sMeasurementType]);
+        $statement = null;
     }
 
     $db->disconnect($con);

@@ -3,6 +3,8 @@ session_start();
 
 require_once(__DIR__ . '../../admin-connection.php');
 require_once(__DIR__.'../../functions.php');
+require_once(__DIR__.'/validation.php');
+
 
 $iCocktailID = $_POST['cocktailID'];
 $sField = htmlspecialchars($_POST['field'], ENT_QUOTES);
@@ -10,19 +12,9 @@ $sValue = htmlspecialchars($_POST['value'], ENT_QUOTES);
 $sMeasurement = htmlspecialchars($_POST['measurement'], ENT_QUOTES);
 $sMeasurementType = htmlspecialchars($_POST['measurementType'], ENT_QUOTES);
 
-if( $_SERVER['REQUEST_METHOD'] !== 'POST' ) {
-    sendErrorMessage( 'Method not allowed' , __LINE__ );
-}
-
-if(empty($_SESSION['managerID'])) {
-    sendErrorMessage( 'Not logged in [$_SESSION]' , __LINE__ ); 
-}
-
-if(empty($sField)){
-    sendErrorMessage('Field is required' , __LINE__); 
-}
-
-
+validatePost();
+validateLoggedIn();
+validateField($sField);
 
 // Sends error message if empty, with the exception of eShakenStirred and eCubedCrushed.
 if(empty($sValue) && ($sField !== 'eShakenStirred') && $sValue !== 'eCubedCrushed'){
@@ -31,46 +23,38 @@ if(empty($sValue) && ($sField !== 'eShakenStirred') && $sValue !== 'eCubedCrushe
 
 $aAllowedFields = array('eShakenStirred', 'eCubedCrushed', 'cName', 'cCocktailRecipe', 'add-ingredient', 'remove-ingredient');
 
-
-if (!in_array($sField, $aAllowedFields)) {
-    sendErrorMessage( 'Method not allowed' , __LINE__ ); 
-}
+validateNotInArray($sField, $aAllowedFields);
 
 // Check if eNum value is valid.
 if ($sField == 'eShakenStirred'){
 
-    $aShakenStirred = array('Shaken', 'Stirred', '');
+    $aAllowedShakenStirred = array('Shaken', 'Stirred', '');
+    validateNotInArray($sValue, $aAllowedShakenStirred);
 
-    if (!in_array($sValue, $aShakenStirred)){
-        sendErrorMessage( 'Incorrect value type' , __LINE__ ); 
-        }
     }
 
     if ($sField == 'eCubedCrushed'){
     
-        $aCubedCrushed = array("Cubed", "Crushed", "");
-    
-        if (!in_array($sValue, $aCubedCrushed)){
-            sendErrorMessage( 'Incorrect value type' , __LINE__ ); 
-            }
+        $aAllowedCubedCrushed = array("Cubed", "Crushed", "");
+        validateNotInArray($sValue, $aAllowedCubedCrushed);
+        
         }
 
 if ($sField == 'cName') {
-    if(strlen($sValue) < 2 || strlen($sValue) > 50){
-        sendErrorMessage( 'Cocktail name min 2 max 50 characters' , __LINE__ );
-    }
+    validateName($sValue);
 }
 
 if ($sField == 'cCocktailRecipe') {
-    if(strlen($sValue) < 2 || strlen($sValue) > 255){
-        sendErrorMessage( 'Cocktail recipe min 2 max 255 characters' , __LINE__ );
-    }
+    validateRecipe($sValue);
 }
 
 if ($sField === 'add-ingredient' || $sField === 'remove-ingredient') {
     $sValue = (int)$sValue;
 }
 
+$aAllowedMeasurementTypes = array('ml','cl','dl','l','gram','slice','wedge','part','dash','tbsp','tsp','');
+validateNotInArray($sMeasurementType, $aAllowedMeasurementTypes);
+validateMeasurement($sMeasurement);
 
 $db = new DB();
 $con = $db->connect();
@@ -78,23 +62,23 @@ if ($con) {
 
     if ($sField === 'add-ingredient') {
         $statement = $con->prepare(
-        "INSERT `tcocktailingredient`(`nCocktailID`, `nIngredientID`, `nMeasurement`, `eMeasurementType`)
-        VALUES ('$iCocktailID', '$sValue', '$sMeasurement', '$sMeasurementType');
-        ");
+            "INSERT `tcocktailingredient`(`nCocktailID`, `nIngredientID`, `nMeasurement`, `eMeasurementType`)
+            VALUES (?,?,?,?);");
+        $statement->execute([$iCocktailID, $sValue, $sMeasurement, $sMeasurementType]);
     }
 
     elseif ($sField === 'remove-ingredient')  {
         $statement = $con->prepare(
-        "DELETE FROM `tcocktailingredient` WHERE `nIngredientID` = '$sValue'
-        ");
+            "DELETE FROM `tcocktailingredient` WHERE `nIngredientID` = ?");
+        $statement->execute([$sValue]);
     }
 
     else {
         $statement = $con->prepare(
-        "UPDATE `tcocktail` SET `$sField` = '$sValue' WHERE `tcocktail`.`nCocktailID` = $iCocktailID;");
+            "UPDATE `tcocktail` SET `$sField` = ? WHERE `tcocktail`.`nCocktailID` = ?;");
+        $statement->execute([$sValue, $iCocktailID]);
     }
 
-    $statement->execute();
     $stmt = null;
     $db->disconnect($con);
     sendSuccessMessage( 'Cocktail Updated' , __LINE__ );

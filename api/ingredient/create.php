@@ -1,23 +1,15 @@
 <?php
 
-session_start();
-
 require_once(__DIR__.'../../admin-connection.php');
 require_once(__DIR__.'../../functions.php');
+require_once(__DIR__.'/validation.php');
 
+validatePost();
 
 $sName = htmlspecialchars($_POST['name'], ENT_QUOTES); //  ENT_QUOTES allows use of single quotes
+session_start();
 
-if(empty($_SESSION['managerID'])) {
-    sendErrorMessage('Not logged in [$_SESSION]', __LINE__); 
-}
-
-if(empty( $_POST['name'])){ 
-    sendErrorMessage('ingredient name is missing', __LINE__); 
-}
-if(strlen($_POST['name']) < 2 || strlen($_POST['name']) > 50){
-    sendErrorMessage('ingredient name min 2 max 50 characters', __LINE__);
-}
+validateName($sName);
 
 $db = new DB();
 $con = $db->connect();

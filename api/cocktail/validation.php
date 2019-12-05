@@ -1,7 +1,12 @@
 <?php
 
+function validatePost() {
+    if( $_SERVER['REQUEST_METHOD'] !== 'POST' ) {
+        sendErrorMessage( 'Method not allowed' , __LINE__ );
+    }
+}
 
- function validateLoggedIn () {
+ function validateLoggedIn() {
     if(empty($_SESSION['managerID'])) {
         sendErrorMessage( 'Not logged in [$_SESSION]' , __LINE__ ); 
     }
@@ -13,35 +18,39 @@
     }
 
  }
-function validateShakenStirred($sShakenStirred, $aShakenStirred) {
-    if (!in_array($sShakenStirred, $aShakenStirred)){
-        sendErrorMessage( 'Incorrect value type [$sShakenStirred]' , __LINE__); 
+
+function validateNotInArray($sInput, $aArray) {
+    if (!in_array($sInput, $aArray)){
+        sendErrorMessage( 'Incorrect value type' , __LINE__); 
     }  
 }
 
-function validateCubedCrushed($sCubedCrushed, $aCubedCrushed) {
-    if (!in_array($sCubedCrushed, $aCubedCrushed)){
-        sendErrorMessage( 'Incorrect value type [$sCubedCrushed]' , __LINE__); 
+function validateName($field) {
+    if(empty($field)){ 
+    sendErrorMessage( 'name is missing' , __LINE__); 
+    }
+
+    if(strlen($field) < 2 || strlen($field) > 50){
+    sendErrorMessage( 'Min 2 max 50 characters' , __LINE__);
     }
 }
 
-function validateName($sName) {
-    if(empty($sName)){ 
-    sendErrorMessage( 'cocktail name is missing' , __LINE__); 
-    }
-
-    if(strlen($sName) < 2 || strlen($sName) > 50){
-    sendErrorMessage( 'cocktail name min 2 max 50 characters' , __LINE__);
-    }
-}
-
-
-function validateRecipe($sCocktailRecipe) {
-    if(empty($sCocktailRecipe)){ 
+function validateRecipe($field) {
+    if(empty($field)){ 
     sendErrorMessage( 'recipe is missing' , __LINE__); 
     }
 
-    if(strlen($sCocktailRecipe) < 2 || strlen($sCocktailRecipe) > 255){
-    sendErrorMessage( 'recipe min 2 max 255 characters' , __LINE__);
+    if(strlen($field) < 2 || strlen($field) > 255){
+    sendErrorMessage( 'Min 2 max 50 characters' , __LINE__);
+    }
+}
+
+function validateMeasurement($field) {
+    if(empty($field)){ 
+    sendErrorMessage( 'measurement is missing' , __LINE__); 
+    }
+
+    if(strlen($field) > 10){
+    sendErrorMessage( 'max 10 characters' , __LINE__);
     }
 }
