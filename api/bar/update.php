@@ -24,7 +24,6 @@ $sBarName = htmlspecialchars($_POST['barName'], ENT_QUOTES);
 
 validateBarName($sBarName);
 
-$queryValue = htmlspecialchars($sBarName);
 $db = new DB();
 $con = $db->connect();
 if ($con) {
