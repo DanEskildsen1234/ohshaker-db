@@ -16,10 +16,10 @@ $con = $db->connect();
 if ($con) {
     $results = array();
     $statement = $con->prepare(" SELECT cName, nCocktailID 
-                                            FROM tcocktail WHERE cName LIKE ?
-                                            OR eShakenStired LIKE ?
-                                            OR eCubedCrushed LIKE ?;
-                                          ");
+                                 FROM tcocktail WHERE cName LIKE ?
+                                 OR eShakenStired LIKE ?
+                                 OR eCubedCrushed LIKE ?;
+                               ");
     $statement->execute(['%'.$query.'%','%'.$query.'%','%'.$query.'%']);
     $results = $statement->fetchAll();
     echo(json_encode($results));
