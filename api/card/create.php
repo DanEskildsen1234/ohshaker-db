@@ -1,6 +1,7 @@
 <?php
 require_once(__DIR__.'../../admin-connection.php');
 require_once(__DIR__.'../../functions.php');
+require_once(__DIR__.'../../validation.php');
 
 if ($_SERVER['REQUEST_METHOD'] !== 'POST') { 
     echo sendErrorMessage('Method not allowed', __LINE__);
@@ -37,11 +38,15 @@ if (!preg_match("/DK\d{16}$/", $sIBAN)) {
 
 session_start();
 
-if( empty($_SESSION['managerID']) ) {
+if(empty($_SESSION['managerID'])) {
     sendErrorMessage( 'Not authenticated' , __LINE__ );
 }
 
 $iManagerID = (int)htmlspecialchars($_SESSION['managerID']);
+
+validateExpirationDate($sExpiration);
+validateCCV($iCCV);
+validateIBAN($sIBAN);
 
 $db = new DB();
 $con = $db->connect();
