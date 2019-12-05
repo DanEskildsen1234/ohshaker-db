@@ -50,9 +50,11 @@ if ($sField === "cAddress") {
 }
 if ($sField === "cZip") {
     validateUsername($sValue);
+    $sValue = filter_var($sValue, FILTER_SANITIZE_NUMBER_INT);
 }
 if ($sField === "cPhoneNumber") {
     validateUsername($sValue);
+    $sValue = filter_var($sValue, FILTER_SANITIZE_NUMBER_INT);
 }
 if ($sField  === "cPassword") {
     validatePassword($sValue);

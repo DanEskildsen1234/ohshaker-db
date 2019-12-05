@@ -30,7 +30,7 @@ if( empty($_SESSION['barID']) ) {
 $iBarID = (int)htmlspecialchars(($_SESSION['barID']));
 $sFirstName = htmlspecialchars($_POST['firstName']);
 $sSurname = htmlspecialchars($_POST['surname']);
-$sPin = htmlspecialchars($_POST['pin']);
+$sPin = filter_var($_POST['pin'], FILTER_SANITIZE_NUMBER_INT);
 
 validateFirstName($sFirstName);
 validateSurname($sSurname);

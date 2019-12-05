@@ -23,7 +23,7 @@ if( !empty($_SESSION['bartenderID']) ) {
 }
 
 $sUsername = $_POST['username'];
-$sPin = (int)$_POST['pin'];
+$sPin = filter_var($_POST['pin'], FILTER_SANITIZE_NUMBER_INT);
 
 validateUsername($sUsername);
 

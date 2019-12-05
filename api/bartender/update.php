@@ -48,6 +48,7 @@ if ($sField === "cSurname") {
 }
 if ($sField  === "cPin") {
     validatePin($sValue);
+    $sValue = filter_var($sValue,FILTER_SANITIZE_NUMBER_INT);
 }
 
 $queryValue = htmlspecialchars($sValue);

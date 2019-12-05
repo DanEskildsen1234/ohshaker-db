@@ -25,10 +25,10 @@ $sEmail = htmlspecialchars($_POST['email']);
 $sUsername = htmlspecialchars($_POST['username']);
 $sPassword = $_POST['password'];
 $sAddress = htmlspecialchars($_POST['address']);
-$iZip = (int)htmlspecialchars($_POST['zip']);
-$iPhoneNumber = (int)htmlspecialchars($_POST['phoneNumber']);
+$iZip = filter_var($_POST['zip'], FILTER_SANITIZE_NUMBER_INT);
+$iPhoneNumber = filter_var($_POST['phoneNumber'], FILTER_SANITIZE_NUMBER_INT);
 $sExpiration = htmlspecialchars($_POST['expiration']);
-$iCCV = (int)htmlspecialchars($_POST['CCV']);
+$iCCV = filter_var($_POST['CCV'], FILTER_SANITIZE_NUMBER_INT);
 $sIBAN = $_POST['IBAN'];
 
 validateFirstName($sFirstName);
