@@ -2,20 +2,13 @@
 
 require_once(__DIR__.'../../functions.php');
 require_once(__DIR__.'../../readonly-connection.php');
-require_once(__DIR__.'../../validation.php');
-
-session_start();
 
 if( $_SERVER['REQUEST_METHOD'] !== 'POST' ) {
     sendErrorMessage( 'Method not allowed' , __LINE__ );
 }
 
-if( !empty($_SESSION['managerID']) ) {
-    sendSuccessMessage( 'User already logged in' , __LINE__ );
-}
-
 $aExpectedFields =
-    array("username", "password");
+    array("pin, username");
 
 foreach( $aExpectedFields as $field ) {
     if( empty($_POST["$field"]) ) {
@@ -23,22 +16,27 @@ foreach( $aExpectedFields as $field ) {
     }
 }
 
+session_start();
+
+if( !empty($_SESSION['bartenderID']) ) {
+    sendSuccessMessage( 'User already logged in' , __LINE__ );
+}
+
 $sUsername = $_POST['username'];
-$sPassword = $_POST['password'];
+$sPin = filter_var($_POST['pin'], FILTER_SANITIZE_NUMBER_INT);
 
 validateUsername($sUsername);
 
 $db = new DB();
 $con = $db->connect();
 if ($con) {
-    $statement = $con->prepare("SELECT * FROM tmanager WHERE `cUsername` = ?
-                                         OR `cEmail` = ? LIMIT 1");
-    $statement->execute([$sUsername, $sUsername]);
+    $statement = $con->prepare("SELECT * FROM tbartender WHERE `cUsername` = ? LIMIT 1");
+    $statement->execute([$sUsername]);
 
     $results = $statement->fetch();
-    $sPasswordChecksum = $results['cPassword'];
+    $sPinCheck = $results['cPin'];
 
-    if( !password_verify($sPassword, $sPasswordChecksum) ) {
+    if( $sPin === $sPinCheck) {
         sendErrorMessage( 'Incorrect credentials' , __LINE__ );
     }
 
@@ -46,13 +44,9 @@ if ($con) {
         sendErrorMessage( 'Incorrect credentials' , __LINE__ );
     }
 
-    $_SESSION['managerID'] =  $results['nManagerID'];
-    $_SESSION['barID'] =  $results['nBarID'];
+    $_SESSION['bartenderID'] =  $results['nBartenderID'];
     $_SESSION['firstName'] =  $results['cFirstname'];
     $_SESSION['surname'] =  $results['cSurname'];
-    $_SESSION['email'] =  $results['cEmail'];
-    $_SESSION['username'] =  $results['cUsername'];
-    $_SESSION['phoneNumber'] = $results['cPhoneNumber'];
 
     $statement = null;
     $db->disconnect($con);

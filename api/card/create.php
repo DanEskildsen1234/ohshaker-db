@@ -3,7 +3,7 @@ require_once(__DIR__.'../../admin-connection.php');
 require_once(__DIR__.'../../functions.php');
 require_once(__DIR__.'../../validation.php');
 
-if ($_SERVER['REQUEST_METHOD'] !== 'POST') { 
+if ($_SERVER['REQUEST_METHOD'] !== 'POST') {
     echo sendErrorMessage('Method not allowed', __LINE__);
 }
 
@@ -43,6 +43,10 @@ if(empty($_SESSION['managerID'])) {
 }
 
 $iManagerID = (int)htmlspecialchars($_SESSION['managerID']);
+
+validateExpirationDate($sExpiration);
+validateCCV($iCCV);
+validateIBAN($sIBAN);
 
 validateExpirationDate($sExpiration);
 validateCCV($iCCV);
