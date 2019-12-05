@@ -19,7 +19,7 @@ function validateFirstName($sFirstName) {
 }
 
 function validateSurname($sSurname) {
-    if( strlen($sSurname) <= 1 ) {
+    if( strlen($sSurname) <= 2 ) {
         sendErrorMessage( 'Surname has to be at least 2 characters' , __LINE__ );
     }
 

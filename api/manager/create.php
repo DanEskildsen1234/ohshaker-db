@@ -20,7 +20,7 @@ foreach ($aExpectedFields as $field) {
 
 $sBarName = htmlspecialchars(($_POST['barName']));
 $sFirstName = htmlspecialchars($_POST['firstName']);
-$sSurname = htmlspecialchars($_POST['surname']);
+$sSurname = htmlspecialchars($_POST['surname'], ENT_QUOTES);
 $sEmail = htmlspecialchars($_POST['email']);
 $sUsername = htmlspecialchars($_POST['username']);
 $sPassword = $_POST['password'];
@@ -57,16 +57,16 @@ if ($con) {
         "INSERT INTO `tmanager`(`nBarID`, `cFirstname`, `cSurname`, `cEmail`, `cUsername`, `cPassword`, 
                                 `cAddress`, `cZip`, `cPhoneNumber`) 
                    VALUES (
-                           LAST_INSERT_ID(), '$sFirstName', '$sSurname', '$sEmail', '$sUsername', 
-                           '$shashedPassword', '$sAddress', '$iZip', '$iPhoneNumber')
-                           ");
-    $statement->execute();
+                           LAST_INSERT_ID(), ?, ?, ?, ?, ?, ?, ?, ?) 
+                   ");
+    $statement->execute([$sFirstName, $sSurname, $sEmail, $sUsername, $shashedPassword,
+                        $sAddress, $iZip, $iPhoneNumber]);
     $statement = null;
     $statement = $con->prepare(
         "INSERT INTO tcreditcard (`nManagerID`, `dExpiration`, `cCCV`, `cIBAN`) 
-                  VALUES (LAST_INSERT_ID(), '$sExpiration', '$iCCV', '$sIBAN')
+                  VALUES (LAST_INSERT_ID(), ?, ?, ?)
                   ");
-    $statement->execute();
+    $statement->execute([$sExpiration, $iCCV, $sIBAN]);
     $statement = null;
     $db->disconnect($con);
 

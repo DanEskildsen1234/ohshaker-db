@@ -67,8 +67,8 @@ if ($con) {
     $results = array();
 
     $statement = $con->prepare(
-        "UPDATE `tmanager` SET `$sField`='$queryValue' WHERE `nManagerID`='$iManagerID'");
-    $statement->execute();
+                    "UPDATE `tmanager` SET $sField= ? WHERE `nManagerID`= ? ");
+    $statement->execute([$queryValue, $iManagerID]);
 
     $stmt = null;
     $db->disconnect($con);

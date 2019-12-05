@@ -28,9 +28,9 @@ $sPassword = $_POST['password'];
 $db = new DB();
 $con = $db->connect();
 if ($con) {
-    $statement = $con->prepare("SELECT * FROM tmanager WHERE `cUsername` = '$sUsername' 
-                                         OR `cEmail` = '$sUsername' LIMIT 1");
-    $statement->execute();
+    $statement = $con->prepare("SELECT * FROM tmanager WHERE `cUsername` = ? 
+                                         OR `cEmail` = ? LIMIT 1");
+    $statement->execute([$sUsername, $sUsername]);
 
     $results = $statement->fetch();
     $sPasswordChecksum = $results['cPassword'];
