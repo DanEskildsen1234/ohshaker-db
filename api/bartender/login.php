@@ -23,15 +23,15 @@ if( !empty($_SESSION['bartenderID']) ) {
 }
 
 $sUsername = $_POST['username'];
-$sPin = (int)$_POST['pin'];
+$sPin = filter_var($_POST['pin'], FILTER_SANITIZE_NUMBER_INT);
 
 validateUsername($sUsername);
 
 $db = new DB();
 $con = $db->connect();
 if ($con) {
-    $statement = $con->prepare("SELECT * FROM tbartender WHERE `cUsername` = '$sUsername' LIMIT 1");
-    $statement->execute();
+    $statement = $con->prepare("SELECT * FROM tbartender WHERE `cUsername` = ? LIMIT 1");
+    $statement->execute([$sUsername]);
 
     $results = $statement->fetch();
     $sPinCheck = $results['cPin'];
@@ -44,8 +44,6 @@ if ($con) {
         sendErrorMessage( 'Incorrect credentials' , __LINE__ );
     }
 
-    print_r("Correct credentials");
-    print_r($statement->fetch()['nBartenderID']);
     $_SESSION['bartenderID'] =  $results['nBartenderID'];
     $_SESSION['firstName'] =  $results['cFirstname'];
     $_SESSION['surname'] =  $results['cSurname'];
