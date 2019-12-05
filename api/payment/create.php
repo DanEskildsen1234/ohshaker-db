@@ -6,10 +6,18 @@ if ($_SERVER['REQUEST_METHOD'] !== 'POST') {
     echo sendErrorMessage('Method not allowed', __LINE__);
 }
 
+if(empty($_SESSION['managerID'])) {
+    sendErrorMessage( 'Not authenticated' , __LINE__);
+}
+
 session_start();
 
-if( empty($_SESSION['managerID']) ) {
-    sendErrorMessage( 'Not authenticated' , __LINE__ );
+if(empty($_POST['cardID'])) {
+    sendErrorMessage('Please enter credit card ID' , __LINE__);
+}
+
+if(!is_int($_POST['cardID'])) {
+    sendErrorMessage('Please enter credit card ID' , __LINE__);
 }
 
 $db = new DB();
@@ -23,7 +31,8 @@ $cardID_statement->execute();
 $cardID_results = $cardID_statement->fetch(); // fetchAll for full list
 $pCreditcardID = $cardID_results['nCreditCardID'];*/
 
-$pCreditcardID = $_POST['cardID'];
+$pCreditcardID = (int)$_POST['cardID'];
+
 $pAmount = 100; // static subscription payment
 
 // https://www.php.net/manual/en/pdostatement.bindparam.php
@@ -33,7 +42,7 @@ $scQuery = 'CALL newPayment(?, ?)';
 $statement = $con->prepare($scQuery);
 $statement->bindParam(1, $pAmount, PDO::PARAM_INT);
 $statement->bindParam(2, $pCreditcardID, PDO::PARAM_INT);
-$statement->execute();
+$statement->execute([$pAmount, $pCreditcardID]);
 $statement = null;
 
 $db->disconnect($con);
