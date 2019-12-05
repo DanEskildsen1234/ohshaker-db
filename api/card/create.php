@@ -15,7 +15,8 @@ foreach ($aExpectedFields as $field) {
 }
 
 $sExpiration = htmlspecialchars($_POST['expiration']);
-$iCCV = (int)htmlspecialchars($_POST['CCV']);
+$iCCV = $_POST['CCV'];
+$iCCVS = filter_var($iCCV, FILTER_SANITIZE_NUMBER_INT); // can start with 0
 $sIBAN = $_POST['IBAN'];
 
 // https://stackoverflow.com/questions/13194322/php-regex-to-check-date-is-in-yyyy-mm-dd-format
@@ -23,7 +24,7 @@ if (!preg_match("/^[0-9]{4}-(0[1-9]|1[0-2])-(0{2})$/", $sExpiration)) {
     echo sendErrorMessage('Expiration date must be a valid date', __LINE__);
 }
 
-if (strlen($iCCV) != 3) {
+if (strlen($iCCVS) != 3) {
     echo sendErrorMessage('CCV must be exactly 3 numbers', __LINE__);
 }
 
@@ -37,8 +38,8 @@ if (!preg_match("/DK\d{16}$/", $sIBAN)) {
 
 session_start();
 
-if(empty($_SESSION['managerID'])) {
-    sendErrorMessage('Not authenticated' , __LINE__);
+if( empty($_SESSION['managerID']) ) {
+    sendErrorMessage( 'Not authenticated' , __LINE__ );
 }
 
 $iManagerID = (int)htmlspecialchars($_SESSION['managerID']);
@@ -47,9 +48,9 @@ $db = new DB();
 $con = $db->connect();
 
 if ($con) {
-$scQuery = "INSERT INTO tcreditcard (`nManagerID`, `dExpiration`, `cCCV`, `cIBAN`) VALUES ('$iManagerID', '$sExpiration', '$iCCV', '$sIBAN')";
+$scQuery = "INSERT INTO tcreditcard (`nManagerID`, `dExpiration`, `cCCV`, `cIBAN`) VALUES (?, ?, ?, ?)";
 $statement = $con->prepare($scQuery);
-$statement->execute();
+$statement->execute([$iManagerID, $sExpiration, $iCCVS, $sIBAN]);
 $statement = null;
 
 $db->disconnect($con);
