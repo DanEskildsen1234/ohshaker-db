@@ -6,19 +6,21 @@ if ($_SERVER['REQUEST_METHOD'] !== 'POST') {
     echo sendErrorMessage('Method not allowed', __LINE__);
 }
 
-if(empty($_SESSION['managerID'])) {
-    sendErrorMessage( 'Not authenticated' , __LINE__);
-}
-
-session_start();
-
 if(empty($_POST['cardID'])) {
     sendErrorMessage('Please enter credit card ID' , __LINE__);
 }
 
-if(!is_int($_POST['cardID'])) {
-    sendErrorMessage('Please enter credit card ID' , __LINE__);
+if(!is_numeric($_POST['cardID'])) {
+    sendErrorMessage('credit card ID must contain only numbers' , __LINE__);
 }
+
+session_start();
+
+if(empty($_SESSION['managerID'])) {
+    sendErrorMessage('Not authenticated' , __LINE__);
+}
+
+// select statement for checking existing card id's
 
 $db = new DB();
 $con = $db->connect();
@@ -46,5 +48,6 @@ $statement->execute([$pAmount, $pCreditcardID]);
 $statement = null;
 
 $db->disconnect($con);
+
 sendSuccessMessage('Successfully added payment', __LINE__);
 }
