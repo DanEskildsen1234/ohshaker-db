@@ -72,19 +72,19 @@ function validateAddress($sAddress) {
 }
 
 function validateZip($iZip) {
-    if( strlen((string)($iZip)) > 4 || strlen($iZip) < 4) {
+    if( strlen((string)($iZip)) !== 4) {
         sendErrorMessage( 'Zip is not valid' , __LINE__ );
     }
 }
 
 function validatePin($iPin) {
-    if( strlen((string)($iPin)) > 4 || strlen($iPin) < 4 ) {
+    if( strlen((string)($iPin)) !== 4 ) {
         sendErrorMessage( 'Pin is not valid' , __LINE__ );
     }
 }
 
 function validatePhoneNumber($iPhoneNumber) {
-    if( strlen((string)($iPhoneNumber)) > 8 || strlen((string)($iPhoneNumber)) < 8 ) {
+    if( strlen((string)($iPhoneNumber)) !== 8 ) {
         sendErrorMessage( 'Phone number has to be 8 digits. Only danish numbers are allowed' ,
             __LINE__ );
     }
@@ -98,14 +98,14 @@ function validateExpirationDate($sExpiration) {
 }
 
 function validateCCV($iCCV) {
-    if (strlen($iCCV) != 3) {
+    if (strlen($iCCV) !== 3) {
         echo sendErrorMessage('CCV must be exactly 3 numbers', __LINE__);
     }
 }
 
 function validateIBAN($sIBAN)
 {
-    if (strlen($sIBAN) != 18) {
+    if (strlen($sIBAN) !== 18) {
         echo sendErrorMessage('IBAN must be exactly 18 charecters', __LINE__);
     }
     if (!preg_match("/DK\d{16}$/", $sIBAN)) {
