@@ -26,8 +26,8 @@ if ($con) {
     $statement->execute();
 
     $results = $statement->fetch();
-    echo(json_encode($results));
 
     $statement = null;
     $db->disconnect($con);
+    echo(json_encode($results));
 }
