@@ -72,13 +72,13 @@ function validateAddress($sAddress) {
 }
 
 function validateZip($iZip) {
-    if( strlen((string)($iZip)) > 4 ) {
+    if( strlen((string)($iZip)) > 4 || strlen($iZip) < 4) {
         sendErrorMessage( 'Zip is not valid' , __LINE__ );
     }
 }
 
 function validatePin($iPin) {
-    if( strlen((string)($iPin)) > 4 ) {
+    if( strlen((string)($iPin)) > 4 || strlen($iPin) < 4 ) {
         sendErrorMessage( 'Pin is not valid' , __LINE__ );
     }
 }
