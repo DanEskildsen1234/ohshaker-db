@@ -43,8 +43,6 @@ if ($con) {
         sendErrorMessage( 'Incorrect credentials' , __LINE__ );
     }
 
-    print_r("Correct credentials");
-    print_r($statement->fetch()['nManagerID']);
     $_SESSION['managerID'] =  $results['nManagerID'];
     $_SESSION['barID'] =  $results['nBarID'];
     $_SESSION['firstName'] =  $results['cFirstname'];
