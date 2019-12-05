@@ -21,25 +21,23 @@ if( !empty($_SESSION['bartenderID']) ) {
     sendSuccessMessage( 'Bartender already logged in' , __LINE__ );
 }
 
-$iBartenderID = (int)$_POST['bartenderID'];
-$iPin = (int)$_POST['pin'];
+$iBartenderID = filter_var($_POST['bartenderID'], FILTER_SANITIZE_NUMBER_INT);
+$iPin = filter_var($_POST['pin'], FILTER_SANITIZE_NUMBER_INT);
 
 $db = new DB();
 $con = $db->connect();
 if ($con) {
-    $statement = $con->prepare("SELECT * FROM tbartender WHERE `cPin` = '$iPin' 
-                                          AND `nBartenderID` = '$iBartenderID' LIMIT 1");
-    $statement->execute();
+    $statement = $con->prepare("SELECT * FROM tbartender WHERE `cPin` = ?
+                                          AND `nBartenderID` = ? LIMIT 1");
+    $statement->execute([$iPin, $iBartenderID]);
 
     $results = $statement->fetch();
-    $iPinCheck = (int)$results['cPin'];
+    $iPinCheck = $results['cPin'];
 
     if( $iPin !== $iPinCheck) {
         sendErrorMessage( 'Incorrect credentials', __LINE__ );
     }
 
-    print_r("Correct credentials");
-    print_r($statement->fetch()['nBartenderID']);
     $_SESSION['bartenderID'] =  $results['nBartenderID'];
     $_SESSION['firstName'] =  $results['cFirstname'];
     $_SESSION['surname'] =  $results['cSurname'];

@@ -30,7 +30,7 @@ if( empty($_SESSION['barID']) ) {
 $iBarID = (int)htmlspecialchars(($_SESSION['barID']));
 $sFirstName = htmlspecialchars($_POST['firstName']);
 $sSurname = htmlspecialchars($_POST['surname']);
-$sPin = htmlspecialchars($_POST['pin']);
+$sPin = filter_var($_POST['pin'], FILTER_SANITIZE_NUMBER_INT);
 
 validateFirstName($sFirstName);
 validateSurname($sSurname);
@@ -44,16 +44,16 @@ if ($con) {
     $statement = $con->prepare(
         "
                   INSERT INTO `tbartender`(`cFirstname`, `cSurname`, `cPin`)
-                  VALUES ('$sFirstName', '$sSurname', '$sPin');
+                  VALUES (?, ?, ?);
                   ");
-    $statement->execute();
+    $statement->execute([$sFirstName, $sSurname, $sPin]);
     $statement = null;
     $statement = $con->prepare(
         "
                   INSERT INTO `tbarbartender`(`nBarID`, `nBartenderID`)
-                  VALUES ('$iBarID', LAST_INSERT_ID());
+                  VALUES (?, LAST_INSERT_ID());
                   ");
-    $statement->execute();
+    $statement->execute([$iBarID]);
     $statement = null;
     $db->disconnect($con);
 
