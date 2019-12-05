@@ -30,8 +30,8 @@ validateUsername($sUsername);
 $db = new DB();
 $con = $db->connect();
 if ($con) {
-    $statement = $con->prepare("SELECT * FROM tbartender WHERE `cUsername` = '$sUsername' LIMIT 1");
-    $statement->execute();
+    $statement = $con->prepare("SELECT * FROM tbartender WHERE `cUsername` = ? LIMIT 1");
+    $statement->execute([$sUsername]);
 
     $results = $statement->fetch();
     $sPinCheck = $results['cPin'];

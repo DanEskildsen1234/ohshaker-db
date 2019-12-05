@@ -31,10 +31,10 @@ if ($con) {
     $cQuery = "
                DELETE tbartender FROM tbarbartender 
                INNER JOIN tbartender ON tbarbartender.nBartenderID = tbartender.nBartenderID 
-               WHERE tbartender.nBartenderID = '$iBartenderID' AND tbarbartender.nBarID = '$iBarID';
+               WHERE tbartender.nBartenderID = ? AND tbarbartender.nBarID = ?;
                ";
     $statement = $con->prepare($cQuery);
-    $statement->execute();
+    $statement->execute([$iBartenderID, $iBarID]);
     $statement = null;
 
     $db->disconnect($con);

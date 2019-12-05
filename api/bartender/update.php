@@ -35,8 +35,7 @@ $iBarID = (int)htmlspecialchars($_SESSION['barID']);
 $sField = htmlspecialchars($_POST['field']);
 $sValue = $_POST['value'];
 
-$aAllowedFields =
-    array('cFirstname', 'cSurname', 'cPin');
+$aAllowedFields = array('cFirstname', 'cSurname', 'cPin');
 
 if ( !in_array($sField, $aAllowedFields) ) {
     sendErrorMessage( 'Method not allowed' , __LINE__ );
@@ -63,10 +62,10 @@ if ($con) {
                    UPDATE tbartender bt
                     INNER JOIN tbarbartender bbt
                         ON bbt.nBartenderID = bt.nBartenderID 
-                    SET `$sField` = '$queryValue'
-                    WHERE bt.nBartenderID = '$iBartenderID' AND bbt.nBarID = '$iBarID';
+                    SET `$sField` = ?
+                    WHERE bt.nBartenderID = ? AND bbt.nBarID = ?;
                  ");
-    $statement->execute();
+    $statement->execute([$queryValue, $iBartenderID, $iBarID]);
 
     $stmt = null;
     $db->disconnect($con);
