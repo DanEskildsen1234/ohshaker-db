@@ -84,7 +84,7 @@ function validatePin($iPin) {
 }
 
 function validatePhoneNumber($iPhoneNumber) {
-    if( strlen((string)($iPhoneNumber)) > 8 ) {
+    if( strlen((string)($iPhoneNumber)) > 8 || strlen((string)($iPhoneNumber)) < 8 ) {
         sendErrorMessage( 'Phone number has to be 8 digits. Only danish numbers are allowed' ,
             __LINE__ );
     }
