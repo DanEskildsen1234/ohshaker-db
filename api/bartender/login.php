@@ -27,9 +27,9 @@ $iPin = (int)$_POST['pin'];
 $db = new DB();
 $con = $db->connect();
 if ($con) {
-    $statement = $con->prepare("SELECT * FROM tbartender WHERE `cPin` = '$iPin' 
-                                          AND `nBartenderID` = '$iBartenderID' LIMIT 1");
-    $statement->execute();
+    $statement = $con->prepare("SELECT * FROM tbartender WHERE `cPin` = ? 
+                                          AND `nBartenderID` = ? LIMIT 1");
+    $statement->execute([$iPin, $iBartenderID]);
 
     $results = $statement->fetch();
     $iPinCheck = (int)$results['cPin'];
