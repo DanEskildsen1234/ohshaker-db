@@ -20,14 +20,14 @@ if ($con) {
     $results = array();
 
     $statement = $con->prepare("
-                                          SELECT * FROM tmanager 
+                                          SELECT * FROM tmanager
                                           WHERE `nManagerID`= $iManagerID;
                                         ");
     $statement->execute();
 
     $results = $statement->fetch();
-    echo(json_encode($results));
 
     $statement = null;
     $db->disconnect($con);
+    echo(json_encode($results));
 }

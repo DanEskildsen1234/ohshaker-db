@@ -26,14 +26,14 @@ if ($con) {
     $statement = $con->prepare(
         "SELECT * FROM tbartender bt
                     INNER JOIN tbarbartender bbt
-                        ON bbt.nBartenderID = bt.nBartenderID 
-                    WHERE bbt.nBarID = '$iBarID';
+                        ON bbt.nBartenderID = bt.nBartenderID
+                    WHERE bbt.nBarID = ?;
                  ");
-    $statement->execute();
+    $statement->execute([$iBarID]);
 
     $results = $statement->fetchAll();
-    echo(json_encode($results));
 
     $statement = null;
     $db->disconnect($con);
+    echo(json_encode($results));
 }

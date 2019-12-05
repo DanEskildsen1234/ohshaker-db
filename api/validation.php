@@ -1,16 +1,25 @@
 <?php
 
+function validateBarName($sBarName) {
+    if( strlen($sBarName) <= 6 ) {
+        sendErrorMessage( 'Bar name has to be at least 6 characters' , __LINE__ );
+    }
+    if( strlen($sBarName) > 100 ) {
+        sendErrorMessage( 'Bar name cannot be longer then 100 characters' , __LINE__ );
+    }
+}
+
 function validateFirstName($sFirstName) {
-    if( strlen($sFirstName) <= 1 ) {
-        sendErrorMessage( 'Surname has to be at least 2 characters' , __LINE__ );
+    if( strlen($sFirstName) <= 2 ) {
+        sendErrorMessage( 'First name has to be at least 2 characters' , __LINE__ );
     }
     if( strlen($sFirstName) > 100 )  {
-        sendErrorMessage( 'Surname cannot be longer then 100 characters' , __LINE__ );
+        sendErrorMessage( 'First name cannot be longer then 100 characters' , __LINE__ );
     }
 }
 
 function validateSurname($sSurname) {
-    if( strlen($sSurname) <= 1 ) {
+    if( strlen($sSurname) <= 2 ) {
         sendErrorMessage( 'Surname has to be at least 2 characters' , __LINE__ );
     }
 
@@ -63,20 +72,43 @@ function validateAddress($sAddress) {
 }
 
 function validateZip($iZip) {
-    if( strlen((string)($iZip)) > 4 ) {
+    if( strlen((string)($iZip)) !== 4) {
         sendErrorMessage( 'Zip is not valid' , __LINE__ );
     }
 }
 
 function validatePin($iPin) {
-    if( strlen((string)($iPin)) > 4 ) {
+    if( strlen((string)($iPin)) !== 4 ) {
         sendErrorMessage( 'Pin is not valid' , __LINE__ );
     }
 }
 
 function validatePhoneNumber($iPhoneNumber) {
-    if( strlen((string)($iPhoneNumber)) > 8 ) {
+    if( strlen((string)($iPhoneNumber)) !== 8 ) {
         sendErrorMessage( 'Phone number has to be 8 digits. Only danish numbers are allowed' ,
             __LINE__ );
+    }
+}
+
+function validateExpirationDate($sExpiration) {
+    // https://stackoverflow.com/questions/13194322/php-regex-to-check-date-is-in-yyyy-mm-dd-format
+    if (!preg_match("/^[0-9]{4}-(0[1-9]|1[0-2])-(0{2})$/", $sExpiration)) {
+        echo sendErrorMessage('Expiration date must be a valid date', __LINE__);
+    }
+}
+
+function validateCCV($iCCV) {
+    if (strlen($iCCV) !== 3) {
+        echo sendErrorMessage('CCV must be exactly 3 numbers', __LINE__);
+    }
+}
+
+function validateIBAN($sIBAN)
+{
+    if (strlen($sIBAN) !== 18) {
+        echo sendErrorMessage('IBAN must be exactly 18 charecters', __LINE__);
+    }
+    if (!preg_match("/DK\d{16}$/", $sIBAN)) {
+        echo sendErrorMessage('IBAN must be valid', __LINE__);
     }
 }
