@@ -14,7 +14,6 @@ $sMeasurementType = htmlspecialchars($_POST['measurementType'], ENT_QUOTES);
 
 validatePost();
 validateLoggedIn();
-validateField($sField);
 
 // Sends error message if empty, with the exception of eShakenStirred and eCubedCrushed.
 if(empty($sValue) && ($sField !== 'eShakenStirred') && $sValue !== 'eCubedCrushed'){
@@ -26,25 +25,25 @@ $aAllowedFields = array('eShakenStirred', 'eCubedCrushed', 'cName', 'cCocktailRe
 validateNotInArray($sField, $aAllowedFields);
 
 // Check if eNum value is valid.
-if ($sField == 'eShakenStirred'){
+if ($sField === 'eShakenStirred'){
 
     $aAllowedShakenStirred = array('Shaken', 'Stirred', '');
     validateNotInArray($sValue, $aAllowedShakenStirred);
 
     }
 
-    if ($sField == 'eCubedCrushed'){
+    if ($sField === 'eCubedCrushed'){
     
         $aAllowedCubedCrushed = array("Cubed", "Crushed", "");
         validateNotInArray($sValue, $aAllowedCubedCrushed);
         
         }
 
-if ($sField == 'cName') {
+if ($sField === 'cName') {
     validateName($sValue);
 }
 
-if ($sField == 'cCocktailRecipe') {
+if ($sField === 'cCocktailRecipe') {
     validateRecipe($sValue);
 }
 

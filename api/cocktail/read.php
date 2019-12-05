@@ -8,7 +8,7 @@ if ($con) {
     $statement = $con->prepare("SELECT * FROM tcocktail");
     $statement->execute();
     $results = $statement->fetchAll();
-    echo json_encode($results);
     $stmt = null;
     $db->disconnect($con);
+    echo json_encode($results);
 }

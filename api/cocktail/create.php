@@ -10,7 +10,7 @@ session_start();
 
 $sShakenStirred =  htmlspecialchars($_POST['shakenStirred']);
 $sCubedCrushed = htmlspecialchars($_POST['cubedCrushed']);
-$sCocktailName = htmlspecialchars($_POST['cocktailName'], ENT_QUOTES); //  ENT_QUOTES allows use of single quotes
+$sCocktailName = htmlspecialchars($_POST['cocktailName'], ENT_QUOTES); //  ENT_QUOTES allows sanitization of single quotes
 $sCocktailRecipe = htmlspecialchars($_POST['recipe'], ENT_QUOTES);
 $aMeasurements = $_POST['measurement'];
 $aMeasurementTypes = $_POST['measurementType'];
