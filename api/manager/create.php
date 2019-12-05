@@ -70,5 +70,5 @@ if ($con) {
     $statement = null;
     $db->disconnect($con);
 
-    sendSuccessMessage( 'Manager and bar have been created' , __LINE__ );
+    sendSuccessMessage( 'Manager, bar and credit card have been created' , __LINE__ );
 }
