@@ -20,8 +20,6 @@ if(empty($_SESSION['managerID'])) {
     sendErrorMessage('Not authenticated' , __LINE__);
 }
 
-// select statement for checking existing card id's
-
 $db = new DB();
 $con = $db->connect();
 
@@ -34,8 +32,9 @@ $cardID_results = $cardID_statement->fetch(); // fetchAll for full list
 $pCreditcardID = $cardID_results['nCreditCardID'];*/
 
 $pCreditcardID = (int)$_POST['cardID'];
-
 $pAmount = 100; // static subscription payment
+
+// select statement for checking existing card id's
 
 // https://www.php.net/manual/en/pdostatement.bindparam.php
 // https://www.ibm.com/support/knowledgecenter/SSEPGG_11.5.0/com.ibm.swg.im.dbclient.php.doc/doc/t0023502.html
