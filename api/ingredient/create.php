@@ -21,11 +21,11 @@ if(strlen($_POST['name']) < 2 || strlen($_POST['name']) > 50){
 
 $db = new DB();
 $con = $db->connect();
-
 if ($con) {
-    $cQuery = "INSERT INTO `tingredient`(`cName`) VALUES ('$sName')";    
-    $stmt = $con->query($cQuery);
+    $statement = $con->prepare(
+        "INSERT INTO `tingredient`(`cName`) VALUES (?)");    
+    $statement->execute([$sName]);
     $stmt = null;
     $db->disconnect($con);
-    sendSuccessMessage('Created Ingredient' , __LINE__);
+    sendSuccessMessage('Created ingredient' , __LINE__);
 }

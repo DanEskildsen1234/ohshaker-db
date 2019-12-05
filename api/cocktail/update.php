@@ -7,6 +7,8 @@ require_once(__DIR__.'../../functions.php');
 $iCocktailID = $_POST['cocktailID'];
 $sField = htmlspecialchars($_POST['field'], ENT_QUOTES);
 $sValue = htmlspecialchars($_POST['value'], ENT_QUOTES);
+$sMeasurement = htmlspecialchars($_POST['measurement'], ENT_QUOTES);
+$sMeasurementType = htmlspecialchars($_POST['measurementType'], ENT_QUOTES);
 
 if( $_SERVER['REQUEST_METHOD'] !== 'POST' ) {
     sendErrorMessage( 'Method not allowed' , __LINE__ );
@@ -21,12 +23,13 @@ if(empty($sField)){
 }
 
 
+
 // Sends error message if empty, with the exception of eShakenStirred and eCubedCrushed.
 if(empty($sValue) && ($sField !== 'eShakenStirred') && $sValue !== 'eCubedCrushed'){
     sendErrorMessage( 'Value is required' , __LINE__ ); 
 }
 
-$aAllowedFields = array('eShakenStirred', 'eCubedCrushed', 'cName', 'cCocktailRecipe', 'nMeasurement');
+$aAllowedFields = array('eShakenStirred', 'eCubedCrushed', 'cName', 'cCocktailRecipe', 'add-ingredient', 'remove-ingredient');
 
 
 if (!in_array($sField, $aAllowedFields)) {
@@ -64,12 +67,33 @@ if ($sField == 'cCocktailRecipe') {
     }
 }
 
+if ($sField === 'add-ingredient' || $sField === 'remove-ingredient') {
+    $sValue = (int)$sValue;
+}
+
+
 $db = new DB();
 $con = $db->connect();
 if ($con) {
-    $results = array();
-    $statement = $con->prepare(
-        "UPDATE `tcocktail` INNER JOIN tcocktailingredient ON tcocktailingredient.nCocktailID = tcocktail.nCocktailID INNER JOIN tingredient ON tcocktailingredient.nIngredientID = tingredient.nIngredientID SET `$sField` = '$sValue' WHERE `tcocktail`.`nCocktailID` = $iCocktailID");
+
+    if ($sField === 'add-ingredient') {
+        $statement = $con->prepare(
+        "INSERT `tcocktailingredient`(`nCocktailID`, `nIngredientID`, `nMeasurement`, `eMeasurementType`)
+        VALUES ('$iCocktailID', '$sValue', '$sMeasurement', '$sMeasurementType');
+        ");
+    }
+
+    elseif ($sField === 'remove-ingredient')  {
+        $statement = $con->prepare(
+        "DELETE FROM `tcocktailingredient` WHERE `nIngredientID` = '$sValue'
+        ");
+    }
+
+    else {
+        $statement = $con->prepare(
+        "UPDATE `tcocktail` SET `$sField` = '$sValue' WHERE `tcocktail`.`nCocktailID` = $iCocktailID;");
+    }
+
     $statement->execute();
     $stmt = null;
     $db->disconnect($con);

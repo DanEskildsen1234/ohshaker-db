@@ -38,30 +38,33 @@ if ($con) {
     $statement = $con->prepare(
         "
         INSERT INTO `tcocktail`(`eShakenStirred`, `eCubedCrushed`, `cName`, `cCocktailRecipe`)
-        VALUES ('$sShakenStirred', '$sCubedCrushed', '$sCocktailName', '$sCocktailRecipe')");
-    $statement->execute();
+        VALUES ('?', '?', '?', '?')");
+    $statement->execute([$sShakenStirred, $sCubedCrushed, $sCocktailName, $sCocktailRecipe]);
     $statement = null;
+
+    // Last id cocktail is the php equivalent of LAST_INSERT_ID, I store it as a variable as if i used
+    // LAST_INSERT_ID it would call on every iteration of the loop.
 
     $last_id_cocktail = $con->lastInsertId();
     for ($i = 0; $i < count($aIngredients); $i++) {
 
-        $sIngredient = htmlspecialchars($aIngredients[$i], ENT_QUOTES);
+        $sIngredient = htmlspecialchars($aIngredients[$i], ENT_QUOTES);  
         $sMeasurement = htmlspecialchars($aMeasurements[$i], ENT_QUOTES);
         $sMeasurementType = htmlspecialchars($aMeasurementTypes[$i], ENT_QUOTES);
 
     $statement = $con->prepare(
         "
-        INSERT INTO `tingredient`(`cName`) VALUES ('$sIngredient');
+        INSERT INTO `tingredient`(`cName`) VALUES ('?');
         ");
-    $statement->execute();
+    $statement->execute([$sIngredient]);
     $statement = null;
 
     $statement = $con->prepare(
         "
         INSERT INTO `tcocktailingredient`(`nCocktailID`, `nIngredientID`, `nMeasurement`, `eMeasurementType`)
-        VALUES ('$last_id_cocktail', LAST_INSERT_ID(), '$sMeasurement', '$sMeasurementType');
+        VALUES ('?', LAST_INSERT_ID(), '?', '?');
         ");
-    $statement->execute();
+    $statement->execute([$last_id_cocktail, $sMeasurement, $sMeasurementType]);
     $statement = null;
     }
 
