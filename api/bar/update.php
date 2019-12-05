@@ -30,12 +30,12 @@ if ($con) {
     $results = array();
     $statement = $con->prepare(
         "
-                   UPDATE tbar
-                    INNER JOIN tmanager
-                        ON tmanager.nBarID = tbar.nBarID 
-                    SET `cName` = ?
-                    WHERE tmanager.nManagerID = ? AND tbar.nBarID = ?;
-                 ");
+           UPDATE tbar
+           INNER JOIN tmanager
+             ON tmanager.nBarID = tbar.nBarID 
+           SET `cName` = ?
+           WHERE tmanager.nManagerID = ? AND tbar.nBarID = ?;
+         ");
     $statement->execute([$sBarName, $iManagerID, $iBarID]);
     $stmt = null;
     $db->disconnect($con);
