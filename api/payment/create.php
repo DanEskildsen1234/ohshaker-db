@@ -33,8 +33,16 @@ $pCreditcardID = $cardID_results['nCreditCardID'];*/
 
 $pCreditcardID = (int)$_POST['cardID'];
 $pAmount = 100; // static subscription payment
+$iManagerID = $_SESSION['managerID'];
 
 // select statement for checking existing card id's
+$statement = $con->prepare("SELECT nCreditCardID FROM tcreditcard WHERE nCreditCardID = ? AND nManagerID = ?");
+$statement->execute([$pCreditcardID, $iManagerID]);
+$results = $statement->fetch();
+if(empty($results)){
+    sendErrorMessage('Please enter an existing credit card ID' , __LINE__);
+} 
+$statement = null;
 
 // https://www.php.net/manual/en/pdostatement.bindparam.php
 // https://www.ibm.com/support/knowledgecenter/SSEPGG_11.5.0/com.ibm.swg.im.dbclient.php.doc/doc/t0023502.html
