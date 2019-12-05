@@ -8,10 +8,10 @@ if ( $_SERVER['REQUEST_METHOD'] !== 'POST' ) {
 
 session_start();
 
-if( empty($_SESSION['managerID']) ) {
+if( empty($_SESSION['bartenderID']) ) {
     sendErrorMessage( 'Not authenticated' , __LINE__ );
 }
 
 session_destroy();
-sendSuccessMessage( 'User successfully logged out' , __LINE__ );
+sendSuccessMessage( 'Bartender successfully logged out' , __LINE__ );
 header('Location: /');
