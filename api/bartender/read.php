@@ -32,8 +32,8 @@ if ($con) {
     $statement->execute([$iBarID]);
 
     $results = $statement->fetchAll();
-    print_r(json_encode($results));
 
     $statement = null;
     $db->disconnect($con);
+    echo(json_encode($results));
 }
