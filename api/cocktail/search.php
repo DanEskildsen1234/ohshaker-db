@@ -22,7 +22,7 @@ if ($con) {
                                ");
     $statement->execute(['%'.$query.'%','%'.$query.'%','%'.$query.'%']);
     $results = $statement->fetchAll();
-    echo(json_encode($results));
     $stmt = null;
     $db->disconnect($con);
+    echo(json_encode($results));
 }
