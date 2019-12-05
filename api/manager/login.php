@@ -25,6 +25,8 @@ foreach( $aExpectedFields as $field ) {
 $sUsername = $_POST['username'];
 $sPassword = $_POST['password'];
 
+validateUsername($sUsername);
+
 $db = new DB();
 $con = $db->connect();
 if ($con) {
