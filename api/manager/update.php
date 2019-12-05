@@ -50,9 +50,11 @@ if ($sField === "cAddress") {
 }
 if ($sField === "cZip") {
     validateUsername($sValue);
+    $sValue = filter_var($sValue, FILTER_SANITIZE_NUMBER_INT);
 }
 if ($sField === "cPhoneNumber") {
     validateUsername($sValue);
+    $sValue = filter_var($sValue, FILTER_SANITIZE_NUMBER_INT);
 }
 if ($sField  === "cPassword") {
     validatePassword($sValue);
@@ -67,10 +69,10 @@ if ($con) {
     $results = array();
 
     $statement = $con->prepare(
-        "UPDATE `tmanager` SET `$sField`='$queryValue' WHERE `nManagerID`='$iManagerID'");
-    $statement->execute();
+                    "UPDATE `tmanager` SET $sField= ? WHERE `nManagerID`= ? ");
+    $statement->execute([$queryValue, $iManagerID]);
 
-    $stmt = null;
+    $statement = null;
     $db->disconnect($con);
 
     sendSuccessMessage( 'User has been updated' , __LINE__ );
