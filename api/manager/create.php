@@ -18,9 +18,9 @@ foreach ($aExpectedFields as $field) {
     }
 }
 
-$sBarName = htmlspecialchars(($_POST['barName']));
+$sBarName = htmlspecialchars(($_POST['barName']), ENT_QUOTES);
 $sFirstName = htmlspecialchars($_POST['firstName']);
-$sSurname = htmlspecialchars($_POST['surname'], ENT_QUOTES);
+$sSurname = htmlspecialchars($_POST['surname']);
 $sEmail = htmlspecialchars($_POST['email']);
 $sUsername = htmlspecialchars($_POST['username']);
 $sPassword = $_POST['password'];
