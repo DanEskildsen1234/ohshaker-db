@@ -11,10 +11,10 @@ session_start();
 if( empty($_SESSION['managerID']) ) {
     sendErrorMessage( 'Not authenticated' , __LINE__ );
 }
-/*
+
 if( empty($_SESSION['barID']) ) {
     sendErrorMessage( 'Corrupt session: barID is not defined' , __LINE__ );
-}*/
+}
 
 $iBarID = (int)($_SESSION['barID']);
 
