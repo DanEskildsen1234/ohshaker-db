@@ -1,10 +1,6 @@
 <?php
-
-require_once(__DIR__.'../../readonly-connection.php');
-
-if ($_SERVER['REQUEST_METHOD'] !== 'POST') {
-    sendErrorMessage( 'Method not allowed' , __LINE__ );
-}
+require_once(__DIR__.'../../admin-connection.php');
+require_once(__DIR__.'../../functions.php');
 
 session_start();
 
@@ -17,13 +13,7 @@ $iManagerID = (int)$_SESSION['managerID'];
 $db = new DB();
 $con = $db->connect();
 if ($con) {
-    $results = array();
-
-    $statement = $con->prepare("
-                                          SELECT * FROM tmanager
-                                          WHERE `nManagerID`= $iManagerID;
-                                        ");
-    $statement->execute();
+    $statement = $con->query("SELECT * FROM tmanager WHERE `nManagerID`= $iManagerID LIMIT 1");
 
     $results = $statement->fetch();
 
