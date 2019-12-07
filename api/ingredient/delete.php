@@ -5,11 +5,10 @@ require_once(__DIR__.'../../validation.php');
 
 validatePost();
 
-session_start();
-
-validateLoggedIn();
-
 $iIngredientID = (int)htmlspecialchars($_POST['ingredientID']);
+
+session_start();
+validateLoggedIn();
 
 $db = new DB();
 $con = $db->connect();

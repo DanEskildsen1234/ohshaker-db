@@ -6,8 +6,6 @@ require_once(__DIR__.'../../validation.php');
 
 validatePost();
 
-session_start();
-
 $sShakenStirred =  htmlspecialchars($_POST['shakenStirred']);
 $sCubedCrushed = htmlspecialchars($_POST['cubedCrushed']);
 $sCocktailName = htmlspecialchars($_POST['cocktailName'], ENT_QUOTES); //  ENT_QUOTES allows sanitization  use of single quotes
@@ -21,6 +19,7 @@ $aAllowedShakenStirred = array('Shaken', 'Stirred', '');
 $aAllowedCubedCrushed = array('Cubed', 'Crushed', '');
 $aAllowedMeasurementTypes = array('ml','cl','dl','l','gram','slice','wedge','part','dash','tbsp','tsp','');
 
+session_start();
 validateLoggedIn();
 validateNotInArray($sShakenStirred, $aAllowedShakenStirred);
 validateNotInArray($sCubedCrushed, $aAllowedCubedCrushed);

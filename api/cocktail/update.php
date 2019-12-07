@@ -1,10 +1,10 @@
 <?php
-session_start();
 
 require_once(__DIR__ . '../../admin-connection.php');
 require_once(__DIR__.'../../functions.php');
 require_once(__DIR__.'../../validation.php');
 
+validatePost();
 
 $iCocktailID = $_POST['cocktailID'];
 $sField = htmlspecialchars($_POST['field'], ENT_QUOTES);
@@ -12,8 +12,6 @@ $sValue = htmlspecialchars($_POST['value'], ENT_QUOTES);
 $sMeasurement = htmlspecialchars($_POST['measurement'], ENT_QUOTES);
 $sMeasurementType = htmlspecialchars($_POST['measurementType'], ENT_QUOTES);
 
-validatePost();
-validateLoggedIn();
 
 // Sends error message if empty, with the exception of eShakenStirred and eCubedCrushed.
 if(empty($sValue) && ($sField !== 'eShakenStirred') && $sValue !== 'eCubedCrushed'){
@@ -21,26 +19,21 @@ if(empty($sValue) && ($sField !== 'eShakenStirred') && $sValue !== 'eCubedCrushe
 }
 
 $aAllowedFields = array('eShakenStirred', 'eCubedCrushed', 'cName', 'cCocktailRecipe', 'add-ingredient', 'remove-ingredient');
-
 validateNotInArray($sField, $aAllowedFields);
 
 // Check if eNum value is valid.
-if ($sField === 'eShakenStirred'){
-
+if ($sField === 'eShakenStirred'){ 
     $aAllowedShakenStirred = array('Shaken', 'Stirred', '');
     validateNotInArray($sValue, $aAllowedShakenStirred);
+}
 
-    }
-
-    if ($sField === 'eCubedCrushed'){
-    
-        $aAllowedCubedCrushed = array("Cubed", "Crushed", "");
-        validateNotInArray($sValue, $aAllowedCubedCrushed);
-        
-        }
+if ($sField === 'eCubedCrushed'){
+    $aAllowedCubedCrushed = array("Cubed", "Crushed", "");
+    validateNotInArray($sValue, $aAllowedCubedCrushed);
+}
 
 if ($sField === 'cName') {
-    validateName($sValue);
+    validateAssetName($sValue);
 }
 
 if ($sField === 'cCocktailRecipe') {
@@ -55,17 +48,20 @@ $aAllowedMeasurementTypes = array('ml','cl','dl','l','gram','slice','wedge','par
 validateNotInArray($sMeasurementType, $aAllowedMeasurementTypes);
 validateMeasurement($sMeasurement);
 
+session_start();
+validateLoggedIn();
+
 $db = new DB();
 $con = $db->connect();
 if ($con) {
-
+    
     if ($sField === 'add-ingredient') {
         $statement = $con->prepare(
             "INSERT `tcocktailingredient`(`nCocktailID`, `nIngredientID`, `nMeasurement`, `eMeasurementType`)
             VALUES (?,?,?,?);");
         $statement->execute([$iCocktailID, $sValue, $sMeasurement, $sMeasurementType]);
     }
-
+    
     elseif ($sField === 'remove-ingredient')  {
         $statement = $con->prepare(
             "DELETE FROM `tcocktailingredient` WHERE `nIngredientID` = ?");
