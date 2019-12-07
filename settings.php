@@ -11,14 +11,12 @@
     <link rel="stylesheet" href="assets/css/style.css">
 </head>
 <body>
-    <section>
-        <span data-error class="error-box"></span>
-        <h1>Login</h1>
-        <input placeholder="Username or email" id="username" type="text">
-        <input placeholder="Password" id="password" type="password">
-        <div><a href="forgot-password">Forgot password</a></div>
-        <button data-login>Log in</button>
-    </section>
+<section>
+    <span data-error class="error-box"></span>
+
+</section>
+
+<button data-logout>Logout</button>
 
 </body>
 </html>
