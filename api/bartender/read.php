@@ -26,7 +26,7 @@ if ($con) {
     $statement = $con->prepare(
         "SELECT * FROM tbartender bt
                     INNER JOIN tbarbartender bbt
-                        ON bbt.nBartenderID = bt.nBartenderID 
+                        ON bbt.nBartenderID = bt.nBartenderID
                     WHERE bbt.nBarID = ?;
                  ");
     $statement->execute([$iBarID]);

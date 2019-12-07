@@ -13,12 +13,10 @@ $iManagerID = (int)htmlspecialchars($_SESSION['managerID']);
 $db = new DB();
 $con = $db->connect();
 if ($con) {
-    $results = array();
-    $statement = $con->prepare("SELECT tpayment.nPaymentID, tpayment.nCreditCardID, tpayment.nAmount, tpayment.dPayment FROM tpayment INNER JOIN tcreditcard ON tcreditcard.nCreditCardID = tpayment.nCreditCardID INNER JOIN tmanager ON tmanager.nManagerID = tcreditcard.nManagerID WHERE tmanager.nManagerID = $iManagerID");
-    $statement->execute();
+    $statement = $con->query("SELECT tpayment.nPaymentID, tpayment.nCreditCardID, tpayment.nAmount, tpayment.dPayment FROM tpayment INNER JOIN tcreditcard ON tcreditcard.nCreditCardID = tpayment.nCreditCardID INNER JOIN tmanager ON tmanager.nManagerID = tcreditcard.nManagerID WHERE tmanager.nManagerID = $iManagerID");
     $results = $statement->fetchAll();
-    echo json_encode($results);
     $statement = null;
-
+    
     $db->disconnect($con);
+    echo json_encode($results);
 }

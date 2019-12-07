@@ -7,8 +7,7 @@ if( $_SERVER['REQUEST_METHOD'] !== 'POST' ) {
     sendErrorMessage( 'Method not allowed' , __LINE__ );
 }
 
-$aExpectedFields =
-    array("pin, username");
+$aExpectedFields = array("pin", "bartenderID");
 
 foreach( $aExpectedFields as $field ) {
     if( empty($_POST["$field"]) ) {
@@ -19,29 +18,24 @@ foreach( $aExpectedFields as $field ) {
 session_start();
 
 if( !empty($_SESSION['bartenderID']) ) {
-    sendSuccessMessage( 'User already logged in' , __LINE__ );
+    sendSuccessMessage( 'Bartender already logged in' , __LINE__ );
 }
 
-$sUsername = $_POST['username'];
-$sPin = filter_var($_POST['pin'], FILTER_SANITIZE_NUMBER_INT);
-
-validateUsername($sUsername);
+$iBartenderID = filter_var($_POST['bartenderID'], FILTER_SANITIZE_NUMBER_INT);
+$iPin = filter_var($_POST['pin'], FILTER_SANITIZE_NUMBER_INT);
 
 $db = new DB();
 $con = $db->connect();
 if ($con) {
-    $statement = $con->prepare("SELECT * FROM tbartender WHERE `cUsername` = ? LIMIT 1");
-    $statement->execute([$sUsername]);
+    $statement = $con->prepare("SELECT * FROM tbartender WHERE `cPin` = ?
+                                          AND `nBartenderID` = ? LIMIT 1");
+    $statement->execute([$iPin, $iBartenderID]);
 
     $results = $statement->fetch();
-    $sPinCheck = $results['cPin'];
+    $iPinCheck = $results['cPin'];
 
-    if( $sPin === $sPinCheck) {
-        sendErrorMessage( 'Incorrect credentials' , __LINE__ );
-    }
-
-    if( $results['dCancelled'] !== NULL ) {
-        sendErrorMessage( 'Incorrect credentials' , __LINE__ );
+    if( $iPin !== $iPinCheck) {
+        sendErrorMessage( 'Incorrect credentials', __LINE__ );
     }
 
     $_SESSION['bartenderID'] =  $results['nBartenderID'];
