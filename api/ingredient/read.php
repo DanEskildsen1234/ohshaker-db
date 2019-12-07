@@ -1,6 +1,6 @@
 <?php
 
-require_once(__DIR__.'../../readonly-connection.php');
+require_once(__DIR__.'../../restricted-connection.php');
 
 $db = new DB();
 $con = $db->connect();
