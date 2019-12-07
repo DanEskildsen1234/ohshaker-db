@@ -2,6 +2,13 @@
 require_once(__DIR__.'../../readonly-connection.php');
 require_once(__DIR__.'../../functions.php');
 
+if( $_SERVER['REQUEST_METHOD'] !== 'POST' ) {
+    sendErrorMessage( 'Method not allowed' , __LINE__ );
+}
+
+// TODO
+// if bartender..
+
 session_start();
 
 if( empty($_SESSION['managerID']) ) {
