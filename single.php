@@ -5,14 +5,15 @@
     <meta name="viewport"
           content="width=device-width, user-scalable=no, initial-scale=1.0, maximum-scale=1.0, minimum-scale=1.0">
     <meta http-equiv="X-UA-Compatible" content="ie=edge">
-    <title>cocktail</title>
+    <title>single</title>
     
 </head>
 <body>
-<span id="cocktailPage"></span>
+<span id="singlePage"></span>
 <div id="cocktail"></div>
 
 <script src="assets/js/functions.js"></script>
 <script src="assets/js/cocktail.js"></script>
+
 </body>
 </html>
