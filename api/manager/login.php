@@ -14,6 +14,10 @@ if( !empty($_SESSION['managerID']) ) {
     sendSuccessMessage( 'User already logged in' , __LINE__ );
 }
 
+if( !empty($_SESSION['bartenderID']) ) {
+    sendErrorMessage( 'Already logged in as bartender' , __LINE__ );
+}
+
 $aExpectedFields = array("username", "password");
 
 foreach( $aExpectedFields as $field ) {
