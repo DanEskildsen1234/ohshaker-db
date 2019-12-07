@@ -21,6 +21,10 @@ if( !empty($_SESSION['bartenderID']) ) {
     sendSuccessMessage( 'Bartender already logged in' , __LINE__ );
 }
 
+if( !empty($_SESSION['managerID']) ) {
+    sendErrorMessage( 'Already logged in as manager' , __LINE__ );
+}
+
 $iBartenderID = filter_var($_POST['bartenderID'], FILTER_SANITIZE_NUMBER_INT);
 $iPin = filter_var($_POST['pin'], FILTER_SANITIZE_NUMBER_INT);
 
