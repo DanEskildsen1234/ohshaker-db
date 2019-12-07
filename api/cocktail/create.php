@@ -23,7 +23,7 @@ session_start();
 validateLoggedIn();
 validateNotInArray($sShakenStirred, $aAllowedShakenStirred);
 validateNotInArray($sCubedCrushed, $aAllowedCubedCrushed);
-validateName($sCocktailName);
+validateAssetName($sCocktailName);
 validateRecipe($sCocktailRecipe);
 
 
@@ -52,7 +52,7 @@ if ($con) {
 
         validateNotInArray($sMeasurementType, $aAllowedMeasurementTypes);
         validateMeasurement($sMeasurement);
-        validateName($sIngredient);
+        validateAssetName($sIngredient);
 
         $statement = $con->prepare(
             "
