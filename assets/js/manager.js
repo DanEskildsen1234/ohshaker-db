@@ -31,13 +31,17 @@ function setEventListeners() {
     const loginButton = document.querySelector("[data-login]");
     const logoutButton = document.querySelector("[data-logout]");
 
-    loginButton.addEventListener("click", () => {
-        postLogin();
-    }, false);
+    if (loginButton) {
+        loginButton.addEventListener("click", () => {
+            postLogin();
+        }, false);
+    }
 
-    logoutButton.addEventListener("click", () => {
-        postLogout();
-    }, false);
+    if (logoutButton) {
+        logoutButton.addEventListener("click", () => {
+            postLogout();
+        }, false);
+    }
 }
 
 window.addEventListener('DOMContentLoaded', (event) => {
