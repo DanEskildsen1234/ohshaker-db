@@ -36,7 +36,14 @@ async function postManagerRead () {
     const response = JSON.parse(await fetchData(url, data, method));
     console.log(response);
 
-    document.getElementById('');
+    document.getElementById('surname').value = response.cSurname;
+    document.getElementById('firstName').value = response.cFirstname;
+    document.getElementById('username').value = response.cUsername;
+    document.getElementById('email').value = response.cEmail;
+    document.getElementById('phone').value = response.cPhoneNumber;
+    document.getElementById('address').value = response.cAddress;
+    document.getElementById('zip').value = response.cZip;
+    document.getElementById('joined').innerText = response.dJoined;
 }
 
 function setEventListeners() {

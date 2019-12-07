@@ -26,9 +26,16 @@
 
 <section>
     <span data-error class="error-box"></span>
-    <input placeholder="First name" id="username" type="text">
-    <input placeholder="Last name" id="username" type="text">
-    <input placeholder="Username or email" id="username" type="text">
+    <input placeholder="First name" id="firstName" type="text">
+    <input placeholder="Surname" id="surname" type="text">
+    <input placeholder="Username" id="username" type="text">
+    <input placeholder="Email" id="email" type="email">
+    <input placeholder="Phone number" id="phone" type="tel">
+    <input placeholder="Address" id="address" type="text">
+    <input placeholder="Zip" id="zip" type="text">
+    <input placeholder="New password" id="password" type="password">
+
+    <p>Date joined: <span id="joined"></span></p>
 
 </section>
 

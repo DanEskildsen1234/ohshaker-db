@@ -21,7 +21,8 @@ if ($con) {
     $results = array();
 
     $statement = $con->prepare("
-                                          SELECT * FROM tmanager
+                                          SELECT `cAddress`, `cEmail`, `cFirstname`, `cPhoneNumber`, `cSurname`,
+                                           `cUsername`, `cZip`, `dJoined`, `nTotalAmount`  FROM tmanager
                                           WHERE `nManagerID`= $iManagerID;
                                         ");
     $statement->execute();
