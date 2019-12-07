@@ -14,8 +14,7 @@ if( !empty($_SESSION['managerID']) ) {
     sendSuccessMessage( 'User already logged in' , __LINE__ );
 }
 
-$aExpectedFields =
-    array("username", "password");
+$aExpectedFields = array("username", "password");
 
 foreach( $aExpectedFields as $field ) {
     if( empty($_POST["$field"]) ) {
