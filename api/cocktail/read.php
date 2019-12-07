@@ -14,14 +14,14 @@ $con = $db->connect();
 if ($con) {
 
     if (!empty($sCocktailID)) {
-        $results = array();
+        
         $statement = $con->prepare("SELECT * FROM tcocktail WHERE nCocktailID = ?");
         $statement->execute([$sCocktailID]);
         $results = $statement->fetchAll();
     }
     
     else {
-        $results = array();
+        
         $statement = $con->prepare("SELECT * FROM tcocktail");
         $statement->execute();
         $results = $statement->fetchAll();

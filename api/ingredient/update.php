@@ -17,7 +17,7 @@ validateLoggedIn();
 $db = new DB();
 $con = $db->connect();
 if ($con) {
-    $results = array();
+    
     $statement = $con->prepare(
         "UPDATE `tingredient` SET `cName` = ? WHERE `tingredient`.`nIngredientID` = ?");
     $statement->execute([$sName, $iIngredientID]);
