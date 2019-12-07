@@ -56,20 +56,25 @@ if (singlePage){
         cocktailCubedCrushedDiv.innerHTML += response[0].eCubedCrushed;
         cocktailCubedCrushedDiv.setAttribute('class', 'cocktailShakenStirred');
 
+
         for( let ingredientDetails in response ){
 
-        // Generate ingredient name
-        var ingredientNameDiv = document.createElement("div");
-        document.getElementById("cocktail").appendChild(ingredientNameDiv);
-        ingredientNameDiv.innerHTML += response[ingredientDetails].cIngredientName;
-        ingredientNameDiv.setAttribute('class', 'ingredientName');
+            if (typeof response[ingredientDetails].cIngredientName !== 'undefined') {
 
-        // Generate ingredient measurement+measurement type
-        var ingredientMeasurementDiv = document.createElement("div");
-        document.getElementById("cocktail").appendChild(ingredientMeasurementDiv);
-        ingredientMeasurementDiv.innerHTML += response[ingredientDetails].nMeasurement += response[ingredientDetails].eMeasurementType;
-        ingredientMeasurementDiv.setAttribute('class', 'ingredientMeasurement');
-            
+                // Generate ingredient name
+                var ingredientNameDiv = document.createElement("div");
+                document.getElementById("cocktail").appendChild(ingredientNameDiv);
+                ingredientNameDiv.innerHTML += response[ingredientDetails].cIngredientName;
+                ingredientNameDiv.setAttribute('class', 'ingredientName');
+
+                
+                // Generate ingredient measurement+measurement type
+                var ingredientMeasurementDiv = document.createElement("div");
+                document.getElementById("cocktail").appendChild(ingredientMeasurementDiv);
+                ingredientMeasurementDiv.innerHTML += response[ingredientDetails].nMeasurement += response[ingredientDetails].eMeasurementType;
+                ingredientMeasurementDiv.setAttribute('class', 'ingredientMeasurement');
+                
+            }
         }
     }
 
