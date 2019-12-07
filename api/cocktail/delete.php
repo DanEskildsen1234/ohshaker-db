@@ -1,7 +1,7 @@
 <?php
 require_once(__DIR__.'../../admin-connection.php');
 require_once(__DIR__.'../../functions.php');
-require_once(__DIR__.'/validation.php');
+require_once(__DIR__.'../../validation.php');
 
 validatePost();
 
