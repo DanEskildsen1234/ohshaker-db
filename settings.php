@@ -7,7 +7,7 @@
     <meta http-equiv="X-UA-Compatible" content="ie=edge">
     <title>Login</title>
     <script src="assets/js/functions.js"></script>
-    <script src="assets/js/manager.js"></script>
+    <script src="assets/js/settings.js"></script>
     <link rel="stylesheet" href="assets/css/style.css">
 </head>
 <body>
