@@ -24,19 +24,19 @@
     }
 ?>
 
-<section>
+<section id="update-manager">
     <span data-error class="error-box"></span>
-    <input placeholder="First name" id="firstName" type="text">
-    <input placeholder="Surname" id="surname" type="text">
-    <input placeholder="Username" id="username" type="text">
-    <input placeholder="Email" id="email" type="email">
-    <input placeholder="Phone number" id="phone" type="tel">
-    <input placeholder="Address" id="address" type="text">
-    <input placeholder="Zip" id="zip" type="text">
-    <input placeholder="New password" id="password" type="password">
+    <input placeholder="First name" id="cFirstname" type="text">
+    <input placeholder="Surname" id="cSurname" type="text">
+    <input placeholder="Username" id="cUsername" type="text">
+    <input placeholder="Email" id="cEmail" type="email">
+    <input placeholder="Phone number" id="cPhoneNumber" type="tel">
+    <input placeholder="Address" id="cAddress" type="text">
+    <input placeholder="Zip" id="cZip" type="text">
+    <input placeholder="New password" id="cPassword" type="password">
+    <input id="nTotalAmount" type="hidden">
 
-    <p>Date joined: <span id="joined"></span></p>
-
+    <p>Date joined: <span id="dJoined"></span></p>
 </section>
 
 <button data-logout>Logout</button>

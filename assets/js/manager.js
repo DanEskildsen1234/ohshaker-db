@@ -1,21 +1,12 @@
 async function postLogout() {
     const url = 'api/manager/logout.php';
-    const method = "POST";
+    const method = 'POST';
     const data = {};
 
     const response = JSON.parse(await fetchData(url, data, method));
     console.log(response);
     window.location.href = 'cocktails.php';
 }
-
-let surnameField = document.getElementById('surname').value;
-let firstNameField = document.getElementById('firstName').value;
-let usernameField = document.getElementById('username').value;
-let emailField = document.getElementById('email').value;
-let phoneField = document.getElementById('phone').value;
-let addressField = document.getElementById('address').value;
-let zipField = document.getElementById('zip').value;
-let joinedField = document.getElementById('joined').innerText;
 
 async function postManagerRead () {
     const url = 'api/manager/read.php';
@@ -25,18 +16,26 @@ async function postManagerRead () {
     const response = JSON.parse(await fetchData(url, data, method));
     console.log(response);
 
-    surnameField = response.cSurname;
-    firstNameField = response.cFirstname;
-    usernameField = response.cUsername;
-    emailField = response.cEmail;
-    phoneField = response.cPhoneNumber;
-    addressField = response.cAddress;
-    zipField = response.cZip;
-    joinedField = response.dJoined;
+    for (let field in response) {
+        document.getElementById(field).value = response[field];
+    }
 }
 
-async function postManagerUpdate() {
+async function checkForUpdates() {
+    document.querySelectorAll('#update-manager input').forEach( (field)=>{
+        field.addEventListener('change', (e) => {
+            postManagerUpdate(field.id, field.value);
+        });
+    });
+}
 
+async function postManagerUpdate(field, value) {
+    const url = 'api/manager/update.php';
+    const method = 'POST';
+    const data = {"field": field, "value": value};
+
+    const response = JSON.parse(await fetchData(url, data, method));
+    console.log(response);
 }
 
 window.addEventListener('DOMContentLoaded', (event) => {
@@ -45,10 +44,11 @@ window.addEventListener('DOMContentLoaded', (event) => {
     var managerID = document.querySelector('[data-manager-id]');
     if (managerID) {
         postManagerRead();
+        checkForUpdates();
     }
 
     if (logoutButton) {
-        logoutButton.addEventListener("click", () => {
+        logoutButton.addEventListener('click', () => {
             postLogout();
         }, false);
     }
