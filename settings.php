@@ -11,8 +11,24 @@
     <link rel="stylesheet" href="assets/css/style.css">
 </head>
 <body>
+
+<?php
+    session_start();
+
+    if( !empty($_SESSION['managerID']) ) {
+        echo "<span data-manager-id=".$_SESSION['managerID'].">";
+    }
+
+    if( !empty($_SESSION['bartenderID']) ) {
+        echo "<span data-manager-id=".$_SESSION['bartenderID'].">";
+    }
+?>
+
 <section>
     <span data-error class="error-box"></span>
+    <input placeholder="First name" id="username" type="text">
+    <input placeholder="Last name" id="username" type="text">
+    <input placeholder="Username or email" id="username" type="text">
 
 </section>
 
