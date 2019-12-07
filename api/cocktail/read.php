@@ -14,10 +14,16 @@ $con = $db->connect();
 if ($con) {
 
     if (!empty($sCocktailID)) {
-        
-        $statement = $con->prepare("SELECT * FROM tcocktail WHERE nCocktailID = ?");
+        // also grabs information from tingredient because it is required for the individual cocktail description page. (single.php)
+        $statement = $con->prepare("SELECT tcocktail.nCocktailID, tcocktail.cName, tcocktail.eShakenStirred, tcocktail.eCubedCrushed, tcocktail.cCocktailRecipe, tcocktailingredient.nIngredientID, tcocktailingredient.nMeasurement, tcocktailingredient.eMeasurementType, tingredient.cName as cIngredientName FROM tcocktail INNER JOIN tcocktailingredient ON tcocktailingredient.nCocktailID = tcocktail.nCocktailID INNER JOIN tingredient ON tingredient.nIngredientID = tcocktailingredient.nIngredientID WHERE tcocktail.nCocktailID = ?");
         $statement->execute([$sCocktailID]);
         $results = $statement->fetchAll();
+        // If the cocktail has no ingredients it will return an empty array, therefore just select cocktail details.
+            if ($results == []){
+                $statement = $con->prepare("SELECT * FROM tcocktail WHERE nCocktailID = ?");
+                $statement->execute([$sCocktailID]);
+                $results = $statement->fetchAll();
+            }
     }
     
     else {
