@@ -14,7 +14,7 @@ async function postLogin() {
     }
 
     if (response.status === 1) {
-        window.location.href = 'cocktails.php';
+        document.querySelector('[data-success]').innerText = response.message;
     }
 }
 
