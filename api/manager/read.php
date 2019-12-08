@@ -17,7 +17,10 @@ $iManagerID = (int)$_SESSION['managerID'];
 $db = new DB();
 $con = $db->connect();
 if ($con) {
-    $statement = $con->query("SELECT * FROM tmanager WHERE `nManagerID`= $iManagerID LIMIT 1");
+    $statement = $con->query("SELECT
+       `cAddress`, `cEmail`, `cFirstname`, `cPhoneNumber`, `cSurname`,
+       `cUsername`, `cZip`, `dJoined`, `nTotalAmount`
+       FROM tmanager WHERE `nManagerID`= $iManagerID LIMIT 1");
 
     $results = $statement->fetch();
 

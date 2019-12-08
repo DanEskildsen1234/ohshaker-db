@@ -1,0 +1,11 @@
+.error-box {
+  display: block;
+  background-color: red;
+  color: white;
+}
+
+.success-box {
+  display: block;
+  background-color: forestgreen;
+  color: white;
+}
