@@ -12,6 +12,24 @@
 <span id="singlePage"></span>
 <div id="cocktail"></div>
 
+<section id="update-ingredient" data-update-ingredient>
+    <template data-ingredient-template>
+        <div>
+            <div id="cName"></div>
+            <div id="cCocktailRecipe"></div>
+            <div id="eShakenStirred"></div>
+            <div id="eCubedCrushed"></div>
+            <span>
+                <div id="cIngredientName"></div>
+                <div id="nMeasurement"></div>
+                <div id="eMeasurementType"></div>
+            </span>
+        </div>
+    </template>
+</section>
+
+<a id="edit">edit</div>
+
 <script src="assets/js/functions.js"></script>
 <script src="assets/js/cocktail.js"></script>
 
