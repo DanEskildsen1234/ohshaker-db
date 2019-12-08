@@ -11,6 +11,8 @@
 <body>
 
 <?php
+    include_once('components/header.php');
+
     session_start();
 
     if( !empty($_SESSION['managerID']) ) {
