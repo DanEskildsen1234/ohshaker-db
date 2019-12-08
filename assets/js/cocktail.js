@@ -58,7 +58,7 @@ if (singlePage){
 
 
         for( let ingredientDetails in response ){
-
+            // if exists, log the recipes too
             if (typeof response[ingredientDetails].cIngredientName !== 'undefined') {
 
                 // Generate ingredient name
