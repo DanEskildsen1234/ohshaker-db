@@ -60,7 +60,7 @@ window.addEventListener('DOMContentLoaded', (event) => {
     const logoutButton = document.querySelector('[data-logout]');
     const deleteButton = document.querySelector('[data-delete]');
 
-    var managerID = document.querySelector('[data-manager-id]');
+    const managerID = document.querySelector('[data-manager-id]');
     if (managerID) {
         postManagerRead();
         checkForUpdates();
