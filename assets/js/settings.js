@@ -8,6 +8,16 @@ async function postLogout() {
     window.location.href = 'cocktails.php';
 }
 
+async function postDelete() {
+    const url = 'api/manager/delete.php';
+    const method = 'POST';
+    const data = {};
+
+    const response = JSON.parse(await fetchData(url, data, method));
+    console.log(response);
+    window.location.href = 'index.php';
+}
+
 async function postManagerRead () {
     const url = 'api/manager/read.php';
     const method = "POST";
@@ -48,11 +58,18 @@ async function postManagerUpdate(field, value) {
 
 window.addEventListener('DOMContentLoaded', (event) => {
     const logoutButton = document.querySelector('[data-logout]');
+    const deleteButton = document.querySelector('[data-delete]');
 
     var managerID = document.querySelector('[data-manager-id]');
     if (managerID) {
         postManagerRead();
         checkForUpdates();
+    }
+
+    if (deleteButton) {
+        deleteButton.addEventListener('click', () => {
+            postDelete();
+        }, false);
     }
 
     if (logoutButton) {

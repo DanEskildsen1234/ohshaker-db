@@ -6,8 +6,6 @@
           content="width=device-width, user-scalable=no, initial-scale=1.0, maximum-scale=1.0, minimum-scale=1.0">
     <meta http-equiv="X-UA-Compatible" content="ie=edge">
     <title>Login</title>
-    <script src="assets/js/functions.js"></script>
-    <script src="assets/js/login.js"></script>
     <link rel="stylesheet" href="assets/css/style.css">
 </head>
 <body>
@@ -20,5 +18,7 @@
         <button data-login>Log in</button>
     </section>
 
+<script src="assets/js/functions.js"></script>
+<script src="assets/js/login.js"></script>
 </body>
 </html>

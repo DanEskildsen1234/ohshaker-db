@@ -4,7 +4,7 @@ async function PostManagerSignUp() {
 
     const data = {};
 
-    document.querySelectorAll('[data-sign-up-form] input').forEach( (input) => {
+    document.querySelectorAll('[data-sign-up-form] input').forEach((input) => {
         let value = input.value;
         if (input.id === "expiration") {
             value = encodeExpiryDate(value);
@@ -14,8 +14,13 @@ async function PostManagerSignUp() {
 
     console.log(data);
 
-    const response = await fetchData(url, data, method);
-    console.log(response);
+    const response = JSON.parse(await fetchData(url, data, method));
+    if (response.status === 0) {
+        document.querySelector('[data-error]').innerText = response.message;
+    }
+    if (response.status === 1) {
+        window.location.href = "cocktails.php"
+    }
 }
 
 window.addEventListener('DOMContentLoaded', (event) => {

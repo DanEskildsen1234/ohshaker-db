@@ -6,12 +6,12 @@
           content="width=device-width, user-scalable=no, initial-scale=1.0, maximum-scale=1.0, minimum-scale=1.0">
     <meta http-equiv="X-UA-Compatible" content="ie=edge">
     <title>Sign up</title>
-    <script src="assets/js/functions.js"></script>
-    <script src="assets/js/signup.js"></script>
+    <link rel="stylesheet" href="assets/css/style.css">
 </head>
 <body>
 <section>
     <form data-sign-up-form>
+        <span data-error class="error-box"></span>
         <input placeholder="Bar name" id="barName" type="text">
         <input placeholder="First Name" id="firstName" type="text">
         <input placeholder="Surname" id="surname" type="text">
@@ -28,5 +28,8 @@
         <button data-create>Sign up</button>
     </form>
 </section>
+
+<script src="assets/js/functions.js"></script>
+<script src="assets/js/signup.js"></script>
 </body>
 </html>
