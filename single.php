@@ -13,12 +13,12 @@
 <div id="cocktail"></div>
 
 <section id="update-ingredient" data-update-ingredient>
+    <div id="cName"></div>
+    <div id="cCocktailRecipe"></div>
+    <div id="eShakenStirred"></div>
+    <div id="eCubedCrushed"></div>
     <template data-ingredient-template>
         <div>
-            <div id="cName"></div>
-            <div id="cCocktailRecipe"></div>
-            <div id="eShakenStirred"></div>
-            <div id="eCubedCrushed"></div>
             <span>
                 <div id="cIngredientName"></div>
                 <div id="nMeasurement"></div>
