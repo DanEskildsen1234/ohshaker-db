@@ -35,7 +35,15 @@ async function postManagerUpdate(field, value) {
     const data = {"field": field, "value": value};
 
     const response = JSON.parse(await fetchData(url, data, method));
-    console.log(response);
+    if (response.status === 0) {
+        document.querySelector('[data-success]').innerText = "";
+        document.querySelector('[data-error]').innerText = response.message;
+    }
+
+    if (response.status === 1) {
+        document.querySelector('[data-error]').innerText = "";
+        document.querySelector('[data-success]').innerText = response.message;
+    }
 }
 
 window.addEventListener('DOMContentLoaded', (event) => {

@@ -10,7 +10,7 @@ async function postLogin() {
     const response = JSON.parse(await fetchData(url, data, method));
 
     if (response.status === 0) {
-        document.querySelector('[data-error]').innerHTML = response.message;
+        document.querySelector('[data-error]').innerText = response.message;
     }
 
     if (response.status === 1) {
