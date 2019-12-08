@@ -24,6 +24,10 @@
 <span data-error class="error-box"></span>
 <span data-success class="success-box"></span>
 
+<section id="update-bar">
+    <input placeholder="Bar name" id="barName" type="text">
+</section>
+
 <section id="update-manager">
     <span data-error class="error-box"></span>
     <input placeholder="First name" id="cFirstname" type="text">

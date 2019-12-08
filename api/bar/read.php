@@ -34,7 +34,7 @@ if ($con) {
         INNER JOIN tbarbartender ON tbar.nBarID = tbarbartender.nBarID
         WHERE tmanager.nManagerID = $iManagerID OR tbarbartender.nBartenderID = $iBartenderID
         ");
-    $results = $statement->fetchAll();
+    $results = $statement->fetch();
     $statement = null;
     
     $db->disconnect($con);
