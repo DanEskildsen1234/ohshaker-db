@@ -36,7 +36,7 @@ async function postManagerRead() {
     }
 }
 
-async function checkForManagerUpdates() {
+async function checkForManagerUpdate() {
     document.querySelectorAll('#update-manager input').forEach( (field)=>{
         field.addEventListener('change', (e) => {
             postManagerUpdate(field.id, field.value);
@@ -65,10 +65,10 @@ async function postBartenderRead() {
 
     const updateBartenderSection = document.querySelector("[data-update-bartender]");
 
-    // Get template
+    // Get contents of template
     const bartenderTemp = document.querySelector("[data-bartender-template]").content;
     // For every object in the response
-    response.forEach( (bartender)=> {
+    response.forEach( (bartender) => {
         // Create a clone
         const cln = bartenderTemp.cloneNode(true);
         // For each item in the object
@@ -81,7 +81,29 @@ async function postBartenderRead() {
         }
         // Release clone on frontend
         updateBartenderSection.appendChild(cln);
-    })
+    });
+
+    //located here because fields need toz be initiated before event listener can be placed
+    checkForBartenderUpdate();
+}
+
+async function checkForBartenderUpdate() {
+    // TODO add bartender ID from DIV parrent node to update clause
+    document.querySelectorAll('[data-update-bartender] input').forEach( (field)=>{
+        field.addEventListener('change', (e) => {
+            const bartenderID = field.parentElement.id;
+            postBartenderUpdate(field.id, field.value, bartenderID)
+        });
+    });
+}
+
+async function postBartenderUpdate(field, value, id) {
+    const url = 'api/bartender/update.php';
+    const method = 'POST';
+    const data = {"field": field, "value": value, "bartenderID": id};
+
+    const response = JSON.parse(await fetchData(url, data, method));
+    messageBox(response);
 }
 
 async function postBartenderCreate() {
@@ -108,7 +130,7 @@ window.addEventListener('DOMContentLoaded', (event) => {
     const managerID = document.querySelector('[data-manager-id]');
     if (managerID) {
         postManagerRead();
-        checkForManagerUpdates();
+        checkForManagerUpdate();
     }
 
     postBartenderRead();
