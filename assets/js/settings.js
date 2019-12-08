@@ -12,6 +12,33 @@ async function postLogout() {
 }
 
 /**
+ * Bar functions
+ */
+async function postReadBar() {
+    const url = 'api/bar/read.php';
+    const method = 'POST';
+    const data = {};
+
+    const response = JSON.parse(await fetchData(url, data, method));
+    let barNameField = document.getElementById('barName');
+    barNameField.value = response.cName;
+
+    // add event listener for update
+    barNameField.addEventListener('change', () => {
+        postUpdateBar(barNameField.value);
+    })
+}
+
+async function postUpdateBar(name) {
+    const url = 'api/bar/update.php';
+    const method = 'POST';
+    const data = {"barName": name};
+
+    const response = JSON.parse(await fetchData(url, data, method));
+    messageBox(response);
+}
+
+/**
  * Manager functions
  */
 async function postManagerDelete() {
@@ -145,6 +172,7 @@ window.addEventListener('DOMContentLoaded', (event) => {
     const managerID = document.querySelector('[data-manager-id]');
     if (managerID) {
         postManagerRead();
+        postReadBar();
         checkForManagerUpdate();
     }
 
