@@ -56,6 +56,28 @@ async function postManagerUpdate(field, value) {
 /**
  * Bartender functions
  */
+async function postBartenderDelete(id) {
+    const url = 'api/bartender/delete.php';
+    const method = 'POST';
+    const data = {"bartenderID": id};
+
+    const response = JSON.parse(await fetchData(url, data, method));
+    messageBox(response);
+}
+
+async function postBartenderCreate() {
+    const url = 'api/bartender/create.php';
+    const method = 'POST';
+    const data = {};
+
+    document.querySelectorAll('[data-create-bartender-form] input').forEach((input) => {
+        data[input.id] = input.value;
+    });
+
+    const response = JSON.parse(await fetchData(url, data, method));
+    messageBox(response);
+}
+
 async function postBartenderRead() {
     const url = 'api/bartender/read.php';
     const method = 'POST';
@@ -88,11 +110,17 @@ async function postBartenderRead() {
 }
 
 async function checkForBartenderUpdate() {
-    // TODO add bartender ID from DIV parrent node to update clause
     document.querySelectorAll('[data-update-bartender] input').forEach( (field)=>{
         field.addEventListener('change', (e) => {
             const bartenderID = field.parentElement.id;
             postBartenderUpdate(field.id, field.value, bartenderID)
+        });
+    });
+
+    document.querySelectorAll('[data-delete-bartender]').forEach( (button)=>{
+        button.addEventListener('click', ()=>{
+            const bartenderID = button.parentElement.id;
+            postBartenderDelete(bartenderID);
         });
     });
 }
@@ -106,25 +134,12 @@ async function postBartenderUpdate(field, value, id) {
     messageBox(response);
 }
 
-async function postBartenderCreate() {
-    const url = 'api/bartender/create.php';
-    const method = 'POST';
-    const data = {};
-
-    document.querySelectorAll('[data-create-bartender-form] input').forEach((input) => {
-        data[input.id] = input.value;
-    });
-
-    const response = JSON.parse(await fetchData(url, data, method));
-    messageBox(response);
-}
-
 /**
  * Window loaded initiate
  */
 window.addEventListener('DOMContentLoaded', (event) => {
     const logoutButton = document.querySelector('[data-logout]');
-    const deleteButton = document.querySelector('[data-delete]');
+    const deleteManagerButton = document.querySelector('[data-delete-manager]');
     const createButton = document.querySelector('[data-create]');
 
     const managerID = document.querySelector('[data-manager-id]');
@@ -135,8 +150,8 @@ window.addEventListener('DOMContentLoaded', (event) => {
 
     postBartenderRead();
 
-    if (deleteButton) {
-        deleteButton.addEventListener('click', () => {
+    if (deleteManagerButton) {
+        deleteManagerButton.addEventListener('click', () => {
             postManagerDelete();
         }, false);
     }

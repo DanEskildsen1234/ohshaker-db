@@ -45,6 +45,7 @@
             <input placeholder="First name" id="cFirstname" type="text">
             <input placeholder="Surname" id="cSurname" type="text">
             <input placeholder="Pin code" id="cPin" type="number">
+            <button data-delete-bartender>Delete bartender</button>
         </div>
     </template>
 </section>
@@ -59,7 +60,7 @@
 </section>
 
 <button data-logout>Logout</button>
-<button data-delete>Delete my account</button>
+<button data-delete-manager>Delete my account</button>
 
 <script src="assets/js/functions.js"></script>
 <script src="assets/js/settings.js"></script>
