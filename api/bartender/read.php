@@ -34,9 +34,8 @@ if ($con) {
         INNER JOIN tbar ON tbarbartender.nBarID = tbar.nBarID
         INNER JOIN tmanager ON tbar.nBarID = tmanager.nBarID
         WHERE tmanager.nManagerID = $iManagerID OR tbarbartender.nBartenderID = $iBartenderID
-        LIMIT 1
         "); // bartender can be part of multiple bars ergo produce multiple results which is unnecessary for this part
-    $results = $statement->fetch();
+    $results = $statement->fetchAll(); //could return multiple users if logged in as manager.
     $statement = null;
     
     $db->disconnect($con);

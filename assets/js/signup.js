@@ -12,8 +12,6 @@ async function PostManagerSignUp() {
         data[input.id] = value;
     });
 
-    console.log(data);
-
     const response = JSON.parse(await fetchData(url, data, method));
     if (response.status === 0) {
         document.querySelector('[data-error]').innerText = response.message;
