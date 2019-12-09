@@ -8,10 +8,11 @@
     <title>Credit cards</title>
 </head>
 <body> 
-    <?php session_start();
-    if(empty($_SESSION['managerID'])) {
-        sendErrorMessage( 'Not authenticated' , __LINE__ );
-    }
+    <?php
+        session_start();
+        if(empty($_SESSION['managerID'])) {
+            sendErrorMessage( 'Not authenticated' , __LINE__ );
+        }
     ?>
 
     <div id="card-field-input">
