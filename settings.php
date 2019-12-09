@@ -11,6 +11,8 @@
 <body>
 
 <?php
+    require('components/header.php');
+
     session_start();
 
     if( !empty($_SESSION['managerID']) ) {
@@ -66,7 +68,6 @@
 <button data-logout>Logout</button>
 <button data-delete-manager>Delete my account</button>
 
-<script src="assets/js/functions.js"></script>
 <script src="assets/js/settings.js"></script>
 </body>
 </html>

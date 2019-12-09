@@ -14,7 +14,7 @@ async function postLogin() {
     }
 
     if (response.status === 1) {
-        document.querySelector('[data-success]').innerText = response.message;
+        window.location.href = 'settings.php'
     }
 }
 
