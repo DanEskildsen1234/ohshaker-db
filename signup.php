@@ -9,6 +9,9 @@
     <link rel="stylesheet" href="assets/css/style.css">
 </head>
 <body>
+<?php
+include_once('components/header.php');
+?>
 <section>
     <form data-sign-up-form>
         <span data-error class="error-box"></span>

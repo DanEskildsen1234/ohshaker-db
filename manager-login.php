@@ -9,17 +9,20 @@
     <link rel="stylesheet" href="assets/css/style.css">
 </head>
 <body>
-    <section>
-        <span data-error class="error-box"></span>
-        <h1>Manager login</h1>
-        <input placeholder="Username or email" id="username" type="text">
-        <input placeholder="Password" id="password" type="password">
-        <a href="login.php">Login as bartender instead</a>
+<?php
+include_once('components/header.php');
+?>
+<section>
+    <span data-error class="error-box"></span>
+    <h1>Manager login</h1>
+    <input placeholder="Username or email" id="username" type="text">
+    <input placeholder="Password" id="password" type="password">
+    <a href="login.php">Login as bartender instead</a>
 
 
-        <button data-login>Log in</button>
-        <a href="signup.php">Register your bar</a>
-    </section>
+    <button data-login>Log in</button>
+    <a href="signup.php">Register your bar</a>
+</section>
 
 <script src="assets/js/functions.js"></script>
 <script src="assets/js/manager-login.js"></script>

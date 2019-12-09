@@ -11,7 +11,7 @@
 <body>
 
 <?php
-    require('components/header.php');
+    include_once('components/header.php');
 
     session_start();
 

@@ -9,6 +9,9 @@
     <link rel="stylesheet" href="assets/css/style.css">
 </head>
 <body>
+<?php
+include_once('components/header.php');
+?>
 <section>
     <span data-error class="error-box"></span>
     <h1>Bartender login</h1>
