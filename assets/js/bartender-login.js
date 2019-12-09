@@ -1,11 +1,11 @@
 async function postLogin() {
-    const url = 'api/manager/login.php';
+    const url = 'api/bartender/login.php';
     const method = 'POST';
 
-    const username = document.getElementById("username").value;
-    const password = document.getElementById("password").value;
+    const bartenderID = document.getElementById("bartenderID").value;
+    const pin = document.getElementById("pin").value;
 
-    const data = {"username": username, "password": password};
+    const data = {"bartenderID": bartenderID, "pin": pin};
 
     const response = JSON.parse(await fetchData(url, data, method));
 
@@ -14,7 +14,7 @@ async function postLogin() {
     }
 
     if (response.status === 1) {
-        document.querySelector('[data-success]').innerText = response.message;
+        window.location.href = 'settings.php'
     }
 }
 

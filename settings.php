@@ -11,6 +11,8 @@
 <body>
 
 <?php
+    include_once('components/header.php');
+
     session_start();
 
     if( !empty($_SESSION['managerID']) ) {
@@ -18,7 +20,7 @@
     }
 
     if( !empty($_SESSION['bartenderID']) ) {
-        echo "<span data-manager-id=".$_SESSION['bartenderID'].">";
+        header('Location: settings-bartender.php');
     }
 ?>
 <span data-error class="error-box"></span>
@@ -63,10 +65,9 @@
     </form>
 </section>
 
-<button data-logout>Logout</button>
+<button class="btn" data-logout>Logout</button>
 <button data-delete-manager>Delete my account</button>
 
-<script src="assets/js/functions.js"></script>
 <script src="assets/js/settings.js"></script>
 </body>
 </html>
