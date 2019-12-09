@@ -1,5 +1,5 @@
 async function postLogout() {
-    const url = 'api/manager/logout.php';
+    const url = 'api/bartender/logout.php';
     const method = 'POST';
     const data = {};
 

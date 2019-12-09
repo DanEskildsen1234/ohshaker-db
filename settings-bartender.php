@@ -37,7 +37,7 @@ if( empty($_SESSION['bartenderID']) ) {
 </section>
 
 
-<button data-logout>Logout</button>
+<button class="btn" data-logout>Logout</button>
 
 
 <script src="assets/js/bartender-settings.js"></script>

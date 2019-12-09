@@ -50,7 +50,11 @@ function headerNav() {
         searchResults.innerHTML = "";
     });
     backButton.addEventListener('click', ()=> {
-        toggleView();
+        if (SearchInput.classList.contains('hidden')) {
+            window.history.back();
+        } else {
+            toggleView();
+        }
     });
 
     function toggleView() {

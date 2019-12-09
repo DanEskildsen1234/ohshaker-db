@@ -13,7 +13,7 @@
 include_once('components/header.php');
 ?>
 <section>
-    <form data-sign-up-form>
+    <form data-sign-up-form class="form">
         <span data-error class="error-box"></span>
         <input placeholder="Bar name" id="barName" type="text">
         <input placeholder="First Name" id="firstName" type="text">
@@ -28,7 +28,7 @@ include_once('components/header.php');
         <input placeholder="CCV" id="CCV" type="number">
         <input placeholder="MM/YY" id="expiration" type="text">
 
-        <button data-create>Sign up</button>
+        <button class="btn" data-create>Submit</button>
     </form>
 </section>
 
