@@ -14,7 +14,7 @@ async function postExistingCard() {
             const cln = existingCardTemp.cloneNode(true);
             // For each item in the object
             for (let field in card) {
-                if (field === "nCardID") {
+                if (field === "nCreditCardID") {
                     cln.querySelector("div").id = card[field];
                 } else {
                     cln.querySelector(`#${field}`).innerText = card[field];
