@@ -2,8 +2,9 @@ async function postPreviousPayments() {
     const url = 'api/payment/read.php'; // these fields are passed to the api
     const method = "POST";
     const data = {};
-
-    const response = JSON.parse(await fetchData(url, data, method)); // response recieved from api
+    
+    // response recieved from api
+    const response = JSON.parse(await fetchData(url, data, method)); 
 
     const previousPaymentSection = document.querySelector("[data-previous-payments]");
         // Get template
