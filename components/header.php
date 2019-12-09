@@ -14,6 +14,11 @@
 
 <section data-search-results>
 
+    <template data-search-item>
+        <a>
+            <p></p>
+        </a>
+    </template>
 </section>
 <script src="../assets/js/functions.js"></script>
 <script src="../assets/js/header.js"></script>
