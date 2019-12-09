@@ -7,13 +7,31 @@
     <link rel="stylesheet" href="assets/css/style.css">
     <title>Payment</title>
 </head>
-<body>
+<body> 
+    <div id="payment-field-input">
+        <span data-error class="error-box"></span>
+        <span data-success class="success-box"></span>
+        <input data-cardID name="cardID" type="number" placeholder="Credit Card ID">
+        <button data-payBtn id="btnPay"><b>Renew Subscription</b></button>
+    </div>
+
+    <div>
+        <div class="payment-field"><p>Credit card ID</p></div>
+        <div class="payment-field"><p>Amount</p></div>
+        <div class="payment-field"><p>Payment date</p></div>
+    </div>
+
+    <section id="previous-payments" data-previous-payments>
+        <template data-previous-payments-template>
+            <div>
+                <div class="payment-field" id="nCreditCardID"></div>
+                <div class="payment-field" id="nAmount"></div>
+                <div class="payment-field" id="dPayment"></div>
+            </div>
+        </template>
+    </section>
+
     <script src="assets/js/functions.js"></script>
     <script src="assets/js/payment.js"></script>
-
-    <span data-error class="error-box"></span>
-    <span data-success class="success-box"></span>
-    <input data-cardID name="cardID" type="number" placeholder="Credit Card ID">
-    <button data-payBtn id="btnPay"><b>Renew Subscription</b></button>
 </body>
 </html>
