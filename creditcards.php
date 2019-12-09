@@ -8,7 +8,12 @@
     <title>Credit cards</title>
 </head>
 <body> 
-<!-- validate manager -->
+    <?php session_start();
+    if(empty($_SESSION['managerID'])) {
+        sendErrorMessage( 'Not authenticated' , __LINE__ );
+    }
+    ?>
+
     <div id="card-field-input">
         <span data-error class="error-box"></span>
         <span data-success class="success-box"></span>
