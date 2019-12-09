@@ -11,7 +11,7 @@
 <body>
 
 <?php
-    require('components/header.php');
+    include_once('components/header.php');
 
     session_start();
 
@@ -20,7 +20,7 @@
     }
 
     if( !empty($_SESSION['bartenderID']) ) {
-        echo "<span data-manager-id=".$_SESSION['bartenderID'].">";
+        header('Location: settings-bartender.php');
     }
 ?>
 <span data-error class="error-box"></span>
