@@ -151,5 +151,12 @@ if (singlePage || editPage){
                 }
     }
 
-    
+    async function createCocktail() {
+
+        const url = "api/cocktail/create.php";
+        const data = {};
+        const method = "POST";
+
+        const response = JSON.parse(await fetchData(url, data, method));
+    }
 }

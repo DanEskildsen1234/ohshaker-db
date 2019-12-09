@@ -12,6 +12,22 @@
 <span id="cocktailPage"></span>
 <div id="cocktail"></div>
 
+
+    <div id="cocktailDetails">
+        <input id="shakenStirred" name="shakenStirred" placeholder="Shaken or Stirred?">
+        <input id="cubedCrushed" name="cubedCrushed" placeholder="Cubed or Crushed?">
+        <input id="cocktailName" name="cocktailName" placeholder="Cocktail Name">
+        <input id="recipe" name="recipe" placeholder="recipe">
+    </div>
+    <div class="cocktailIngredients">
+            <input id="ingredient[]" name="ingredient[]" placeholder="ingredient">
+            <input id="measurement[]" name="measurement[]" placeholder="measurement(number)">
+            <input id="measurementType[]" name="measurementType[]" placeholder="measurement type (ml, l, grams)">
+    <div id="addIngredientField">add an ingredient field</div>
+    </div>
+        <div>Submit</div>
+</form>
+
 <script src="assets/js/functions.js"></script>
 <script src="assets/js/cocktail.js"></script>
 </body>
