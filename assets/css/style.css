@@ -77,6 +77,19 @@ a, a:hover {
   margin-bottom: 20px;
 }
 
+.payment-field { 
+  display: inline-block;
+  width: 150px;
+  background: rgb(240, 240, 240);
+  padding: 5px;
+  margin-bottom: 5px
+}
+
+#payment-field-input {
+  margin-bottom: 20px;
+}
+
+
 .hidden {
   display: none;
 }
