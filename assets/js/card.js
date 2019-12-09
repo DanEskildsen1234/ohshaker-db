@@ -19,7 +19,8 @@ async function postCard() {
     }
 }
 
-window.addEventListener('DOMContentLoaded', (event) => { // wait for dom content to load
+// wait for dom content to load
+window.addEventListener('DOMContentLoaded', (event) => { 
 const cardButton = document.querySelector('[data-btnAddCard]');
 
 if (cardButton) {
@@ -30,11 +31,13 @@ if (cardButton) {
 });
 
 async function postExistingCard() { 
-    const url = 'api/card/read.php'; // these fields are passed to the api
+    // these fields are passed to the api
+    const url = 'api/card/read.php'; 
     const method = "POST";
     const data = {};
-
-    const response = JSON.parse(await fetchData(url, data, method)); // response recieved from api
+    
+    // response recieved from api
+    const response = JSON.parse(await fetchData(url, data, method)); 
 
     const existingCardSection = document.querySelector("[data-existing-cards]");
         // Get template
@@ -51,7 +54,8 @@ async function postExistingCard() {
                     cln.querySelector(`#${field}`).classList.add('hidden');
                 } else {
                     cln.querySelector(`#${field}`).innerText = card[field];
-                    //cln.querySelector(`#${field}`).setAttribute('disabled', true); // disables editing
+                    // disables editing
+                    //cln.querySelector(`#${field}`).setAttribute('disabled', true); 
                 }
             }
             // Release clone on frontend
