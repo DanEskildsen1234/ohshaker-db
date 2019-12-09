@@ -26,7 +26,7 @@
 
     <section id="existing-cards" data-existing-cards>
         <template data-existing-cards-template>
-            <div data-card-id>
+            <div>
                 <div class="card-field" id="nCreditCardID"></div>
                 <div class="card-field" id="nManagerID"></div>
                 <div class="card-field" id="nTotalAmount"></div>
