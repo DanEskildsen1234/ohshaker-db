@@ -32,9 +32,9 @@ if ($con) {
         "SELECT tbar.nBarID, tbar.cName FROM tbar
         INNER JOIN tmanager ON tbar.nBarID = tmanager.nBarID
         INNER JOIN tbarbartender ON tbar.nBarID = tbarbartender.nBarID
-        WHERE tmanager.nManagerID = $iManagerID OR tbarbartender.nBartenderID = $iBartenderID
+        WHERE tmanager.nManagerID = $iManagerID OR tbarbartender.nBartenderID = $iBartenderID;
         ");
-    $results = $statement->fetchAll();
+    $results = $statement->fetch();
     $statement = null;
     
     $db->disconnect($con);
