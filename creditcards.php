@@ -9,10 +9,9 @@
 </head>
 <body> 
     <?php
-    require_once('api/functions.php');
         session_start();
         if(empty($_SESSION['managerID'])) {
-            sendErrorMessage( 'Not authenticated' , __LINE__ );
+            header('Location: index.php');
         }
     ?>
 
