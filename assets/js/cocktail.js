@@ -66,7 +66,6 @@ if (singlePage || editPage){
                                 cln.querySelector(`#${field}`).addEventListener('blur', event => {
                                      postUpdateCocktail();
                                 })
-
                             }
                             
                         }
@@ -92,17 +91,18 @@ if (singlePage || editPage){
         const method = 'POST';
         const data = {"cocktailID": searchParams.get('id'),
                       "field": event.target.id,
-                      "value":event.target.value
+                      "value":event.target.value,
+                      "measurement":"",
+                      "measurementType":""
                     };
 
                     if (event.target.id == 'remove-ingredient'){
-                    var elem = document.querySelectorAll('#ingredients').forEach((elem) => {
+                    var elem = event.target.parentNode;
                     elem.remove();
-                    });
-                    getCocktail();
+                    // getCocktail();
                 }
                       console.log(data);
-        
+                      fetchData(url, data, method);
         
         // const response = JSON.parse(await fetchData(url, data, method));
         // messageBox(response);

@@ -17,7 +17,7 @@
         <input id="eShakenStirred" name="eShakenStirred">
         <input id="eCubedCrushed" name="eCubedCrushed">
         <template data-ingredient-template>
-            <div id="ingredients">
+            <div class="ingredients">
                 <span>
                     <input disabled id="cIngredientName" name="cIngredientName">
                     <input disabled id="nMeasurement" name="nMeasurement">
