@@ -10,13 +10,24 @@
 </head>
 <body>
 <span id="editPage"></span>
-<div id="cocktail"></div>
-
-<input placeholder="cocktail name" id="cName" type="text">
-<input placeholder="cocktail recipe" id="cCocktailRecipe" type="text">
-<input placeholder="Username" id="eShakenStirred" type="text">
-<input placeholder="Email" id="eCubedCrushed" type="text">
-
+<div id="cocktail">
+    <section id="update-ingredient" data-update-cocktail>
+        <input id="cName" name="cName">
+        <input id="cCocktailRecipe" name="cCocktailRecipe">
+        <input id="eShakenStirred" name="eShakenStirred">
+        <input id="eCubedCrushed" name="eCubedCrushed">
+        <template data-ingredient-template>
+            <div id="ingredients">
+                <span>
+                    <input disabled id="cIngredientName" name="cIngredientName">
+                    <input disabled id="nMeasurement" name="nMeasurement">
+                    <input disabled id="eMeasurementType" name="eMeasurementType">
+                    <div id="remove-ingredient" style="display:inline;">delete</div>
+                </span>
+            </div>
+        </template>
+    </section>
+</div>
 
 <script src="assets/js/functions.js"></script>
 <script src="assets/js/cocktail.js"></script>

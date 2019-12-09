@@ -12,7 +12,7 @@
 <span id="singlePage"></span>
 <div id="cocktail"></div>
 
-<section id="update-ingredient" data-update-ingredient>
+<section id="update-ingredient" data-update-cocktail>
     <div id="cName"></div>
     <div id="cCocktailRecipe"></div>
     <div id="eShakenStirred"></div>

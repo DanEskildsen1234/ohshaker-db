@@ -30,17 +30,24 @@ if (singlePage || editPage){
         let method = "POST";
         let response = JSON.parse(await fetchData(url, data, method));
         
+        if (singlePage){
         document.getElementById("edit").setAttribute('href', 'cocktailedit.php?id='+response.nCocktailID);
+        } 
+        else {
+        // document.getElementById("save").setAttribute('href', 'single.php?id='+response.nCocktailID);
+        }
         
         for (let field in response) {
             if (isNaN(field) && field != 'nCocktailID' && field != 'ingredients') {
-                console.log(field); // gets field
-                // console.log(response[field]); // gets value of field
+
                 document.getElementById(field).innerText = response[field];
+                if (editPage){
+                    document.getElementById(field).value = response[field];
+                }
             }
         }
 
-        const updateIngredientSection = document.querySelector("[data-update-ingredient]");
+        const updateIngredientSection = document.querySelector("[data-update-cocktail]");
         // Get template
         const ingredientTemp = document.querySelector("[data-ingredient-template]").content;
 
@@ -50,12 +57,75 @@ if (singlePage || editPage){
             for (let field in ingredient) {
                             if (field != 'nIngredientID'){
                                 cln.querySelector(`#${field}`).innerHTML = ingredient[field];
+                            }
+                            if (editPage && field != 'nIngredientID'){
+                                cln.querySelector(`#${field}`).value = ingredient[field];
+                                cln.querySelector(`#${field}`).className = ingredient.nIngredientID;
+                                cln.querySelector('#remove-ingredient').value = ingredient.nIngredientID;
+                                // query selector for updating field
+                                cln.querySelector(`#${field}`).addEventListener('blur', event => {
+                                     postUpdateCocktail();
+                                })
+
+                            }
+                            
                         }
+                        if (editPage){
+                    cln.querySelector(`#remove-ingredient`).addEventListener('click', event => {
+                        postUpdateCocktail();
+                    })
                     }
                     updateIngredientSection.appendChild(cln);
-                });
-                // Release clone on frontend
-    
-}
+                });    
+    }
     getCocktail();
+
+    document.querySelectorAll('input').forEach(item => {
+        item.addEventListener('blur', event => {
+            postUpdateCocktail();
+        })
+      })
+      
+    async function postUpdateCocktail() {
+        let searchParams = new URLSearchParams(document.location.search);
+        const url = 'api/cocktail/update.php';
+        const method = 'POST';
+        const data = {"cocktailID": searchParams.get('id'),
+                      "field": event.target.id,
+                      "value":event.target.value
+                    };
+
+                    if (event.target.id == 'remove-ingredient'){
+                    var elem = document.querySelectorAll('#ingredients').forEach((elem) => {
+                    elem.remove();
+                    });
+                    getCocktail();
+                }
+                      console.log(data);
+        
+        
+        // const response = JSON.parse(await fetchData(url, data, method));
+        // messageBox(response);
+    }
+
 }
+
+
+// async function postUpdateCocktail() {
+    //     const url = 'api/cocktail/update.php';
+    //     const method = 'POST';
+    //     const data = {};
+    //     console.log(event.target);
+    
+//     document.querySelectorAll('input').forEach((input) => {
+    //         console.log(input.id);
+    //         let value = input.value;
+    //         data[input.id] = value;
+    //     });
+
+
+    // document.querySelectorAll('input').forEach((input) => {
+    //     console.log(input.id);
+    //     let value = input.value;
+    //     data[input.id] = value;
+    // });
