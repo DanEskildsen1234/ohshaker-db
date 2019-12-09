@@ -20,7 +20,7 @@
     }
 
     if( !empty($_SESSION['bartenderID']) ) {
-        echo "<span data-manager-id=".$_SESSION['bartenderID'].">";
+        header('Location: settings-bartender.php');
     }
 ?>
 <span data-error class="error-box"></span>
