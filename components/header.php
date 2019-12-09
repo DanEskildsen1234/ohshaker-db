@@ -1,16 +1,23 @@
-<section>
+<header>
     <div>
-        <img data-logo alt="OhShaker Logo">
-        <button data-back class="hidden">Back</button>
+        <?php
+            if ($_SERVER['REQUEST_URI'] === '/login.php') {
+                echo"<img data-logo alt='OhShaker Logo'>
+                     <button data-back class='hidden'>Back</button>
+                ";
+            } else{
+                echo"<button data-back>Back</button>";
+            }
+        ?>
     </div>
     <div>
         <input class="hidden" type="text" data-search-input>
         <button data-open-search>Search</button>
     </div>
     <div>
-        <a class="btn" href="settings.php">Settings</a>
+        <a href="settings.php">Settings</a>
     </div>
-</section>
+</header>
 
 <section data-search-results class="hidden">
 

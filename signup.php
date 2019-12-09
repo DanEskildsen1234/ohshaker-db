@@ -28,7 +28,7 @@ include_once('components/header.php');
         <input placeholder="CCV" id="CCV" type="number">
         <input placeholder="MM/YY" id="expiration" type="text">
 
-        <button data-create>Sign up</button>
+        <button class="btn" data-create>Submit</button>
     </form>
 </section>
 

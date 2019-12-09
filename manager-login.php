@@ -12,7 +12,7 @@
 <?php
 include_once('components/header.php');
 ?>
-<section>
+<section class="login-form">
     <span data-error class="error-box"></span>
     <h1>Manager login</h1>
     <input placeholder="Username or email" id="username" type="text">
@@ -20,8 +20,8 @@ include_once('components/header.php');
     <a href="login.php">Login as bartender instead</a>
 
 
-    <button data-login>Log in</button>
-    <a href="signup.php">Register your bar</a>
+    <button class="btn btn-blue" data-login>Log in</button>
+    <a class="btn" href="signup.php">Register your bar</a>
 </section>
 
 <script src="assets/js/functions.js"></script>

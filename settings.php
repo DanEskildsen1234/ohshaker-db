@@ -65,7 +65,7 @@
     </form>
 </section>
 
-<button data-logout>Logout</button>
+<button class="btn" data-logout>Logout</button>
 <button data-delete-manager>Delete my account</button>
 
 <script src="assets/js/settings.js"></script>

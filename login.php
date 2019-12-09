@@ -12,15 +12,16 @@
 <?php
 include_once('components/header.php');
 ?>
-<section>
+<section class="login-form">
     <span data-error class="error-box"></span>
-    <h1>Bartender login</h1>
+    <h3>Enter ID:</h3>
     <input placeholder="Your ID" id="bartenderID" type="text">
+    <h3>Enter pin:</h3>
     <input placeholder="Pin" id="pin" type="password">
     <a href="manager-login.php">Administrative login</a>
 
 
-    <button data-login>Log in</button>
+    <button class="btn btn-blue" data-login>Log in</button>
 </section>
 
 <script src="assets/js/functions.js"></script>
