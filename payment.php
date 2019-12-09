@@ -8,6 +8,14 @@
     <title>Payment</title>
 </head>
 <body> 
+    <?php
+        require_once('api/functions.php');
+        session_start();
+        if(empty($_SESSION['managerID'])) {
+            sendErrorMessage( 'Not authenticated' , __LINE__ );
+        }
+    ?>    
+
     <div id="payment-field-input">
         <span data-error class="error-box"></span>
         <span data-success class="success-box"></span>
@@ -30,6 +38,8 @@
             </div>
         </template>
     </section>
+
+    <a href="manager.php">Back</a>
 
     <script src="assets/js/functions.js"></script>
     <script src="assets/js/payment.js"></script>
