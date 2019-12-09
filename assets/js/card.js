@@ -1,4 +1,4 @@
-async function postExistingPayments() { 
+async function postExistingCard() { 
     const url = 'api/card/read.php'; // these fields are passed to the api
     const method = "POST";
     const data = {};
@@ -22,6 +22,8 @@ async function postExistingPayments() {
                 }
             }
             // Release clone on frontend
-            existingPaymentSection.appendChild(cln);
+            existingCardSection.appendChild(cln);
         })
 }
+
+postExistingCard();
