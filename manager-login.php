@@ -12,7 +12,7 @@
 <?php
 include_once('components/header.php');
 ?>
-<section class="login-form">
+<section class="form">
     <span data-error class="error-box"></span>
     <h1>Manager login</h1>
     <input placeholder="Username or email" id="username" type="text">

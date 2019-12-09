@@ -12,7 +12,7 @@
 <?php
 include_once('components/header.php');
 ?>
-<section class="login-form">
+<section class="form">
     <span data-error class="error-box"></span>
     <h3>Enter ID:</h3>
     <input placeholder="Your ID" id="bartenderID" type="text">
