@@ -10,14 +10,15 @@
     color: white;
   }
 
-  .payment-field { /* change this later */
+/* change this later */
+ .payment-field { 
     display: inline-block;
     width: 150px;
     background: rgb(240, 240, 240);
     padding: 5px;
     margin-bottom: 5px
-  }
+ }
 
   #payment-field-input {
     margin-bottom: 20px;
-  }
+ }
