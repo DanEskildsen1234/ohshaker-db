@@ -20,9 +20,9 @@
         <span data-error class="error-box"></span>
         <span data-success class="success-box"></span>
 
-        <input data-expDate name="expiration" type="text" placeholder="Expiration date">
-        <input data-CCV name="CCV" type="number" placeholder="CCV">
-        <input data-IBAN name="IBAN" type="text" placeholder="IBAN">
+        <input data-expDate name="expiration" type="text" placeholder="Expiration date (MM/YY)" maxlength="5">
+        <input data-CCV name="CCV" type="text" placeholder="CCV" maxlength="3">
+        <input data-IBAN name="IBAN" type="text" placeholder="IBAN" maxlength="18">
         <button data-btnAddCard id="btnAddCard"><b>Add credit card</b></button>
     </div>
 
@@ -44,6 +44,8 @@
             </div>
         </template>
     </section>
+
+    <a href="manager.php">Back</a>
 
     <script src="assets/js/functions.js"></script>
     <script src="assets/js/card.js"></script>

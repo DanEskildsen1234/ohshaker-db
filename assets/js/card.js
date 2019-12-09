@@ -1,5 +1,5 @@
 async function postCard() {
-    let expDate = document.querySelector('[data-expDate]').value;
+    let expDate = encodeExpiryDate(document.querySelector('[data-expDate]').value);
     let CCV = document.querySelector('[data-CCV]').value;
     let IBAN = document.querySelector('[data-IBAN]').value;
 
@@ -8,7 +8,6 @@ async function postCard() {
     const data = {"expiration": expDate, "CCV": CCV, "IBAN": IBAN};
 
     const response = JSON.parse(await fetchData(url, data, method));
-    console.log(response);
 
     if (response.status === 0) {
         document.querySelector('[data-error]').innerText = response.message;
@@ -26,7 +25,6 @@ const cardButton = document.querySelector('[data-btnAddCard]');
 if (cardButton) {
     cardButton.addEventListener('click', () => {
         postCard();
-        console.log('hej')
     }, false);
 }
 });
