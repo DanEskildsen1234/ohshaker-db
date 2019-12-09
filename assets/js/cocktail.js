@@ -23,6 +23,28 @@ if (cocktailsPage){
 let singlePage = document.querySelector('#singlePage');
 let editPage = document.querySelector('#editPage');
 if (singlePage || editPage){
+
+    async function getGlobalIngredients() {
+        let url = "api/ingredient/read.php";
+        let data = {};
+        let method = "POST";
+        let response = JSON.parse(await fetchData(url, data, method));
+        console.log(response);
+
+        response.forEach((ingredient) => {
+            console.log(ingredient);
+            if(editPage){
+
+                var ingredientOption = document.createElement("option");
+                ingredientOption.innerHTML = ingredient.cName;
+                ingredientOption.value = ingredient.nIngredientID;
+
+                document.getElementById("insert-ingredient").appendChild(ingredientOption);
+
+            }
+        })
+    }
+
     async function getCocktail() {
         let searchParams = new URLSearchParams(document.location.search);
         let url = "api/cocktail/read.php";
@@ -32,12 +54,12 @@ if (singlePage || editPage){
         
         if (singlePage){
         document.getElementById("edit").setAttribute('href', 'cocktailedit.php?id='+response.nCocktailID);
-        } 
-        else {
-        // document.getElementById("save").setAttribute('href', 'single.php?id='+response.nCocktailID);
         }
         
         for (let field in response) {
+
+            
+
             if (isNaN(field) && field != 'nCocktailID' && field != 'ingredients') {
 
                 document.getElementById(field).innerText = response[field];
@@ -54,6 +76,7 @@ if (singlePage || editPage){
         // For each item in the object
         response.ingredients.forEach((ingredient) => {
             const cln = ingredientTemp.cloneNode(true);
+
             for (let field in ingredient) {
                             if (field != 'nIngredientID'){
                                 cln.querySelector(`#${field}`).innerHTML = ingredient[field];
@@ -66,7 +89,8 @@ if (singlePage || editPage){
                                 cln.querySelector(`#${field}`).addEventListener('blur', event => {
                                      postUpdateCocktail();
                                 })
-                            }
+                            } 
+
                             
                         }
                         if (editPage){
@@ -77,6 +101,7 @@ if (singlePage || editPage){
                     updateIngredientSection.appendChild(cln);
                 });    
     }
+    getGlobalIngredients();
     getCocktail();
 
     document.querySelectorAll('input').forEach(item => {
@@ -85,47 +110,46 @@ if (singlePage || editPage){
         })
       })
       
+      document.getElementById("add-ingredient").addEventListener('click', event => {
+        var dropdown = document.getElementById("insert-ingredient");
+        var dropdownValue = dropdown.options[dropdown.selectedIndex].value;
+
+        console.log(dropdownValue);
+
+        document.getElementById("add-ingredient").value = dropdownValue;
+          postUpdateCocktail();
+      })
+
     async function postUpdateCocktail() {
         let searchParams = new URLSearchParams(document.location.search);
+        let measurement = document.getElementById("measurement").value;
+        let measurementType = document.getElementById("measurementType").value;
         const url = 'api/cocktail/update.php';
         const method = 'POST';
         const data = {"cocktailID": searchParams.get('id'),
                       "field": event.target.id,
                       "value":event.target.value,
-                      "measurement":"",
-                      "measurementType":""
+                      "measurement":measurement,
+                      "measurementType": measurementType
                     };
+
+                    if(event.target.id == "measurement" || event.target.id == "measurementType"){
+                        return; 
+                    }
 
                     if (event.target.id == 'remove-ingredient'){
                     var elem = event.target.parentNode;
                     elem.remove();
-                    // getCocktail();
                 }
-                      console.log(data);
-                      fetchData(url, data, method);
-        
-        // const response = JSON.parse(await fetchData(url, data, method));
-        // messageBox(response);
+
+                console.log(data);
+                fetchData(url, data, method);
+                // const response = JSON.parse(await fetchData(url, data, method));
+                // messageBox(response);
+                if (event.target.id == 'add-ingredient'){
+                    location.reload();
+                }
     }
 
-}
-
-
-// async function postUpdateCocktail() {
-    //     const url = 'api/cocktail/update.php';
-    //     const method = 'POST';
-    //     const data = {};
-    //     console.log(event.target);
     
-//     document.querySelectorAll('input').forEach((input) => {
-    //         console.log(input.id);
-    //         let value = input.value;
-    //         data[input.id] = value;
-    //     });
-
-
-    // document.querySelectorAll('input').forEach((input) => {
-    //     console.log(input.id);
-    //     let value = input.value;
-    //     data[input.id] = value;
-    // });
+}

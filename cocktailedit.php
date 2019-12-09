@@ -17,7 +17,7 @@
         <input id="eShakenStirred" name="eShakenStirred">
         <input id="eCubedCrushed" name="eCubedCrushed">
         <template data-ingredient-template>
-            <div class="ingredients">
+            <div>
                 <span>
                     <input disabled id="cIngredientName" name="cIngredientName">
                     <input disabled id="nMeasurement" name="nMeasurement">
@@ -26,7 +26,27 @@
                 </span>
             </div>
         </template>
+        <div style ="display:block" id="ingredientContainer">
+        <select id="insert-ingredient">
+        </select>
+        <input id="measurement">
+        <select id="measurementType">
+            <option></option>
+            <option>ml</option>
+            <option>cl</option>
+            <option>dl</option>
+            <option>l</option>
+            <option>gram</option>
+            <option>slice</option>
+            <option>wedge</option>
+            <option>part</option>
+            <option>dash</option>
+            <option>tbsp</option>
+            <option>tsp</option>
+        </select>
+        <div id="add-ingredient" style="display:inline;">submit ingredient</div>
     </section>
+</div>
 </div>
 
 <script src="assets/js/functions.js"></script>

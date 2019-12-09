@@ -11,5 +11,5 @@ if ($con) {
     $results = $statement->fetchAll();
     $statement = null;
     $db->disconnect($con);
-    echo json_encode($results));
+    echo json_encode($results);
 }
