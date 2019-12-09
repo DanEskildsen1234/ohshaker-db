@@ -9,3 +9,7 @@
   background-color: forestgreen;
   color: white;
 }
+
+.hidden {
+  display: none;
+}

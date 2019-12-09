@@ -11,7 +11,7 @@
 <body>
 
 <?php
-    include_once('components/header.php');
+    require('components/header.php');
 
     session_start();
 
@@ -68,7 +68,6 @@
 <button data-logout>Logout</button>
 <button data-delete-manager>Delete my account</button>
 
-<script src="assets/js/functions.js"></script>
 <script src="assets/js/settings.js"></script>
 </body>
 </html>

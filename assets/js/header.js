@@ -1,19 +1,20 @@
 function getCocktailSearch() {
-    let input = document.querySelector('[data-search]');
-    const location = document.querySelector('[data-search-results]');
+    let input = document.querySelector('[data-search-input]');
+    let resultsLocation = document.querySelector('[data-search-results]');
     const item = document.querySelector( '[data-search-item]').content;
 
     let lastValue = "";
     let status = false;
     input.addEventListener('keypress', async ()=> {
         const inputValue = input.value;
+
         if (status === true || inputValue === "" || !/^[a-zA-Z].*$/.test(inputValue
             || lastValue === inputValue) ) {
             return;
         }
         status = true;
         lastValue = inputValue;
-        location.innerHTML = "";
+        resultsLocation.innerHTML = '';
 
         const response = await fetch('api/cocktail/search.php' + '?query=' + inputValue, {
             method: 'GET',
@@ -30,12 +31,39 @@ function getCocktailSearch() {
             const cln = item.cloneNode(true);
             cln.querySelector('a').href = "single?id="+result.nCocktailID;
             cln.querySelector('p').innerText = result.cName;
-            location.appendChild(cln);
+            resultsLocation.appendChild(cln);
         });
         status = false;
     }, false);
 }
 
+function headerNav() {
+    const openSearchButton = document.querySelector('[data-open-search]');
+    const SearchInput = document.querySelector('[data-search-input]');
+    const backButton = document.querySelector('[data-back]');
+    const searchResults = document.querySelector('[data-search-results]');
+    const logo = document.querySelector('[data-logo]');
+
+    openSearchButton.addEventListener('click', ()=> {
+        toggleView();
+        SearchInput.value = "";
+        searchResults.innerHTML = "";
+    });
+    backButton.addEventListener('click', ()=> {
+        toggleView();
+    });
+
+    function toggleView() {
+        SearchInput.classList.toggle('hidden');
+        backButton.classList.toggle('hidden');
+        logo.classList.toggle('hidden');
+        searchResults.classList.toggle('hidden');
+        openSearchButton.classList.toggle('hidden');
+    }
+}
+
+
 window.addEventListener('DOMContentLoaded', (event) => {
     getCocktailSearch();
+    headerNav();
 });

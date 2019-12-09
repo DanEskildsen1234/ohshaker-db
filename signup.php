@@ -23,7 +23,7 @@
         <input placeholder="Password" id="password" type="password">
         <input placeholder="IBAN" id="IBAN" type="text">
         <input placeholder="CCV" id="CCV" type="number">
-        <input placeholder="MM/YY" id="expiration" type="month">
+        <input placeholder="MM/YY" id="expiration" type="text">
 
         <button data-create>Sign up</button>
     </form>
