@@ -17,7 +17,7 @@ async function PostManagerSignUp() {
         document.querySelector('[data-error]').innerText = response.message;
     }
     if (response.status === 1) {
-        window.location.href = "cocktails.php"
+        window.location.href = "index.php"
     }
 }
 

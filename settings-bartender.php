@@ -20,7 +20,7 @@ if( !empty($_SESSION['managerID']) ) {
 }
 
 if( empty($_SESSION['bartenderID']) ) {
-    header('Location: cocktails.php');
+    header('Location: index.php');
 }
 ?>
 <span data-error class="error-box"></span>

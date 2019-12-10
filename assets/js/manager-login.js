@@ -14,7 +14,7 @@ async function postLogin() {
     }
 
     if (response.status === 1) {
-        window.location.href = 'cocktail.php'
+        window.location.href = 'index.php'
     }
 }
 

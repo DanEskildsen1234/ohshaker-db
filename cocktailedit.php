@@ -6,7 +6,6 @@
           content="width=device-width, user-scalable=no, initial-scale=1.0, maximum-scale=1.0, minimum-scale=1.0">
     <meta http-equiv="X-UA-Compatible" content="ie=edge">
     <title>cocktail edit</title>
-    
 </head>
 <body>
 <span id="editPage"></span>
@@ -29,7 +28,7 @@
         <div style ="display:block" id="ingredientContainer">
         <select id="insert-ingredient">
         </select>
-        <input id="measurement">
+        <input id="measurement" placeholder="amount">
         <select id="measurementType">
             <option></option>
             <option>ml</option>
