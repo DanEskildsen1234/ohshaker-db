@@ -5,7 +5,7 @@
                 echo"<img data-logo alt='OhShaker Logo'>
                      <button data-back class='hidden'>Back</button>
                 ";
-            } else{
+            } else {
                 echo"<button data-back>Back</button>";
             }
         ?>
