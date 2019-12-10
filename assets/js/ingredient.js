@@ -30,8 +30,12 @@ async function getIngredients() {
             ingredientSection.appendChild(cln);
         })
             // Release clone on frontend
-    }
-
-   deleteIngredient = document.querySelector(".delete-ingredient");
+        }
+        let deleteIngredient = document.querySelectorAll(".delete-ingredient");
+            
+            deleteIngredient.addEventListener('click', () => {
+                console.log('consoled');
+            })
+        
     getIngredients();
 }
