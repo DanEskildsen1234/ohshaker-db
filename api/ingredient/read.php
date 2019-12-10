@@ -12,7 +12,7 @@ if ($_POST) {
 $db = new DB();
 $con = $db->connect();
 if ($con) {
-
+  
     if (!empty($sIngredientID)) {
         $statement = $con->prepare("SELECT * from tingredient WHERE nIngredientID = ?");
         $statement->execute([$sIngredientID]);
@@ -30,5 +30,4 @@ if ($con) {
         $db->disconnect($con);
         echo json_encode($results);
     }
-
 }

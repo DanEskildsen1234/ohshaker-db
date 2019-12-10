@@ -14,7 +14,7 @@ $sMeasurementType = htmlspecialchars($_POST['measurementType'], ENT_QUOTES);
 
 
 // Sends error message if empty, with the exception of eShakenStirred and eCubedCrushed.
-if(empty($sValue) && ($sField !== 'eShakenStirred') && $sValue !== 'eCubedCrushed'){
+if(empty($sValue) && ($sField !== 'eShakenStirred') && $sField !== 'eCubedCrushed'){
     sendErrorMessage( 'Value is required' , __LINE__ ); 
 }
 
@@ -28,7 +28,7 @@ if ($sField === 'eShakenStirred'){
 }
 
 if ($sField === 'eCubedCrushed'){
-    $aAllowedCubedCrushed = array("Cubed", "Crushed", "");
+    $aAllowedCubedCrushed = array('Cubed', 'Crushed', '');
     validateNotInArray($sValue, $aAllowedCubedCrushed);
 }
 
