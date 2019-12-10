@@ -19,7 +19,6 @@ include_once('components/header.php');
     <input placeholder="Password" id="password" type="password">
     <a href="login.php">Login as bartender instead</a>
 
-
     <button class="btn btn-blue" data-login>Log in</button>
     <a class="btn" href="signup.php">Register your bar</a>
 </section>

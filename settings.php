@@ -22,6 +22,10 @@
     if( !empty($_SESSION['bartenderID']) ) {
         header('Location: settings-bartender.php');
     }
+
+    if( empty($_SESSION['managerID'])) {
+        header('Location: index.php');
+    }
 ?>
 <span data-error class="error-box"></span>
 <span data-success class="success-box"></span>
