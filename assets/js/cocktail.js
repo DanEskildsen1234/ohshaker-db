@@ -29,10 +29,8 @@ if (singlePage || editPage){
         let data = {};
         let method = "POST";
         let response = JSON.parse(await fetchData(url, data, method));
-        console.log(response);
 
         response.forEach((ingredient) => {
-            console.log(ingredient);
             if(editPage){
 
                 var ingredientOption = document.createElement("option");
