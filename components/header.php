@@ -1,11 +1,12 @@
 <header>
     <div>
         <?php
-            if ($_SERVER['REQUEST_URI'] === '/login.php') {
+            if ($_SERVER['REQUEST_URI'] === '/login.php' || $_SERVER['REQUEST_URI'] === '/'
+                || $_SERVER['REQUEST_URI'] === '' || $_SERVER['REQUEST_URI'] === '/index.php') {
                 echo"<img data-logo alt='OhShaker Logo'>
                      <button data-back class='hidden'>Back</button>
                 ";
-            } else{
+            } else {
                 echo"<button data-back>Back</button>";
             }
         ?>
