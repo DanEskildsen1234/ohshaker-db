@@ -14,7 +14,7 @@
     <section id="ingredient-section" data-ingredient-section>
         <template data-ingredient-template>
             <div class="ingredientSection">
-                <input style="display:inline" class="ingredient-field" id="cName"></div>
+                <input style="display:inline" class="ingredient-field" id="cName">
             </div>
         </template>
     </section>

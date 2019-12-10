@@ -8,8 +8,8 @@
 
     <title>Ingredient</title>
 </head>
-<body> 
-<span id="ingredientsPage"><span>
+<body>
+<span id="ingredientsPage"></span>
     <section id="ingredient-section" data-ingredient-section>
         <template data-ingredient-template>
             <div class="ingredientSection" style="margin-bottom:20px">
