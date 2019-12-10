@@ -17,7 +17,7 @@
             </div>
         </template>
     </section>
-    
+
     <script src="assets/js/functions.js"></script>
     <script src="assets/js/ingredient.js"></script>
 </body>
