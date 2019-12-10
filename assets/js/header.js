@@ -59,8 +59,10 @@ function headerNav() {
 
     function toggleView() {
         SearchInput.classList.toggle('hidden');
-        backButton.classList.toggle('hidden');
-        logo.classList.toggle('hidden');
+        if (logo) {
+            backButton.classList.toggle('hidden');
+            logo.classList.toggle('hidden');
+        }
         searchResults.classList.toggle('hidden');
         openSearchButton.classList.toggle('hidden');
     }
