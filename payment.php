@@ -13,6 +13,7 @@
         if(empty($_SESSION['managerID'])) {
             header('Location: index.php');
         }
+        include_once('components/header.php');
     ?>    
 
     <div id="payment-field-input">
@@ -37,8 +38,6 @@
             </div>
         </template>
     </section>
-
-    <a href="manager.php">Back</a>
 
     <script src="assets/js/functions.js"></script>
     <script src="assets/js/payment.js"></script>

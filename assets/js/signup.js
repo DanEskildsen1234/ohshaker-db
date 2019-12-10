@@ -17,7 +17,7 @@ async function PostManagerSignUp() {
         document.querySelector('[data-error]').innerText = response.message;
     }
     if (response.status === 1) {
-        window.location.href = "index.php"
+        window.location.href = "manager-login.php"
     }
 }
 
