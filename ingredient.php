@@ -4,16 +4,18 @@
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <meta http-equiv="X-UA-Compatible" content="ie=edge">
+    <link rel="stylesheet" href="assets/css/style.css">
+
     <title>Ingredient</title>
 </head>
 <body> 
 <span id="ingredientsPage"><span>
     <section id="ingredient-section" data-ingredient-section>
         <template data-ingredient-template>
-            <div class="ingredientSection">
-                <div style="display:inline" class="ingredient-field" id="cName"></div>
-                <div style="display:inline" class="delete-ingredient">Delete</div>
-                <a style="display:inline" class="edit-ingredient">edit</a>
+            <div class="ingredientSection" style="margin-bottom:20px">
+                <div class="ingredient-field" id="cName"></div>
+                <a class="edit-ingredient">edit</a>
+                <div class="delete-ingredient btn">Delete</div>
             </div>
         </template>
     </section>
