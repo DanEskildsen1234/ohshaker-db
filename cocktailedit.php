@@ -5,9 +5,14 @@
     <meta name="viewport"
           content="width=device-width, user-scalable=no, initial-scale=1.0, maximum-scale=1.0, minimum-scale=1.0">
     <meta http-equiv="X-UA-Compatible" content="ie=edge">
+    <link rel="stylesheet" href="assets/css/style.css">
+
     <title>cocktail edit</title>
 </head>
 <body>
+<?php
+include_once('components/header.php');
+?>
 <span id="editPage"></span>
 <div id="cocktail">
     <section id="update-ingredient" data-update-cocktail>
@@ -21,7 +26,7 @@
                     <input disabled id="cIngredientName" name="cIngredientName">
                     <input disabled id="nMeasurement" name="nMeasurement">
                     <input disabled id="eMeasurementType" name="eMeasurementType">
-                    <div id="remove-ingredient" style="display:inline;">delete</div>
+                    <div id="remove-ingredient" style="display:inline;">delete ingredient</div>
                 </span>
             </div>
         </template>
@@ -45,6 +50,7 @@
         </select>
         <div id="add-ingredient" style="display:inline;">submit ingredient</div>
     </section>
+    <div id="delete-cocktail">delete cocktail</div>
 </div>
 </div>
 

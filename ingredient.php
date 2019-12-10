@@ -9,6 +9,9 @@
     <title>Ingredient</title>
 </head>
 <body>
+<?php
+include_once('components/header.php');
+?>
 <span id="ingredientsPage"></span>
     <section id="ingredient-section" data-ingredient-section>
         <template data-ingredient-template>

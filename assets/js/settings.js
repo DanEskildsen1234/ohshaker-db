@@ -89,7 +89,12 @@ async function postBartenderDelete(id) {
     const data = {"bartenderID": id};
 
     const response = JSON.parse(await fetchData(url, data, method));
-    messageBox(response);
+    if (response.status === 1){
+        location.reload();
+    }
+    else {
+        messageBox(response);
+    }
 }
 
 async function postBartenderCreate() {
@@ -102,7 +107,12 @@ async function postBartenderCreate() {
     });
 
     const response = JSON.parse(await fetchData(url, data, method));
-    messageBox(response);
+    if (response.status === 1){
+        location.reload();
+    }
+    else {
+        messageBox(response);
+    }
 }
 
 async function postBartenderRead() {
