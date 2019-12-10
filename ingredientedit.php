@@ -7,7 +7,7 @@
     <title>Ingredient</title>
 </head>
 <body> 
-<span id="editIngredientsPage"><span>
+<span id="editIngredientPage"><span>
     <section id="ingredient-section" data-ingredient-section>
         <template data-ingredient-template>
             <div class="ingredientSection">

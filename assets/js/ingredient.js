@@ -1,7 +1,7 @@
 let ingredientsPage = document.querySelector('#ingredientsPage');
-let ingredientsPage = document.querySelector('#editIngredientPage');
+let editIngredientPage = document.querySelector('#editIngredientPage');
 
-if (ingredientsPage || editIngredientPage){
+if (ingredientsPage){
 async function getIngredients() { 
     console.log("yep");
     const url = 'api/ingredient/read.php'; // these fields are passed to the api
@@ -33,46 +33,67 @@ async function getIngredients() {
 
                 } else {
                     cln.querySelector(`#${field}`).innerText = ingredient[field];
-                    
                 }
             }
             ingredientSection.appendChild(cln);
         })
             // Release clone on frontend
         }
-        
-    async function getCocktail() {
-        let searchParams = new URLSearchParams(document.location.search);
-        let url = "api/cocktail/read.php";
-        let data = {"ingredientID": searchParams.get('id')};
-        let method = "POST";
 
-        let response = JSON.parse(await fetchData(url, data, method));
-        
-    }
-
-    if(editIngredientPage){
-        getCocktail();
-    }
-
-    getIngredients();
-
-
-    async function deleteIngredient() {
-        const url = 'api/ingredient/delete.php';
+        async function deleteIngredient() {
+            const url = 'api/ingredient/delete.php';
         const method = 'POST';
         const data = {"ingredientID": event.target.parentNode.id};
-
+        
         fetchData(url, data, method);
-        };
+    };   
+    getIngredients();
+}
 
-
-        async function editIngredient() {
-            const url = 'api/ingredient/edit.php';
-            const method = 'POST';
-            const data = {"ingredientID": event.target.parentNode.id};
+if (editIngredientPage) {
     
-            fetchData(url, data, method);
-            };
+async function getIngredient() {
+    let searchParams = new URLSearchParams(document.location.search);
+    let url = "api/ingredient/read.php";
+    let data = {"ingredientID": searchParams.get('id')};
+    let method = "POST";
 
+    let response = JSON.parse(await fetchData(url, data, method));
+    console.log(response);
+    // response recieved from api
+    const ingredientSection = document.querySelector("[data-ingredient-section]");
+        // Get template
+        const ingredientTemp = document.querySelector("[data-ingredient-template]").content;
+        // For every object in the response
+            // Create a clone
+            const cln = ingredientTemp.cloneNode(true);
+            // For each item in the object
+
+            for (let field in response) {
+                if (field === "nIngredientID") {
+                    cln.querySelector(".ingredientSection").id = response[field];
+                } else {
+                    cln.querySelector(`#${field}`).value = response[field];   
+                    cln.querySelector(`#${field}`).addEventListener('blur', event => {
+                        updateIngredient();
+                    })
+                }
+            }
+            ingredientSection.appendChild(cln);
+    }
+
+async function updateIngredient() {
+    let searchParams = new URLSearchParams(document.location.search);
+    let url = "api/ingredient/update.php";
+    let data = {"ingredientID": searchParams.get('id'),
+                "name": event.target.value};
+    let method = "POST";
+
+    fetchData(url, data, method);
+
+}
+
+    if(editIngredientPage){
+        getIngredient();
+    }
 }
