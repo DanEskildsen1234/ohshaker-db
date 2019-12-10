@@ -4,7 +4,6 @@ async function postLogout() {
     const data = {};
 
     const response = JSON.parse(await fetchData(url, data, method));
-    console.log(response);
     window.location.href = 'index.php';
 }
 
