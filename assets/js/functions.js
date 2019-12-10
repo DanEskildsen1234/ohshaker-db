@@ -1,7 +1,12 @@
 async function fetchData(url, data, method) {
-    const fd = new FormData();
-    for (var i in data) {
-        fd.append(i, data[i]);
+    let fd = new FormData();
+
+    if (data instanceof FormData) {
+        fd = data;
+    } else {
+        for (var i in data) {
+            fd.append(i, data[i]);
+        }
     }
 
     try {
@@ -23,7 +28,8 @@ async function postData(url, data, method) {
         referrer: 'no-referrer',
         body: data
     });
-    return await response.json(); // parses JSON response into native JavaScript objects
+    return await response.json();
+    // parses JSON response into native JavaScript objects
 }
 
 function encodeExpiryDate(inputDate) {
