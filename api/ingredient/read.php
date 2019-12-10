@@ -1,6 +1,9 @@
 <?php
-
 require_once(__DIR__.'../../restricted-connection.php');
+
+if( $_SERVER['REQUEST_METHOD'] !== 'POST' ) {
+    sendErrorMessage( 'Method not allowed' , __LINE__ );
+}
 
 $db = new DB();
 $con = $db->connect();

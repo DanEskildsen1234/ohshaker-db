@@ -29,13 +29,12 @@ $db = new DB();
 $con = $db->connect();
 if ($con) {
     $statement = $con->query(
-        "SELECT tbartender.nBartenderID, tbartender.cFirstname, tbartender.cSurname, tbartender.cPin FROM tbartender
-        INNER JOIN tbarbartender ON tbartender.nBartenderID = tbarbartender.nBartenderID
-        INNER JOIN tbar ON tbarbartender.nBarID = tbar.nBarID
+        "SELECT tbar.nBarID, tbar.cName FROM tbar
         INNER JOIN tmanager ON tbar.nBarID = tmanager.nBarID
-        WHERE tmanager.nManagerID = $iManagerID OR tbarbartender.nBartenderID = $iBartenderID
-        "); // bartender can be part of multiple bars ergo produce multiple results which is unnecessary for this part
-    $results = $statement->fetchAll(); //could return multiple users if logged in as manager.
+        INNER JOIN tbarbartender ON tbar.nBarID = tbarbartender.nBarID
+        WHERE tmanager.nManagerID = $iManagerID OR tbarbartender.nBartenderID = $iBartenderID;
+        ");
+    $results = $statement->fetch();
     $statement = null;
     
     $db->disconnect($con);

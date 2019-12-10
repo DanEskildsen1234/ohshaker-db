@@ -46,14 +46,14 @@ if ($sField === "cUsername") {
     validateUsername($sValue);
 }
 if ($sField === "cAddress") {
-    validateUsername($sValue);
+    validateAddress($sValue);
 }
 if ($sField === "cZip") {
-    validateUsername($sValue);
+    validateZip($sValue);
     $sValue = filter_var($sValue, FILTER_SANITIZE_NUMBER_INT);
 }
 if ($sField === "cPhoneNumber") {
-    validateUsername($sValue);
+    validatePhoneNumber($sValue);
     $sValue = filter_var($sValue, FILTER_SANITIZE_NUMBER_INT);
 }
 if ($sField  === "cPassword") {

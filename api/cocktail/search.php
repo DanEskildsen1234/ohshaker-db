@@ -17,7 +17,7 @@ if ($con) {
     
     $statement = $con->prepare(" SELECT cName, nCocktailID 
                                  FROM tcocktail WHERE cName LIKE ?
-                                 OR eShakenStired LIKE ?
+                                 OR eShakenStirred LIKE ?
                                  OR eCubedCrushed LIKE ?;
                                ");
     $statement->execute(['%'.$query.'%','%'.$query.'%','%'.$query.'%']);
