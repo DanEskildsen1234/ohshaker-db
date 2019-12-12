@@ -46,7 +46,6 @@ if ($sField === 'add-ingredient' || $sField === 'remove-ingredient') {
 
 $aAllowedMeasurementTypes = array('ml','cl','dl','l','gram','slice','wedge','part','dash','tbsp','tsp','');
 validateNotInArray($sMeasurementType, $aAllowedMeasurementTypes);
-validateMeasurement($sMeasurement);
 
 session_start();
 validateLoggedIn();
@@ -56,6 +55,7 @@ $con = $db->connect();
 if ($con) {
     
     if ($sField === 'add-ingredient') {
+        validateMeasurement($sMeasurement);
         $statement = $con->prepare(
             "INSERT `tcocktailingredient`(`nCocktailID`, `nIngredientID`, `nMeasurement`, `eMeasurementType`)
             VALUES (?,?,?,?);");

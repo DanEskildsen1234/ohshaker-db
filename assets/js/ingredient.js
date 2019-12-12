@@ -45,7 +45,7 @@ async function getIngredients() {
         const method = 'POST';
         const data = {"ingredientID": event.target.parentNode.id};
         
-        fetchData(url, data, method);
+        await fetchData(url, data, method);
     };   
     getIngredients();
 }
@@ -89,7 +89,7 @@ async function updateIngredient() {
                 "name": event.target.value};
     let method = "POST";
 
-    fetchData(url, data, method);
+    await fetchData(url, data, method);
 
 }
 

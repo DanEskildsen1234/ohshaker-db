@@ -16,16 +16,16 @@ include_once('components/header.php');
 <span id="editPage"></span>
 <div id="cocktail">
     <section id="update-ingredient" data-update-cocktail>
-        <input id="cName" name="cName">
-        <input id="cCocktailRecipe" name="cCocktailRecipe">
-        <input id="eShakenStirred" name="eShakenStirred">
-        <input id="eCubedCrushed" name="eCubedCrushed">
+        <input placeholder="Cocktail name" id="cName" name="cName">
+        <input placeholder="Recipe" id="cCocktailRecipe" name="cCocktailRecipe">
+        <input placeholder="Shaken or stirred?" id="eShakenStirred" name="eShakenStirred">
+        <input placeholder="Cubed or Crushed?" id="eCubedCrushed" name="eCubedCrushed">
         <template data-ingredient-template>
             <div>
                 <span>
-                    <input disabled id="cIngredientName" name="cIngredientName">
-                    <input disabled id="nMeasurement" name="nMeasurement">
-                    <input disabled id="eMeasurementType" name="eMeasurementType">
+                    <input placeholder="Ingredient name" disabled id="cIngredientName" name="cIngredientName">
+                    <input placeholder="Measurement" disabled id="nMeasurement" name="nMeasurement">
+                    <input placeholder="Measurement type" disabled id="eMeasurementType" name="eMeasurementType">
                     <div id="remove-ingredient" style="display:inline;">delete ingredient</div>
                 </span>
             </div>
