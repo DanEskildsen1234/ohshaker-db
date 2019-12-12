@@ -120,4 +120,19 @@ if (singlePage || editPage){
             location.reload();
         }
     }
+
+    let varDeleteCocktail = document.getElementById("delete-cocktail");
+    varDeleteCocktail.addEventListener('click', event => {
+        
+        deleteCocktail();
+        window.location.href = "index.php";
+    })
+    async function deleteCocktail() {
+        let searchParams = new URLSearchParams(document.location.search);
+
+        const url = "api/cocktail/delete.php";
+        const data = {"cocktailID": searchParams.get('id')};
+        const method = "POST";
+        await fetchData(url, data, method);
+    }
 }
