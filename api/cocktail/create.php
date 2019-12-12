@@ -38,12 +38,12 @@ if ($con) {
         VALUES (?, ?, ?, ?)");
 
     $statement->execute([$sShakenStirred, $sCubedCrushed, $sCocktailName, $sCocktailRecipe]);
+    $iCocktailID = $con->lastInsertId();
     $statement = null;
 
     // Last id cocktail is the php equivalent of LAST_INSERT_ID, I store it as a variable as if i used
     // LAST_INSERT_ID it would call on every iteration of the loop.
 
-    $last_id_cocktail = $con->lastInsertId();
     for ($i = 0; $i < count($aIngredients); $i++) {
 
         $sIngredient = htmlspecialchars($aIngredients[$i], ENT_QUOTES);  
@@ -54,24 +54,37 @@ if ($con) {
         validateMeasurement($sMeasurement);
         validateAssetName($sIngredient);
 
-        $statement = $con->prepare(
-            "
+        $statement = $con->prepare("SELECT `nIngredientID` FROM tingredient WHERE cName=?;");
+        $statement->execute([$sIngredient]);
+        $result = $statement->fetch();
+
+        $iIngredientID = 0;
+
+        if ($result['nIngredientID']) {
+            $iIngredientID = $result['nIngredientID'];
+        }
+
+        if (!$iIngredientID) {
+            $statement = null;
+            $statement = $con->prepare(
+                "
                 INSERT INTO `tingredient` (`cName`) 
                 SELECT ? 
                 FROM tingredient
                 WHERE NOT EXISTS (SELECT nIngredientID FROM `tingredient` WHERE cName= ? ) 
                 LIMIT 1;
-                select * from tingredient where cName= ?
             ");
-        $statement->execute([$sIngredient, $sIngredient, $sIngredient]);
-        $statement = null;
+            $statement->execute([$sIngredient, $sIngredient]);
+            $iIngredientID = $con->lastInsertId();
+            $statement = null;
+        }
 
         $statement = $con->prepare(
             "
             INSERT INTO `tcocktailingredient`(`nCocktailID`, `nIngredientID`, `nMeasurement`, `eMeasurementType`)
-            VALUES (?, LAST_INSERT_ID(), ?, ?);
+            VALUES (?, ?, ?, ?);
             ");
-        $statement->execute([$last_id_cocktail, $sMeasurement, $sMeasurementType]);
+        $statement->execute([$iCocktailID, $iIngredientID, $sMeasurement, $sMeasurementType]);
         $statement = null;
     }
 
