@@ -19,6 +19,7 @@ input {
 
 a, a:hover {
   color: #ffffff;
+  display:block;
 }
 
 .btn {

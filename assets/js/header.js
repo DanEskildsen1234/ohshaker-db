@@ -29,7 +29,7 @@ function getCocktailSearch() {
         results.forEach( (result)=> {
             console.log(result);
             const cln = item.cloneNode(true);
-            cln.querySelector('a').href = "single?id="+result.nCocktailID;
+            cln.querySelector('a').href = "single.php?id="+result.nCocktailID;
             cln.querySelector('p').innerText = result.cName;
             resultsLocation.appendChild(cln);
         });
