@@ -149,4 +149,21 @@ if (singlePage || editPage){
 
         const response = JSON.parse(await fetchData(url, data, method));
     }
+
+
+    let varDeleteCocktail = document.getElementById("delete-cocktail");
+    varDeleteCocktail.addEventListener('click', event => {
+        
+        deleteCocktail();
+        window.location.href = "index.php";
+    })
+    async function deleteCocktail() {
+        let searchParams = new URLSearchParams(document.location.search);
+
+        const url = "api/cocktail/delete.php";
+        const data = {"cocktailID": searchParams.get('id')};
+        const method = "POST";
+        fetchData(url, data, method);
+    }
+
 }
