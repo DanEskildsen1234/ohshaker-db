@@ -30,7 +30,7 @@ $db = new DB();
 $con = $db->connect();
 
 if ($con) {
-
+    $con->beginTransaction();
     $statement = $con->prepare(
         "
         INSERT INTO `tcocktail`(`eShakenStirred`, `eCubedCrushed`, `cName`, `cCocktailRecipe`)
@@ -56,6 +56,7 @@ if ($con) {
         $statement = $con->prepare("SELECT `nIngredientID` FROM tingredient WHERE cName=?;");
         $statement->execute([$sIngredient]);
         $result = $statement->fetch();
+        $statement = null;
 
         $iIngredientID = 0;
 
@@ -64,7 +65,6 @@ if ($con) {
         }
 
         if ($iIngredientID === 0) {
-            $statement = null;
             $statement = $con->prepare("INSERT INTO `tingredient` (`cName`) VALUES (?);");
             $statement->execute([$sIngredient]);
             $iIngredientID = $con->lastInsertId();
@@ -80,6 +80,7 @@ if ($con) {
         $statement = null;
     }
 
+    $con->commit();
     $db->disconnect($con);
     sendSuccessMessage( 'Cocktail Created' , __LINE__ );
 }

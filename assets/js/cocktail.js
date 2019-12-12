@@ -142,21 +142,12 @@ if (singlePage || editPage){
             }
     }
 
-    async function createCocktail() {
-        const url = "api/cocktail/create.php";
-        const data = {};
-        const method = "POST";
-
-        const response = JSON.parse(await fetchData(url, data, method));
-    }
-
-
     let varDeleteCocktail = document.getElementById("delete-cocktail");
     varDeleteCocktail.addEventListener('click', event => {
         
         deleteCocktail();
         window.location.href = "index.php";
-    })
+    });
     async function deleteCocktail() {
         let searchParams = new URLSearchParams(document.location.search);
 
