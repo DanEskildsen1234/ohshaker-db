@@ -56,9 +56,14 @@ if ($con) {
 
         $statement = $con->prepare(
             "
-            INSERT INTO `tingredient`(`cName`) VALUES (?);
+                INSERT INTO `tingredient` (`cName`) 
+                SELECT ? 
+                FROM tingredient
+                WHERE NOT EXISTS (SELECT nIngredientID FROM `tingredient` WHERE cName= ? ) 
+                LIMIT 1;
+                select * from tingredient where cName= ?
             ");
-        $statement->execute([$sIngredient]);
+        $statement->execute([$sIngredient, $sIngredient, $sIngredient]);
         $statement = null;
 
         $statement = $con->prepare(

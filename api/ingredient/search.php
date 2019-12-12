@@ -15,13 +15,10 @@ require_once(__DIR__ . '../../restricted-connection.php');
 $db = new DB();
 $con = $db->connect();
 if ($con) {
-    
-    $statement = $con->prepare(" SELECT cName, nCocktailID 
-                                 FROM tcocktail WHERE cName LIKE ?
-                                 OR eShakenStirred LIKE ?
-                                 OR eCubedCrushed LIKE ?;
-                               ");
-    $statement->execute(['%'.$query.'%','%'.$query.'%','%'.$query.'%']);
+
+    $statement = $con->prepare(" SELECT cName, nIngredientID 
+                                 FROM tingredient WHERE cName LIKE ?");
+    $statement->execute(['%'.$query.'%']);
     $results = $statement->fetchAll();
     $stmt = null;
     $db->disconnect($con);

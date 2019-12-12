@@ -55,11 +55,62 @@ window.addEventListener('DOMContentLoaded', (event) => {
     }, false)
 });
 
+function getIngredientSearch(row) {
+    let input = row.querySelector('[data-search-input]');
+    let resultsLocation = row.querySelector('[data-search-results]');
+    const item = row.querySelector( '[data-search-item]').content;
+
+    let lastValue = "";
+    let status = false;
+
+    input.addEventListener('keypress', async ()=> {
+        const inputValue = input.value;
+
+        if (status === true || inputValue === "" || !/^[a-zA-Z].*$/.test(inputValue
+            || lastValue === inputValue) ) {
+            return;
+        }
+        status = true;
+        lastValue = inputValue;
+        resultsLocation.innerHTML = '';
+
+        const response = await fetch('api/ingredient/search.php' + '?query=' + inputValue, {
+            method: 'GET',
+            mode: 'cors',
+            cache: 'no-cache',
+            credentials: 'same-origin',
+            redirect: 'follow',
+            referrer: 'no-referrer',
+        });
+
+        const results = await response.json();
+        results.forEach( (result)=> {
+            console.log(result);
+            const cln = item.cloneNode(true);
+            const ingredientLink = cln.querySelector('a');
+            ingredientLink.href = "#";
+
+            const ingredientName = result.cName;
+
+            cln.querySelector('p').innerText = ingredientName;
+            ingredientLink.addEventListener('click', (e) => {
+                e.preventDefault();
+                console.log(ingredientName);
+                input.value = ingredientName;
+                resultsLocation.innerHTML = '';
+            });
+            resultsLocation.appendChild(cln);
+        });
+        status = false;
+    }, false);
+}
+
 function addIngredient() {
     const ingredientSection = document.querySelector("[data-ingredients");
     const ingredientTemplate = document.querySelector("[data-ingriedient-template]").content;
 
     const cln = ingredientTemplate.cloneNode(true);
 
+    getIngredientSearch(cln);
     ingredientSection.appendChild(cln);
 }

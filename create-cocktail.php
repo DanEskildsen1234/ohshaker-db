@@ -44,7 +44,16 @@
 
                 <template data-ingriedient-template>
                     <div data-ingredient>
-                        <input placeholder="Ingredient name" id="ingredient" type="text">
+                        <input placeholder="Ingredient name" id="ingredient" data-search-input type="text">
+                        <section data-search-results>
+
+                        </section>
+                        <template data-search-item>
+                            <a>
+                                <p></p>
+                            </a>
+                        </template>
+
                         <input placeholder="Measurement" id="measurement" type="text">
                         <select id="measurementType">
                             <option disabled>Measurement type</option>
