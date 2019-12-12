@@ -133,7 +133,7 @@ if (singlePage || editPage){
                 elem.remove();
             }
 
-            fetchData(url, data, method);
+            await fetchData(url, data, method);
             // const response = JSON.parse(await fetchData(url, data, method));
             
             // messageBox(response);
@@ -144,9 +144,7 @@ if (singlePage || editPage){
 
     let varDeleteCocktail = document.getElementById("delete-cocktail");
     varDeleteCocktail.addEventListener('click', event => {
-        
         deleteCocktail();
-        window.location.href = "index.php";
     });
     async function deleteCocktail() {
         let searchParams = new URLSearchParams(document.location.search);
@@ -154,7 +152,8 @@ if (singlePage || editPage){
         const url = "api/cocktail/delete.php";
         const data = {"cocktailID": searchParams.get('id')};
         const method = "POST";
-        fetchData(url, data, method);
+        await fetchData(url, data, method);
+        window.location.href = "index.php";
     }
 
 }
