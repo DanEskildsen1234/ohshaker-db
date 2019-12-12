@@ -64,17 +64,10 @@ if ($con) {
             $iIngredientID = $result['nIngredientID'];
         }
 
-        if (!$iIngredientID) {
+        if ($iIngredientID === 0) {
             $statement = null;
-            $statement = $con->prepare(
-                "
-                INSERT INTO `tingredient` (`cName`) 
-                SELECT ? 
-                FROM tingredient
-                WHERE NOT EXISTS (SELECT nIngredientID FROM `tingredient` WHERE cName= ? ) 
-                LIMIT 1;
-            ");
-            $statement->execute([$sIngredient, $sIngredient]);
+            $statement = $con->prepare("INSERT INTO `tingredient` (`cName`) VALUES (?);");
+            $statement->execute([$sIngredient]);
             $iIngredientID = $con->lastInsertId();
             $statement = null;
         }
