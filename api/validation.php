@@ -144,18 +144,22 @@ function validateIBAN($sIBAN)
 
 function validateAssetName($field) {
     if(strlen($field) < 2 || strlen($field) > 50){
-    sendErrorMessage( 'Name should be min 2 max 50 characters' , __LINE__);
+        sendErrorMessage( 'Name should be min 2 max 50 characters' , __LINE__);
     }
 }
 
 function validateRecipe($field) {
     if(strlen($field) < 2 || strlen($field) > 255){
-    sendErrorMessage( 'Recipe should be Min 2 max 50 characters' , __LINE__);
+        sendErrorMessage( 'Recipe should be Min 2 max 50 characters' , __LINE__);
     }
 }
 
 function validateMeasurement($field) {
-    if(strlen($field) > 10){
-    sendErrorMessage( 'measurement max 10 characters' , __LINE__);
+    if(!is_numeric($field)){
+        sendErrorMessage( 'Measurement must be a number' , __LINE__);
+    }
+
+    if($field > 9999 || $field <= 0){
+        sendErrorMessage( 'Invalid measurement amount' , __LINE__);
     }
 }

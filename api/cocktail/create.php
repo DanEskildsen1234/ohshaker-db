@@ -26,7 +26,6 @@ validateNotInArray($sCubedCrushed, $aAllowedCubedCrushed);
 validateAssetName($sCocktailName);
 validateRecipe($sCocktailRecipe);
 
-
 $db = new DB();
 $con = $db->connect();
 
