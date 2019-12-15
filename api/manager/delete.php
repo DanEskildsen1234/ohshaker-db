@@ -35,3 +35,5 @@ if ($con) {
 
     sendSuccessMessage( 'User account has been cancelled' , __LINE__ );
 }
+
+session_destroy();

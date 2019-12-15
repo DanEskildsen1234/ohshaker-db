@@ -16,7 +16,14 @@
         <button data-open-search>Search</button>
     </div>
     <div>
-        <a href="settings.php">Settings</a>
+    <?php
+        session_start();
+        if(!empty($_SESSION['managerID']) ) {
+            echo '<a href="settings.php">Settings</a>';
+        } else {
+            echo '<a href="login.php">Login</a>';
+        }
+        ?>
     </div>
 </header>
 
