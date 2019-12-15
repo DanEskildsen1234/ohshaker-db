@@ -39,6 +39,7 @@ validatePin($sPin);
 $db = new DB();
 $con = $db->connect();
 if ($con) {
+    $con->beginTransaction();
     $results = array();
 
     $statement = $con->prepare(
@@ -55,6 +56,7 @@ if ($con) {
                   ");
     $statement->execute([$iBarID]);
     $statement = null;
+    $con->commit();
     $db->disconnect($con);
 
     sendSuccessMessage( 'Bartender has been created' , __LINE__ );
