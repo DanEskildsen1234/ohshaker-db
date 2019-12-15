@@ -87,14 +87,15 @@ if (singlePage || editPage){
             postUpdateCocktail(event);
         })
     })
-    document.getElementById("add-ingredient").addEventListener('click', event => {
-        var dropdown = document.getElementById("insert-ingredient");
-        var dropdownValue = dropdown.options[dropdown.selectedIndex].value;
-        console.log(dropdownValue);
-        document.getElementById("add-ingredient").value = dropdownValue;
-        postUpdateCocktail(event);
-    });
-
+    if (editPage){
+        document.getElementById("add-ingredient").addEventListener('click', event => {
+            var dropdown = document.getElementById("insert-ingredient");
+            var dropdownValue = dropdown.options[dropdown.selectedIndex].value;
+            console.log(dropdownValue);
+            document.getElementById("add-ingredient").value = dropdownValue;
+            postUpdateCocktail(event);
+        });
+    }
     async function postUpdateCocktail(event) {
         let searchParams = new URLSearchParams(document.location.search);
         let measurement = document.getElementById("measurement").value;
@@ -121,18 +122,20 @@ if (singlePage || editPage){
         }
     }
 
-    let varDeleteCocktail = document.getElementById("delete-cocktail");
-    varDeleteCocktail.addEventListener('click', event => {
-        
-        deleteCocktail();
-        window.location.href = "index.php";
-    })
+    if (editPage){
+        let varDeleteCocktail = document.getElementById("delete-cocktail");
+        varDeleteCocktail.addEventListener('click', event => {
+            deleteCocktail();
+        })
+    }
+    
     async function deleteCocktail() {
         let searchParams = new URLSearchParams(document.location.search);
-
+        
         const url = "api/cocktail/delete.php";
         const data = {"cocktailID": searchParams.get('id')};
         const method = "POST";
         await fetchData(url, data, method);
+        window.location.href = "index.php";
     }
 }
