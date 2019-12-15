@@ -29,7 +29,7 @@
 ?>
 <span data-error class="error-box"></span>
 <span data-success class="success-box"></span>
-
+<a href="creditcards.php">Credit cards</a>
 <section id="update-bar">
     <input placeholder="Bar name" id="barName" type="text">
 </section>
@@ -46,7 +46,7 @@
     <input placeholder="New password" id="cPassword" type="password">
     <input id="nTotalAmount" type="hidden">
 
-    <p>Date joined: <span id="dJoined"></span></p>
+    <p hidden>Date joined: <span id="dJoined"></span></p>
 </section>
 
 <section id="update-bartender" data-update-bartender>

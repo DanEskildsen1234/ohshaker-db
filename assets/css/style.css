@@ -68,7 +68,8 @@ a, a:hover {
 
 .card-field { /* change this later */
   display: inline-block;
-  width: 150px;
+  color:black;
+  width: 200px;
   background: rgb(240, 240, 240);
   padding: 5px;
   margin-bottom: 5px
@@ -80,9 +81,10 @@ a, a:hover {
 
 .payment-field { 
   display: inline-block;
-  width: 150px;
+  width: 200px;
   background: rgb(240, 240, 240);
   padding: 5px;
+  color:black;
   margin-bottom: 5px
 }
 

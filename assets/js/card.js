@@ -50,6 +50,7 @@ async function postExistingCard() {
             for (let field in card) {
                 if (field === "nCreditCardID") {
                     cln.querySelector("div").id = card[field];
+                    cln.querySelector(`#${field}`).innerText = card[field];
                 } else if (field === "nManagerID") {
                     cln.querySelector(`#${field}`).classList.add('hidden');
                 } else {

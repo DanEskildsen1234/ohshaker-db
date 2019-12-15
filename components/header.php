@@ -17,11 +17,15 @@
     </div>
     <div>
     <?php
-    // error_reporting(0);
+    error_reporting(0);
         session_start();
         if(!empty($_SESSION['managerID']) ) {
             echo '<a href="settings.php">Settings</a>';
-        } else {
+        } 
+        elseif(!empty($_SESSION['bartenderID'])){
+            echo '<a href="settings-bartender.php">Settings</a>';
+        }
+        else {
             echo '<a href="login.php">Login</a>';
         }
         ?>

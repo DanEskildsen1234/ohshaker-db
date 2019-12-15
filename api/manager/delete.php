@@ -37,3 +37,4 @@ if ($con) {
 }
 
 session_destroy();
+

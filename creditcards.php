@@ -19,6 +19,7 @@
     <div id="card-field-input">
         <span data-error class="error-box"></span>
         <span data-success class="success-box"></span>
+        <a href="payment.php">Payments</a>
 
         <input data-expDate name="expiration" type="text" placeholder="Expiration date (MM/YY)" maxlength="5">
         <input data-CCV name="CCV" type="text" placeholder="CCV" maxlength="3">
@@ -27,6 +28,7 @@
     </div>
 
     <div>
+        <div class="card-field"><p>CreditCardID</p></div>
         <div class="card-field"><p>Total payment amount</p></div>
         <div class="card-field"><p>Expiration date</p></div>
         <div class="card-field"><p>CCV</p></div>
@@ -37,6 +39,7 @@
         <template data-existing-cards-template>
             <div>
                 <div class="card-field" id="nManagerID"></div>
+                <div class="card-field" id="nCreditCardID"></div>
                 <div class="card-field" id="nTotalAmount"></div>
                 <div class="card-field" id="dExpiration"></div>
                 <div class="card-field" id="cCCV"></div>
