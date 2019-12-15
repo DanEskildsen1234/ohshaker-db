@@ -54,7 +54,7 @@
         <div>
             <input placeholder="First name" id="cFirstname" type="text">
             <input placeholder="Surname" id="cSurname" type="text">
-            <input placeholder="Pin code" id="cPin" type="number">
+            <input placeholder="Pin code" id="cPin" type="text">
             <button data-delete-bartender>Delete bartender</button>
         </div>
     </template>
@@ -64,7 +64,7 @@
     <form data-create-bartender-form>
         <input placeholder="First name" id="firstName" type="text">
         <input placeholder="Surname" id="surname" type="text">
-        <input placeholder="Pin code" id="pin" type="number">
+        <input placeholder="Pin code" id="pin" type="text">
         <button data-create>Create bartender</button>
     </form>
 </section>
