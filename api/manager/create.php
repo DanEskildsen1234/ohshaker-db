@@ -49,6 +49,8 @@ $shashedPassword = password_hash($sPassword, PASSWORD_ARGON2I);
 $db = new DB();
 $con = $db->connect();
 if ($con) {
+    $con->beginTransaction();
+
     $results = array();
     $statement = $con->prepare("INSERT INTO `tbar`(`cName`) VALUES (?)");
     $statement->execute([$sBarName]);
@@ -68,6 +70,8 @@ if ($con) {
                   ");
     $statement->execute([$sExpiration, $iCCV, $sIBAN]);
     $statement = null;
+    $con->commit();
+
     $db->disconnect($con);
 
     sendSuccessMessage( 'Manager, bar and credit card have been created' , __LINE__ );
